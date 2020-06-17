@@ -12,11 +12,11 @@ class Tweet extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'id');
+        return $this->hasMany(Comment::class);
     }
 }

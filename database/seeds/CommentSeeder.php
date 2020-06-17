@@ -17,7 +17,8 @@ class CommentSeeder extends Seeder
             DB::table('comments')->insert([
                 'user_id' => $faker->numberBetween(1, 100),
                 'tweet_id' => $faker->numberBetween(1, 1000),
-                'comment' => $faker->text(100)
+                'comment' => $faker->text(100),
+                'updated_at' => $faker->iso8601()
             ]);
         }
     }

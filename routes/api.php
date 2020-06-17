@@ -18,16 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/{username}', 'UserController@show');
-Route::get('/status/{tweet}', 'CommentController@index');
 Route::post('/user', 'UserController@register');
 Route::post('/login', 'UserController@login');
 Route::get('/user', 'UserController@index');
-Route::get('/tweet/{id}', 'TweetController@index');
 // Route::post('/photo', 'PhotoController@create');
 
 Route::middleware(['api', 'jwt.verify'])->group(function () {
     Route::resource('photo', 'PhotoController');
+    Route::resource('tweet', 'TweetController');
+    Route::resource('follower', 'FollowerController', ['only' => ['store', 'destroy', 'index']]);
     Route::resource('tweet.comment', 'CommentController', ['except' => ['edit', 'create']])->shallow();
-    Route::post('/tweet', 'TweetController@store');
 });

@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     /**
+     * Registers a user to site
+     * 
      * @param UserCreateRequest $request
      * @return \Illuminate\http\JsonResponse
      */
@@ -34,18 +36,24 @@ class UserController extends Controller
         if (!$token = auth()->attempt($creds)) {
             return response()->json(['error' => 'unauthorized'], 401);
         }
-        return response()->json($token);
+        return response()->json(compact('token'));
     }
 
     /**
-     * Returns all current users
+     * Returns all current users or users related to search patter
      * 
+     * @param Request $request
      * @return \Illuminate\http\JsonResponse
      */
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(15);
+        $search = $request->query('s');
+        if ($search) {
+            $users = DB::table('users')->select(['id', 'name', 'email'])->where('name', 'like', $search . '%')->paginate();
+        } else {
+            $users = User::paginate(15);
+        }
         return response()->json($users);
     }
 

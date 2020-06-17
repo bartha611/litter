@@ -14,6 +14,20 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class CommentController extends Controller
 {
     /**
+     * constructor that gets user id from jwtauth
+     * 
+     * @return void
+     */
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = JWTAuth::parseToken()->toUser()->id;
+            return $next($request);
+        });
+    }
+
+    /**
      * display a list of comments base on tweet
      * 
      * @param Tweet $tweet
@@ -30,16 +44,17 @@ class CommentController extends Controller
      * store a new comment for tweet
      * 
      * @param CommentRequest $request
+     * @param Tweet $tweet
      * @return JsonResponse
      */
 
     public function store(CommentRequest $request, Tweet $tweet): JsonResponse
     {
-        $user_id = JWTAuth::parseToken()->toUser()->id;
+
         $comment = Comment::create([
-            'user_id' => $user_id,
+            'user_id' => $this->user,
             'comment' => $request->input('comment'),
-            'tweet_id' => $tweet
+            'tweet_id' => $tweet->id
         ]);
         return response()->json($comment);
     }

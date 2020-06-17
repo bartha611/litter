@@ -10,13 +10,17 @@ class Follower extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    public function Tweets()
+    public function user()
     {
-        $this->hasMany(Tweet::class, 'follower_id');
+        return $this->belongsTo(User::class);
+    }
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class, 'user_id', 'follower_id');
     }
 
     public function FollowedUser()
     {
-        $this->belongsTo(User::class, 'follower_id');
+        return $this->belongsTo(User::class, 'follower_id');
     }
 }

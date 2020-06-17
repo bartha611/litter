@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Seeder;
 
-class TweetSeeder extends Seeder
+class FollowerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,10 +14,9 @@ class TweetSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
         foreach (range(1, 1000) as $index) {
-            DB::table('tweets')->insert([
+            DB::table('followers')->insert([
                 'user_id' => $faker->numberBetween(1, 100),
-                'tweet' => $faker->text(),
-                'updated_at' => $faker->iso8601(),
+                'follower_id' => $faker->numberBetween(1, 100)
             ]);
         }
     }
