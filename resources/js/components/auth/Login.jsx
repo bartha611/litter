@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
+import {} from '../../state/ducks/tweet';
+import { useDispatch } from 'react-redux';
 import Axios from 'axios';
 
 const Login = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const submit = async () => {
-    const auth = await Axios.post('api/login', { name, password });
-    console.log(auth.data);
-    return auth.data;
-  };
+  const dispatch = useDispatch();
+  const submit = async () => {};
   return (
     <div className="container pt-5">
       <h1 className="title text-center">Login to Bitter</h1>

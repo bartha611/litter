@@ -7,6 +7,8 @@ function* fetchUser(action) {
   yield put(actions.authLoad());
   try {
     const data = yield call(apiService, action);
+  } catch (err) {
+    yield put(actions);
   }
 }
 
