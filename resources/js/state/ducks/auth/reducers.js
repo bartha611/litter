@@ -10,7 +10,7 @@ const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.AUTH_LOAD:
       return { ...state, loading: true };
-    case types.AUTH_CREATE:
+    case types.AUTH_LOGIN:
       return {
         ...state,
         loading: false,
@@ -22,6 +22,14 @@ const authReducer = (state = initialState, action) => {
         loading: false,
         user: null
       };
+    case types.AUTH_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: true
+      };
+    default:
+      return state;
   }
 };
 

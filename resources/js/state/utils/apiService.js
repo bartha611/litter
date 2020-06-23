@@ -1,6 +1,6 @@
 import axiosInstance from '../../axiosConfig';
 
-const apiService = async ({ payload, meta }) => {
+const api = async ({ payload, meta }) => {
   const { url, method } = meta;
   try {
     const response = await axiosInstance({ method, url, data: payload });
@@ -11,4 +11,4 @@ const apiService = async ({ payload, meta }) => {
   }
 };
 
-export default apiService;
+export default api;

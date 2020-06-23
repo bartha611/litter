@@ -28,7 +28,7 @@ export default function(state = initialState, action) {
     case types.TWEET_DELETE: {
       return {
         ...state,
-        tweets: state.tweets.filter(tweet => tweet.id !== action.meta.id)
+        tweets: state.tweets.filter(tweet => tweet.id !== action.payload)
       };
     }
     case types.TWEET_ERROR: {

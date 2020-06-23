@@ -7,8 +7,12 @@ function* fetchUser(action) {
   yield put(actions.authLoad());
   try {
     const data = yield call(apiService, action);
+    yield put({
+      type: `AUTH_${action.meta.operation}`,
+      payload: action.payload
+    });
   } catch (err) {
-    yield put(actions);
+    yield put(actions.authError());
   }
 }
 

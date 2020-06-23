@@ -6,10 +6,10 @@ export const tweetRequest = (url, method, payload = {}) => {
     meta: {
       url,
       method
-    }
+    },
     payload
-  }
-}
+  };
+};
 
 export const tweetCreate = tweet => {
   return {
@@ -21,9 +21,7 @@ export const tweetCreate = tweet => {
 export const tweetDelete = id => {
   return {
     type: types.TWEET_DELETE,
-    meta: {
-      id
-    }
+    payload: id
   };
 };
 

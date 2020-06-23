@@ -1,12 +1,13 @@
 import * as types from './types';
 
-export const authRequest = (method, url, payload = {}) => {
+export const authRequest = (method, url, operation, payload = {}) => {
   return {
     type: types.AUTH_REQUEST,
     payload,
     meta: {
       url,
-      method
+      method,
+      operation
     }
   };
 };
@@ -17,14 +18,21 @@ export const authLoad = () => {
   };
 };
 
-export const authLogin = () => {
+export const authLogin = user => {
   return {
-    type: types.AUTH_LOGIN
+    type: types.AUTH_LOGIN,
+    payload: user
   };
 };
 
 export const authLogout = () => {
   return {
-    type: types.auth_logout
+    type: types.AUTH_LOGOUT
+  };
+};
+
+export const authError = () => {
+  return {
+    type: types.AUTH_ERROR
   };
 };
