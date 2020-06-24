@@ -3,14 +3,17 @@ import * as actions from './actions';
 import apiService from '../../utils/apiService';
 import { takeLatest, put, call } from 'redux-saga/effects';
 
-function* fetchUser(action) {
+export function* fetchUser(action) {
   yield put(actions.authLoad());
   try {
     const data = yield call(apiService, action);
-    yield put({
-      type: `AUTH_${action.meta.operation}`,
-      payload: action.payload
-    });
+    if (action.meta.operation === 'LOGIN') {
+      localStorage.setItem('token', data.token);
+      yield put(actions.authLogin(data.user));
+    } else {
+      localStorage.removeItem('token');
+      yield put(actions.authLogout());
+    }
   } catch (err) {
     yield put(actions.authError());
   }

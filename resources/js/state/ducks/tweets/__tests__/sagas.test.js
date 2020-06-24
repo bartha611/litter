@@ -6,11 +6,7 @@ import * as api from '../../../utils/apiService';
 const tweetData = [{ id: 1, tweet: 'fake tweet 1' }];
 describe('tweet saga', () => {
   it('should do something', async () => {
-    const action = {
-      meta: {
-        method: 'GET'
-      }
-    };
+    const action = actions.tweetRequest('/api/tweet/1', 'GET');
     const requestApi = jest
       .spyOn(api, 'default')
       .mockImplementation(() => Promise.resolve(tweetData));
