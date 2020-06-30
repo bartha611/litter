@@ -1,12 +1,48 @@
-@import "variables";
+@import 'variables';
 
 ul {
-    list-style-type: none;
-    text-decoration: none;
+  list-style-type: none;
+  text-decoration: none;
 }
 
 #app {
-    background: beige;
-    width: 100%;
-    height: 100%;
+  background: beige;
+  width: 100%;
+  height: 100%;
+}
+
+#tweetArea {
+  height: auto;
+  color: black;
+  padding: 10px 5px;
+  .row {
+    margin-right: 0;
+    margin-left: 0;
+    #image {
+      font-size: large;
+      text-align: center;
+    }
+    #message {
+      overflow: auto;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+      }
+    }
+    #tweetSubmit {
+      border-radius: 15%;
+      text-align: right;
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+[contenteditable][placeholder]:empty:before {
+  content: attr(placeholder);
+  position: absolute;
+  color: gray;
+  background-color: transparent;
 }

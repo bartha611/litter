@@ -6,7 +6,7 @@ import * as types from './types';
  * @param {string} method method for url (POST, GET, DELETE, UPDATE)
  * @param { string} url the url for the request
  * @param { string} operation the operation being conducted.  Either Login or Logout
- * @param { { username: string, password: string} } payload The paylaod of in the form of { user, token}
+ * @param { { name: string, password: string} } payload The paylaod of in the form of { user, token}
  */
 
 export const authRequest = (method, url, operation, payload = {}) => {

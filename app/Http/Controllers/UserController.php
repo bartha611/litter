@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserCreateRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
@@ -34,9 +35,10 @@ class UserController extends Controller
     {
         $creds = $request->only(['name', 'password']);
         if (!$token = auth()->attempt($creds)) {
-            return response()->json(['error' => 'unauthorized'], 401);
+            return response()->json(['error' => 'unauthorized'],401);
         }
-        return response()->json(compact('token'));
+        $user = JWTAuth::user();
+        return response()->json(compact('token', 'user'));
     }
 
     /**

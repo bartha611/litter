@@ -3,5 +3,5 @@ import authSaga from '../ducks/auth/sagas';
 import tweetSaga from '../ducks/tweets/sagas';
 
 export default function* rootSaga() {
-  yield all([fork(authSaga), fork(tweetSaga)]);
+  yield all([authSaga(), tweetSaga()]);
 }
