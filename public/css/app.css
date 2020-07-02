@@ -10981,3 +10981,28 @@ ul {
   background-color: transparent;
 }
 
+.tweet {
+  padding: 10px 5px;
+  max-width: 500px;
+  display: flex;
+  position: relative;
+}
+
+.tweet__image {
+  padding: 5px;
+}
+
+.tweet__photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+
+.tweet__body {
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  max-width: 430px;
+  overflow-wrap: break-word;
+}
+

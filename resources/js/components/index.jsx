@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import store, { persistor } from '../state/store';
+import { persistor, store } from '../state/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './auth/Login';
 import Home from './Home';
 import Tweet from './tweets/tweet';
+import TweetView from './tweets/tweetList';
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
               <Route exact path="/" component={Home} />
               <Route path="/login" component={Login} />
               <Route path="/tweet" component={Tweet} />
+              <Route path="/tweetlist" component={TweetView} />
             </Switch>
           </Router>
         </PersistGate>

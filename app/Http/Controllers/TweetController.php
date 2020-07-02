@@ -33,7 +33,7 @@ class TweetController extends Controller
      */
     public function index()
     {
-        $tweets = Tweet::where('user_id', $this->user_id)->paginate(15);
+        $tweets = Tweet::select(['tweet', 'user_id', 'updated_at'])->where('user_id', $this->user_id)->with('user:id,name,profile_photo')->paginate(15);
         return response()->json($tweets);
     }
 
