@@ -10,7 +10,9 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+
     <link rel="stylesheet" href="{{ asset('css/app.css')  }}" type="text/css">
+    <script src="https://kit.fontawesome.com/8f7eb8af77.js" crossorigin="anonymous"></script>
 </head>
 
 <body>

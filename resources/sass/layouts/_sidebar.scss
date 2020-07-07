@@ -1,0 +1,46 @@
+.sidebar {
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    max-width: 500px;
+  }
+
+  &__item {
+    display: block;
+    padding: 10px 0px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &__button {
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: transparent;
+    border: none;
+
+    &:hover {
+      background: lightblue;
+      color: blue;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &-active {
+      @extend .sidebar__button;
+      color: blue;
+    }
+  }
+
+  &__title {
+    padding: 0px 15px;
+    font-weight: bold;
+
+    @media screen and (max-width: 1275px) {
+      display: none;
+    }
+  }
+}

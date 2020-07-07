@@ -39,7 +39,7 @@ export const TweetList = ({ tweets }) => {
   };
 
   return (
-    <div className="p-3">
+    <div>
       {tweets.map(tweet => {
         return (
           <div className="border tweet">

@@ -6,9 +6,10 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Login from './auth/Login';
-import Home from './Home';
-import Tweet from './tweets/tweet';
+import Home from '../views/Home';
+import Tweet from './tweets/tweetButton';
 import TweetView from './tweets/tweetList';
+import Sidebar from './sidebar';
 
 const Index = () => {
   return (
@@ -21,6 +22,7 @@ const Index = () => {
               <Route path="/login" component={Login} />
               <Route path="/tweet" component={Tweet} />
               <Route path="/tweetlist" component={TweetView} />
+              <Route path="/sidebar" component={Sidebar} />
             </Switch>
           </Router>
         </PersistGate>

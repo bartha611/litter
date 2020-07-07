@@ -1,6 +1,6 @@
 .tweet {
   padding: 10px 5px;
-  max-width: 500px;
+  width: 100%;
   display: flex;
   position: relative;
 
@@ -15,10 +15,11 @@
   }
 
   &__body {
-    padding: 10px 5px;
+    padding: 10px;
+    font-size: 18px;
+    width: calc(100% - 45px);
     display: flex;
     flex-direction: column;
-    max-width: 430px;
     overflow-wrap: break-word;
   }
 }

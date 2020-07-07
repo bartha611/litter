@@ -10939,51 +10939,9 @@ ul {
   height: 100%;
 }
 
-#tweetArea {
-  height: auto;
-  color: black;
-  padding: 10px 5px;
-}
-
-#tweetArea .row {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-#tweetArea .row #image {
-  font-size: large;
-  text-align: center;
-}
-
-#tweetArea .row #message {
-  overflow: auto;
-  cursor: pointer;
-}
-
-#tweetArea .row #message:focus {
-  outline: none;
-}
-
-#tweetArea .row #tweetSubmit {
-  border-radius: 15%;
-  text-align: right;
-}
-
-#tweetArea .row #tweetSubmit:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-[contenteditable][placeholder]:empty:before {
-  content: attr(placeholder);
-  position: absolute;
-  color: gray;
-  background-color: transparent;
-}
-
 .tweet {
   padding: 10px 5px;
-  max-width: 500px;
+  width: 100%;
   display: flex;
   position: relative;
 }
@@ -10999,10 +10957,113 @@ ul {
 }
 
 .tweet__body {
-  padding: 10px 5px;
+  padding: 10px;
+  font-size: 18px;
+  width: calc(100% - 45px);
   display: flex;
   flex-direction: column;
-  max-width: 430px;
   overflow-wrap: break-word;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 5px;
+  width: 100%;
+}
+
+.button__info {
+  padding: 0px 5px;
+}
+
+.button__image {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+}
+
+.button__body {
+  width: calc(100% - 45px);
+  padding: 5px 15px;
+  font-size: 18px;
+}
+
+.button__message {
+  margin-bottom: 10px;
+}
+
+.button__message:empty:before {
+  content: attr(placeholder);
+  position: absolute;
+  color: gray;
+  background-color: transparent;
+}
+
+.button__message:focus {
+  outline: none;
+}
+
+.button__helpers {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button__submit {
+  border-radius: 25px;
+  padding: 5px 10px;
+}
+
+.button__submit:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  max-width: 500px;
+}
+
+.sidebar__item {
+  display: block;
+  padding: 10px 0px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.sidebar__button,
+.sidebar__button-active {
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: transparent;
+  border: none;
+}
+
+.sidebar__button:hover,
+.sidebar__button-active:hover {
+  background: lightblue;
+  color: blue;
+}
+
+.sidebar__button:focus,
+.sidebar__button-active:focus {
+  outline: none;
+}
+
+.sidebar__button-active {
+  color: blue;
+}
+
+.sidebar__title {
+  padding: 0px 15px;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1275px) {
+  .sidebar__title {
+    display: none;
+  }
 }
 

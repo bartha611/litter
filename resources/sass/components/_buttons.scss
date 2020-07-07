@@ -1,0 +1,52 @@
+.button {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 5px;
+  width: 100%;
+
+  &__info {
+    padding: 0px 5px;
+  }
+
+  &__image {
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+  }
+
+  &__body {
+    width: calc(100% - 45px);
+    padding: 5px 15px;
+    font-size: 18px;
+  }
+
+  &__message {
+    margin-bottom: 10px;
+
+    &:empty:before {
+      content: attr(placeholder);
+      position: absolute;
+      color: gray;
+      background-color: transparent;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__helpers {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__submit {
+    border-radius: 25px;
+    padding: 5px 10px;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}
