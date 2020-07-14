@@ -13,7 +13,7 @@ const rootReducer = combineReducers(reducers);
 const persistConfig = {
   key: 'root',
   storage: storage,
-  whitelist: ['auth', 'tweets']
+  whitelist: ['auth']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

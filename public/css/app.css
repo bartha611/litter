@@ -11067,3 +11067,27 @@ ul {
   }
 }
 
+.profile__name {
+  font-size: 25px;
+}
+
+.profile__background {
+  position: relative;
+}
+
+.profile__backgroundImage {
+  background: gray;
+  height: 200px;
+}
+
+.profile__image {
+  width: 125px;
+  position: absolute;
+  bottom: -70px;
+  left: 10px;
+  height: 125px;
+  border: 2px solid black;
+  border-radius: 100%;
+  z-index: 2;
+}
+

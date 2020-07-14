@@ -4,10 +4,10 @@ const api = async ({ payload, meta }) => {
   const { url, method } = meta;
   try {
     const response = await axiosInstance({ method, url, data: payload });
-    return response.data;
+    console.log(response);
+    return { data: response.data };
   } catch (err) {
-    console.log(err);
-    return err;
+    return { error: err };
   }
 };
 

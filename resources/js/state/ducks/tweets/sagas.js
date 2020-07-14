@@ -12,13 +12,15 @@ const methods = {
 export function* fetchTweets(action) {
   yield put(actions.tweetLoad());
   try {
-    const data = yield call(apiService, action);
+    const { data } = yield call(apiService, action);
+    if (!data) {
+      yield put(actions.tweetError());
+    }
     yield put({
       type: `TWEET_${methods[action.meta.method]}`,
       payload: data
     });
   } catch (err) {
-    console.log(err);
     yield put(actions.tweetError());
   }
 }

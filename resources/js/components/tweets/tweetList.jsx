@@ -1,35 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const userTweets = [
-  {
-    tweet:
-      'Hello there adsfjalkdsjflkajsdlkfjaksdjlfkjkasdjkfjsakdjfkjsadkjfkjdsalkfjalkdsjflkjsalkdjflksajdkfjalksdjflkajsdkfsajflkajskfjaskfj',
-    user_id: '101',
-    updated_at: '2020-06-30T22:16:13.000000Z',
-    id: '1',
-    user: {
-      id: 101,
-      name: 'adam',
-      profile_photo:
-        'https://insta611.s3.amazonaws.com/images/1591320571download.png'
-    }
-  },
-  {
-    tweet: 'Sheeeitttttt',
-    user_id: '101',
-    updated_at: '2020-06-30T22:16:13.000000Z',
-    id: '2',
-    user: {
-      id: 101,
-      name: 'adam',
-      profile_photo:
-        'https://insta611.s3.amazonaws.com/images/1591320571download.png'
-    }
-  }
-];
-
-export const TweetList = ({ tweets }) => {
+export const TweetList = () => {
+  const tweets = useSelector(state => state.tweets.tweets);
   const sanitizeDate = date => {
     const newDate = new Date(date).toDateString();
     return newDate
@@ -42,7 +15,7 @@ export const TweetList = ({ tweets }) => {
     <div>
       {tweets.map(tweet => {
         return (
-          <div className="border tweet">
+          <div key={tweet.id} className="border tweet">
             <div className="tweet__image">
               <img
                 src={tweet.user.profile_photo}
@@ -63,6 +36,7 @@ export const TweetList = ({ tweets }) => {
                 </span>
               </div>
               <div className="tweet__tweet">{tweet.tweet}</div>
+              {tweet.loading && <div>IsLoading</div>}
             </div>
           </div>
         );
@@ -71,23 +45,4 @@ export const TweetList = ({ tweets }) => {
   );
 };
 
-TweetList.propTypes = {
-  tweets: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      tweet: PropTypes.string.isRequired,
-      updated_at: PropTypes.string.isRequired,
-      user: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        profile_photo: PropTypes.string.isRequired
-      })
-    }).isRequired
-  ).isRequired
-};
-
-const TweetView = () => {
-  return <TweetList tweets={userTweets} />;
-};
-
-export default TweetView;
+export default TweetList;

@@ -6,11 +6,16 @@ import * as jwt from 'jsonwebtoken';
 
 export function* fetchUser(action) {
   yield put(actions.authLoad());
+  const { history } = action.meta;
   try {
-    const data = yield call(apiService, action);
+    const { data } = yield call(apiService, action);
+    if (!data) {
+      yield put(actions.authError());
+    }
     if (action.meta.operation === 'LOGIN') {
       localStorage.setItem('token', data.token);
       yield put(actions.authLogin(data.user));
+      history.push('/');
     } else {
       localStorage.removeItem('token');
       yield put(actions.authLogout());

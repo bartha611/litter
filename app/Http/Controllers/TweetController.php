@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Follower;
 use App\Http\Requests\TweetRequest;
 use App\Tweet;
 use App\User;
@@ -13,8 +14,8 @@ class TweetController extends Controller
 {
 
     /**
-     * gets user id in constructor 
-     * 
+     * gets user id in constructor
+     *
      * @return void
      */
 
@@ -27,14 +28,59 @@ class TweetController extends Controller
     }
 
     /**
-     * returns a list of tweets for user
-     * 
+     * Gets news feed for user
+     *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index()
+
+    public function news(Request $request)
     {
-        $tweets = Tweet::select(['tweet', 'user_id', 'updated_at'])->where('user_id', $this->user_id)->with('user:id,name,profile_photo')->paginate(15);
-        return response()->json($tweets);
+        $cursor = $request->input('cursor');
+        $followers = Follower::select(['follower_id'])->where('user_id', $this->user_id)->pluck('follower_id');
+        $tweets = Tweet::select(['id', 'tweet', 'user_id', 'updated_at'])
+            ->whereIn('user_id', $followers)
+            ->with('user:id,name,profile_photo')
+            ->orderBy('id', 'desc')
+            ->where(function ($query) use ($cursor) {
+                if ($cursor) {
+                    $query->where('id', '<=', $cursor);
+                }
+            })
+            ->limit(11)
+            ->get();
+
+        $cursor = count($tweets) > 10 ? $tweets[10]->id : null;
+        $tweets = $tweets->slice(0, 10);
+        return response()->json(compact('tweets', 'cursor'));
+    }
+
+    /**
+     * returns a list of tweets for user
+     * #@param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function index(Request $request, $name)
+    {
+        $cursor = $request->input('cursor');
+        $user = User::where('name', $name)->firstOrFail();
+        $tweets = Tweet::select(['id', 'tweet', 'user_id', 'updated_at'])
+            ->where('user_id', $user->id)
+            ->with('user:id,name,profile_photo')
+            ->orderBy('id', 'desc')
+            ->where(function ($query) use ($cursor) {
+                if ($cursor) {
+                    $query->where('id', '<', $cursor);
+                }
+            })
+            ->limit(11)
+            ->get();
+
+        $cursor = count($tweets) > 10 ? $tweets[10]->id : null;
+        $tweets = $tweets->slice(0, 10);
+        return response()->json(compact('tweets', 'cursor'));
+
     }
 
     /**
@@ -49,7 +95,7 @@ class TweetController extends Controller
         $data = $request->all();
         $data['user_id'] = $this->user_id;
         $tweet = Tweet::create($data);
-        return response()->json($tweet);
+        return response()->json($tweet->load('user:id,name,profile_photo'));
     }
 
     /**
@@ -64,7 +110,7 @@ class TweetController extends Controller
     {
         $tweet = Tweet::where('id', $tweet)->where('user_id', $this->user_id)->firstOrFail();
         $tweet->update([
-            'tweet' => $request->input('tweet')
+            'tweet' => $request->input('tweet'),
         ]);
         return response()->json($tweet);
     }
@@ -79,14 +125,16 @@ class TweetController extends Controller
     public function destroy(Tweet $tweet)
     {
         $tweet_id = $tweet->id;
-        $delete_tweet = Tweet::where('id', $tweet_id)->where('user_id', $this->user)->firstOrFail();
+        $delete_tweet = Tweet::where('id', $tweet_id)
+            ->where('user_id', $this->user)
+            ->firstOrFail();
         $delete_tweet->delete();
         return response()->json($tweet_id);
     }
 
     /**
      * shows a tweet by user
-     * 
+     *
      * @param string $tweet
      * @return JsonResponse
      */

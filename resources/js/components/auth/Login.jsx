@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authRequest } from '../../state/ducks/auth/actions';
 import Axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   useEffect(() => {
@@ -16,12 +17,15 @@ const Login = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const user = useSelector(state => state.auth);
+  const history = useHistory();
   const dispatch = useDispatch();
   const submit = async () => {
     await dispatch(
-      authRequest('POST', '/api/user/login', 'LOGIN', { name, password })
+      authRequest('POST', '/api/user/login', 'LOGIN', history, {
+        name,
+        password
+      })
     );
-    console.log(user);
   };
   return (
     <div className="container pt-5">

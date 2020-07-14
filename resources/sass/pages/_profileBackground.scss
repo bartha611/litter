@@ -1,0 +1,25 @@
+.profile {
+  &__name {
+    font-size: 25px;
+  }
+
+  &__background {
+    position: relative;
+  }
+
+  &__backgroundImage {
+    background: gray;
+    height: 200px;
+  }
+
+  &__image {
+    width: 125px;
+    position: absolute;
+    bottom: -70px;
+    left: 10px;
+    height: 125px;
+    border: 2px solid black;
+    border-radius: 100%;
+    z-index: 2;
+  }
+}

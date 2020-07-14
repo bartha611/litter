@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Follower;
-use App\Http\Requests\FollowerRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\UnauthorizedException;
@@ -13,7 +12,7 @@ class FollowerController extends Controller
 {
     /**
      * gets userid in middleware
-     * 
+     *
      * @return null
      */
 
@@ -27,7 +26,7 @@ class FollowerController extends Controller
 
     /**
      * Gets a listing of followers for user
-     * 
+     *
      * @return JsonResponse
      */
 
@@ -46,13 +45,13 @@ class FollowerController extends Controller
     {
         $data = $request->all();
         $data['user_id'] = $this->user;
-        $follower = Follower::create($data);
+        $follower = Follower::firstOrCreate($data);
         return response()->json($follower);
     }
 
     /**
      * unfollows the user
-     * 
+     *
      * @param Request $request
      * @param Follower $follower
      * @return JsonResponse

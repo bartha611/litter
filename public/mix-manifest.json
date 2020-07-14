@@ -1,4 +1,10 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/HomePage.js": "/HomePage.js",
+    "/Login.js": "/Login.js",
+    "/Profile.js": "/Profile.js",
+    "/tweetButton.js": "/tweetButton.js",
+    "/tweetList.js": "/tweetList.js",
+    "/Profile_background.js": "/Profile_background.js"
 }

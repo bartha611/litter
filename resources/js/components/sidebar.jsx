@@ -9,7 +9,7 @@ import {
 
 const Sidebar = () => {
   return (
-    <div className="sidebar">
+    <div className="sidebar position-fixed">
       <ul className="sidebar__nav">
         <li className="sidebar__item">
           <button className="sidebar__button-active">

@@ -9,14 +9,15 @@ import * as types from './types';
  * @param { { name: string, password: string} } payload The paylaod of in the form of { user, token}
  */
 
-export const authRequest = (method, url, operation, payload = {}) => {
+export const authRequest = (method, url, operation, history, payload = {}) => {
   return {
     type: types.AUTH_REQUEST,
     payload,
     meta: {
       url,
       method,
-      operation
+      operation,
+      history
     }
   };
 };

@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { tweetRequest } from '../../state/ducks/tweets';
 
-const TweetButton = ({ user, setTweet, submit }) => {
+const TweetButton = () => {
+  const [tweet, setTweet] = useState('');
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.user);
+  const submit = () => {
+    dispatch(tweetRequest('/api/tweet', 'POST', { tweet }));
+  };
+
   return (
     <div className="button border">
       <div className="button__info">
@@ -31,16 +37,6 @@ const TweetButton = ({ user, setTweet, submit }) => {
       </div>
     </div>
   );
-};
-
-TweetButton.propTypes = {
-  setTweet: PropTypes.func.isRequired,
-  submit: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    profile_photo: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired
-  }).isRequired
 };
 
 export default TweetButton;
