@@ -4,7 +4,9 @@ import * as actions from '../actions';
 const initialState = {
   loading: false,
   tweets: [],
-  error: false
+  error: false,
+  cursor: null,
+  user: null
 };
 
 const tweets = [
@@ -41,7 +43,9 @@ describe('tweet reducer', () => {
     const actualState = {
       loading: false,
       tweets: [newTweet],
-      error: false
+      error: false,
+      cursor: null,
+      user: null
     };
 
     const nextState = reducer(initialState, actions.tweetCreate(newTweet));
@@ -51,16 +55,21 @@ describe('tweet reducer', () => {
     const nextState = {
       loading: false,
       tweets: tweets,
-      error: false
+      error: false,
+      cursor: undefined,
+      user: undefined
     };
-
-    expect(reducer(initialState, actions.tweetRead(tweets))).toEqual(nextState);
+    expect(
+      reducer(initialState, actions.tweetRead({ tweets: tweets }))
+    ).toEqual(nextState);
   });
   it('should handle tweet creation when there are tweets', () => {
     const nextState = {
       loading: false,
       tweets: [newTweet, ...tweets],
-      error: false
+      error: false,
+      user: null,
+      cursor: null
     };
 
     expect(
@@ -79,7 +88,9 @@ describe('tweet reducer', () => {
     const nextState = {
       loading: false,
       tweets: [...tweets.slice(0, 1), updatedTweet, tweets[2]],
-      error: false
+      error: false,
+      user: null,
+      cursor: null
     };
 
     expect(
@@ -93,7 +104,9 @@ describe('tweet reducer', () => {
     const nextState = {
       loading: false,
       tweets: [tweets[0], tweets[2]],
-      error: false
+      error: false,
+      cursor: null,
+      user: null
     };
     expect(
       reducer({ ...initialState, tweets: tweets }, actions.tweetDelete(2))

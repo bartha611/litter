@@ -4,7 +4,8 @@ const initialState = {
   loading: false,
   tweets: [],
   error: false,
-  cursor: null
+  cursor: null,
+  user: null
 };
 
 export default function(state = initialState, action) {
@@ -24,7 +25,8 @@ export default function(state = initialState, action) {
         ...state,
         tweets: [...state.tweets, ...action.payload.tweets],
         loading: false,
-        cursor: action.payload.cursor
+        cursor: action.payload.cursor,
+        user: action.payload.user
       };
     }
     case types.TWEET_UPDATE: {

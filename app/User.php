@@ -2,11 +2,9 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -27,7 +25,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'updated_at', 'created_at', 'email_verified_at'
+        'password', 'remember_token', 'updated_at', 'email_verified_at',
     ];
 
     /**
@@ -40,7 +38,6 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $dates = ['created_at', 'updated_at'];
-
 
     /**
      * @param string
@@ -55,6 +52,11 @@ class User extends Authenticatable implements JWTSubject
     public function tweets()
     {
         return $this->hasMany(Tweet::class, 'user_id');
+    }
+
+    public function followers()
+    {
+        return $this->hasMany(Follower::class, 'user_id');
     }
 
     public function getJWTIdentifier()

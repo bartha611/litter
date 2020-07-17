@@ -15,7 +15,10 @@ export const TweetList = () => {
     <div>
       {tweets.map(tweet => {
         return (
-          <div key={tweet.id} className="border tweet">
+          <div
+            key={tweet.id}
+            className="border-right border-left border-bottom tweet"
+          >
             <div className="tweet__image">
               <img
                 src={tweet.user.profile_photo}

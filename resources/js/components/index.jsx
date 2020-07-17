@@ -9,7 +9,7 @@ import { Container, Row, Col } from 'reactstrap';
 import Sidebar from './sidebar';
 
 const Login = lazy(() =>
-  import(/* webpackChunkName: "Login" */ './auth/Login')
+  import(/* webpackChunkName: "Login" */ '../views/Login')
 );
 
 const Home = lazy(() =>
@@ -17,7 +17,7 @@ const Home = lazy(() =>
 );
 
 const Profile = lazy(() =>
-  import(/* webpackChunkName: "Profile" */ './auth/Profile')
+  import(/* webpackChunkName: "Profile" */ '../views/Profile')
 );
 
 function waitComponent(Component) {
@@ -50,6 +50,9 @@ const Index = () => {
                           {waitComponent(Home)}
                         </Route>
                         <Route path="/:name">{waitComponent(Profile)}</Route>
+                        <Route paht="/:name/following">
+                          {waitComponent(Profile)}
+                        </Route>
                       </Switch>
                     </Col>
                     <Col xs="2" md="2" lg="4">

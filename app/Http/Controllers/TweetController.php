@@ -64,7 +64,9 @@ class TweetController extends Controller
     public function index(Request $request, $name)
     {
         $cursor = $request->input('cursor');
-        $user = User::where('name', $name)->firstOrFail();
+        $user = User::where('name', $name)
+            ->withCount(['tweets', 'followers'])
+            ->firstOrFail();
         $tweets = Tweet::select(['id', 'tweet', 'user_id', 'updated_at'])
             ->where('user_id', $user->id)
             ->with('user:id,name,profile_photo')
@@ -79,7 +81,7 @@ class TweetController extends Controller
 
         $cursor = count($tweets) > 10 ? $tweets[10]->id : null;
         $tweets = $tweets->slice(0, 10);
-        return response()->json(compact('tweets', 'cursor'));
+        return response()->json(compact('tweets', 'cursor', 'user'));
 
     }
 

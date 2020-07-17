@@ -11091,3 +11091,30 @@ ul {
   z-index: 2;
 }
 
+.about {
+  padding: 10px 15px;
+}
+
+.about__info {
+  padding-top: 60px;
+  font-size: 30px;
+}
+
+.about__name {
+  font-size: 25px;
+}
+
+.about__username {
+  font-size: 15px;
+  margin-top: -10px;
+}
+
+.about__joinedDate {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.about__following {
+  font-size: 15px;
+}
+

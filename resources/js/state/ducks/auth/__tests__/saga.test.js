@@ -29,9 +29,10 @@ describe('auth saga', () => {
       'POST',
       '/api/user/login',
       'LOGIN',
+      undefined,
       fakeUser
     );
-    requestApi.mockImplementation(() => Promise.resolve(fakeUser));
+    requestApi.mockImplementation(() => Promise.resolve({ data: fakeUser }));
     const result = await runSaga(
       {
         dispatch: action => dispatched.push(action)

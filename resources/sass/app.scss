@@ -8,9 +8,11 @@
 @import '~bootstrap/scss/bootstrap';
 
 @import 'index.scss';
-@import 'pages/_home.scss';
 @import 'layouts/_grid.scss';
 
 @import 'components/_buttons.scss';
 @import 'layouts/_sidebar.scss';
+
+@import 'pages/_home.scss';
 @import 'pages/_profileBackground.scss';
+@import 'pages/_biography.scss';

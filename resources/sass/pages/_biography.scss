@@ -1,0 +1,26 @@
+.about {
+  padding: 10px 15px;
+
+  &__info {
+    padding-top: 60px;
+    font-size: 30px;
+  }
+
+  &__name {
+    font-size: 25px;
+  }
+
+  &__username {
+    font-size: 15px;
+    margin-top: -10px;
+  }
+
+  &__joinedDate {
+    margin-top: 10px;
+    font-size: 15px;
+  }
+
+  &__following {
+    font-size: 15px;
+  }
+}
