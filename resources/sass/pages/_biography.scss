@@ -22,5 +22,10 @@
 
   &__following {
     font-size: 15px;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }

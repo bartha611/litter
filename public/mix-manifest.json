@@ -1,11 +1,13 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/About.js": "/About.js",
+    "/FollowList.js": "/FollowList.js",
+    "/Follower.js": "/Follower.js",
     "/HomePage.js": "/HomePage.js",
     "/Login.js": "/Login.js",
     "/Profile.js": "/Profile.js",
     "/Profile_background.js": "/Profile_background.js",
     "/tweetButton.js": "/tweetButton.js",
-    "/tweetList.js": "/tweetList.js",
-    "/About.js": "/About.js"
+    "/tweetList.js": "/tweetList.js"
 }

@@ -12,16 +12,16 @@ const TweetList = lazy(() =>
   import(/* webpackChunkName: 'tweetList' */ '../components/tweets/tweetList')
 );
 
-import { useFetchTweet } from '../utils/useFetchTweet';
+import { useFetchTweets } from '../utils/useFetchTweet';
 
 const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(tweetRequest('/api/tweet', 'GET'));
+    dispatch(tweetRequest('/api/tweet', 'GET', 'READ'));
   }, []);
 
-  useFetchTweet();
+  useFetchTweets('/api/tweet', null);
   return (
     <div>
       <TweetButton />

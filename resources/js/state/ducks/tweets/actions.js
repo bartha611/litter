@@ -1,11 +1,12 @@
 import * as types from './types';
 
-export const tweetRequest = (url, method, payload = {}) => {
+export const tweetRequest = (url, method, operation, payload = {}) => {
   return {
     type: types.TWEET_REQUEST,
     meta: {
       url,
-      method
+      method,
+      operation
     },
     payload
   };
@@ -47,6 +48,13 @@ export const tweetError = () => {
 export const tweetRead = tweets => {
   return {
     type: types.TWEET_READ,
+    payload: tweets
+  };
+};
+
+export const tweetPaginate = tweets => {
+  return {
+    type: types.TWEET_PAGINATE,
     payload: tweets
   };
 };

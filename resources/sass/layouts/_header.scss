@@ -1,0 +1,21 @@
+.header {
+  padding: 10px;
+  box-sizing: border-box;
+
+  &__name {
+    font-weight: 500;
+    font-size: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  &__tweets_count {
+    margin-top: -5px;
+    font-size: 14px;
+  }
+
+  &__username {
+    margin-top: -5px;
+    font-size: 14px;
+  }
+}

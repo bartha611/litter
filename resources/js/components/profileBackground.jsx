@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import Header from './Profile/Header';
 
 const Background = () => {
   const { user } = useSelector(state => state.tweets);
@@ -7,12 +9,7 @@ const Background = () => {
     <div className="profile">
       {user && (
         <div>
-          <div className="profile__title">
-            <div className="profile__name text-bold">{user.name}</div>
-            <div className="text-muted profile__tweetTotal">
-              {user.tweets_count} tweets
-            </div>
-          </div>
+          <Header user={user} />
           <div className="profile__background">
             <div className="profile__backgroundImage"></div>
             <img

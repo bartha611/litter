@@ -50,3 +50,44 @@
     }
   }
 }
+
+.following__button {
+  padding: 5px 10px;
+  border-radius: 16px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: transparent;
+  position: relative;
+  width: 100px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &--unfollow {
+    color: white;
+    background-color: blue;
+    &:after {
+      content: 'Following';
+    }
+    &:hover {
+      background-color: red;
+    }
+    &:hover:after {
+      content: 'Unfollow';
+    }
+  }
+
+  &--follow {
+    font-weight: 500;
+    &:after {
+      content: 'Follow';
+    }
+    &:hover {
+      background-color: rgba(211, 211, 211, 0.4);
+      &:after {
+        content: 'Follow';
+      }
+    }
+  }
+}

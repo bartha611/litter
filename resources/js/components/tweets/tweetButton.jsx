@@ -7,7 +7,7 @@ const TweetButton = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth.user);
   const submit = () => {
-    dispatch(tweetRequest('/api/tweet', 'POST', { tweet }));
+    dispatch(tweetRequest('/api/tweet', 'POST', 'POST', { tweet }));
   };
 
   return (

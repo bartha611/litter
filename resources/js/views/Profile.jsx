@@ -17,17 +17,17 @@ const About = lazy(() =>
   import(/* webpackChunkName: 'About' */ '../components/Profile/biography')
 );
 
-import { useFetchTweet } from '../utils/useFetchTweet';
+import { useFetchTweets } from '../utils/useFetchTweet';
 
 const Profile = () => {
   const dispatch = useDispatch();
   let { name } = useParams();
 
   useEffect(() => {
-    dispatch(tweetRequest(`/api/tweet/${name}`, 'GET'));
+    dispatch(tweetRequest(`/api/tweet/${name}`, 'GET', 'READ'));
   }, []);
 
-  useFetchTweet(name);
+  useFetchTweets('/api/tweet', name);
 
   return (
     <div>

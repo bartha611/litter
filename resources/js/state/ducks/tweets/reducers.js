@@ -17,16 +17,27 @@ export default function(state = initialState, action) {
       return {
         ...state,
         tweets: [action.payload, ...state.tweets],
-        loading: false
+        loading: false,
+        error: false
+      };
+    }
+    case types.TWEET_PAGINATE: {
+      return {
+        ...state,
+        tweets: [...state.tweets, ...action.payload.tweets],
+        cursor: action.payload.cursor,
+        loading: false,
+        error: false
       };
     }
     case types.TWEET_READ: {
       return {
         ...state,
-        tweets: [...state.tweets, ...action.payload.tweets],
+        tweets: action.payload.tweets,
         loading: false,
         cursor: action.payload.cursor,
-        user: action.payload.user
+        user: action.payload.user,
+        error: false
       };
     }
     case types.TWEET_UPDATE: {
@@ -35,14 +46,16 @@ export default function(state = initialState, action) {
         tweets: state.tweets.map(tweet =>
           tweet.id === action.payload.id ? action.payload : tweet
         ),
-        loading: false
+        loading: false,
+        error: false
       };
     }
     case types.TWEET_DELETE: {
       return {
         ...state,
         tweets: state.tweets.filter(tweet => tweet.id !== action.payload),
-        loading: false
+        loading: false,
+        error: false
       };
     }
     case types.TWEET_ERROR: {

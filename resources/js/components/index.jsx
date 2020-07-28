@@ -4,6 +4,7 @@ import { persistor, store } from '../state/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import PrivateRoute from '../utils/privateRoute';
 
 import { Container, Row, Col } from 'reactstrap';
 import Sidebar from './sidebar';
@@ -18,6 +19,10 @@ const Home = lazy(() =>
 
 const Profile = lazy(() =>
   import(/* webpackChunkName: "Profile" */ '../views/Profile')
+);
+
+const Follower = lazy(() =>
+  import(/* webpackChunkName: "Follower" */ '../views/Follower')
 );
 
 function waitComponent(Component) {
@@ -46,13 +51,20 @@ const Index = () => {
                     </Col>
                     <Col xs="8" md="8" lg="6">
                       <Switch>
-                        <Route exact path="/">
-                          {waitComponent(Home)}
-                        </Route>
-                        <Route path="/:name">{waitComponent(Profile)}</Route>
-                        <Route paht="/:name/following">
-                          {waitComponent(Profile)}
-                        </Route>
+                        <PrivateRoute
+                          exact
+                          path="/"
+                          component={waitComponent(Home)}
+                        />
+                        <PrivateRoute
+                          exact
+                          path="/:name"
+                          component={waitComponent(Profile)}
+                        />
+                        <PrivateRoute
+                          path="/:name/following"
+                          component={waitComponent(Follower)}
+                        />
                       </Switch>
                     </Col>
                     <Col xs="2" md="2" lg="4">
@@ -71,7 +83,3 @@ const Index = () => {
 if (document.getElementById('index')) {
   render(<Index />, document.getElementById('index'));
 }
-
-const DefaultContainer = () => {
-  return <Container></Container>;
-};

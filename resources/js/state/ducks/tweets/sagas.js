@@ -2,24 +2,24 @@ import * as actions from './actions';
 import apiService from '../../utils/apiService';
 import { takeLatest, put, call } from 'redux-saga/effects';
 
-const methods = {
-  GET: 'READ',
-  POST: 'CREATE',
-  UPDATE: 'UPDATE',
-  DELETE: 'DELETE'
+const operation = data => {
+  return {
+    READ: actions.tweetRead(data),
+    POST: actions.tweetCreate(data),
+    PAGINATE: actions.tweetPaginate(data),
+    DELETE: actions.tweetDelete(data),
+    UPDATE: actions.tweetUpdate(data)
+  };
 };
 
 export function* fetchTweets(action) {
   yield put(actions.tweetLoad());
   try {
-    const { data } = yield call(apiService, action);
-    if (!data) {
+    const { data, error } = yield call(apiService, action);
+    if (error) {
       yield put(actions.tweetError());
     }
-    yield put({
-      type: `TWEET_${methods[action.meta.method]}`,
-      payload: data
-    });
+    yield put(operation(data)[action.meta.operation]);
   } catch (err) {
     yield put(actions.tweetError());
   }

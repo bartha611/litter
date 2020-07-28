@@ -37,9 +37,12 @@ class TweetController extends Controller
     public function news(Request $request)
     {
         $cursor = $request->input('cursor');
-        $followers = Follower::select(['follower_id'])->where('user_id', $this->user_id)->pluck('follower_id');
+        $followers = Follower::select(['follower_id'])
+            ->where('user_id', $this->user_id)
+            ->pluck('follower_id')->toArray();
+
         $tweets = Tweet::select(['id', 'tweet', 'user_id', 'updated_at'])
-            ->whereIn('user_id', $followers)
+            ->whereIn('user_id', array_merge($followers, [$this->user_id]))
             ->with('user:id,name,profile_photo')
             ->orderBy('id', 'desc')
             ->where(function ($query) use ($cursor) {
@@ -73,8 +76,7 @@ class TweetController extends Controller
             ->orderBy('id', 'desc')
             ->where(function ($query) use ($cursor) {
                 if ($cursor) {
-                    $query->where('id', '<', $cursor);
-                }
+                    $query->where('id', '<=', $cursor);}
             })
             ->limit(11)
             ->get();
