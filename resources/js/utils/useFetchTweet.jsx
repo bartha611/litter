@@ -12,7 +12,8 @@ export const useFetchTweets = (path, name = null) => {
       if (
         window.innerHeight + document.documentElement.scrollTop !==
           document.documentElement.offsetHeight ||
-        !tweet.cursor
+        !tweet.cursor ||
+        tweet.loading
       )
         return;
       dispatch(

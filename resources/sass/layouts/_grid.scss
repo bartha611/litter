@@ -4,6 +4,15 @@
   display: flex;
   position: relative;
 
+  &__author {
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   &__image {
     padding: 5px;
   }
@@ -22,4 +31,8 @@
     flex-direction: column;
     overflow-wrap: break-word;
   }
+}
+
+.col-12 {
+  padding: 0;
 }

@@ -11,7 +11,7 @@ const TweetButton = () => {
   };
 
   return (
-    <div className="button border">
+    <div className="button">
       <div className="button__info">
         <img
           className="button__image"

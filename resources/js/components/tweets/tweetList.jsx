@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 export const TweetList = () => {
+  const history = useHistory();
   const tweets = useSelector(state => state.tweets.tweets);
   const sanitizeDate = date => {
     const newDate = new Date(date).toDateString();
@@ -28,7 +30,10 @@ export const TweetList = () => {
             </div>
             <div className="tweet__body">
               <div className="tweet__info">
-                <span className="tweet__author">
+                <span
+                  className="tweet__author"
+                  onClick={() => history.push(`/${tweet.user.name}`)}
+                >
                   <b>{tweet.user.name}</b>
                 </span>
                 <span className="text-muted ml-2 tweet__username">

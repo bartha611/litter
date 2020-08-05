@@ -28,6 +28,7 @@
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-react": "^7.20.3",
+    "history": "^4.10.1",
     "jest": "^26.0.1",
     "jest-cli": "^26.0.1",
     "jquery": "^3.2",

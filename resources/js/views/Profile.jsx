@@ -1,7 +1,7 @@
 import React, { useEffect, lazy } from 'react';
 import { useDispatch } from 'react-redux';
 import { tweetRequest } from '../state/ducks/tweets/actions';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 const TweetList = lazy(() =>
   import(/* webpackChunkName: 'tweetList' */ '../components/tweets/tweetList')
@@ -20,12 +20,17 @@ const About = lazy(() =>
 import { useFetchTweets } from '../utils/useFetchTweet';
 
 const Profile = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   let { name } = useParams();
 
   useEffect(() => {
-    dispatch(tweetRequest(`/api/tweet/${name}`, 'GET', 'READ'));
+    window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    dispatch(tweetRequest(`/api/tweet/${name}`, 'GET', 'READ'));
+  }, [location]);
 
   useFetchTweets('/api/tweet', name);
 

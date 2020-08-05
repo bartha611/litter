@@ -10946,6 +10946,15 @@ ul {
   position: relative;
 }
 
+.tweet__author {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.tweet__author:hover {
+  text-decoration: underline;
+}
+
 .tweet__image {
   padding: 5px;
 }
@@ -10965,11 +10974,18 @@ ul {
   overflow-wrap: break-word;
 }
 
+.col-12 {
+  padding: 0;
+}
+
 .button {
   display: flex;
   flex-direction: row;
   padding: 10px 5px;
   width: 100%;
+  border-style: solid;
+  border-color: #dee2e6;
+  border-width: 1px 1px 10px 1px;
 }
 
 .button__info {
@@ -11065,6 +11081,74 @@ ul {
   content: "Follow";
 }
 
+.search {
+  display: block;
+  width: 100%;
+  position: relative;
+  padding: 5px 10px;
+  position: fixed;
+  width: 33.333333%;
+  max-width: 300px;
+}
+
+.search__icon {
+  position: absolute;
+  left: 20px;
+  top: 12px;
+  font-size: 20px;
+}
+
+.search__input {
+  width: 100%;
+  padding: 5px 5px 5px 40px;
+  border-radius: 30px;
+}
+
+.search__input:focus {
+  outline: none;
+}
+
+.search__menu {
+  box-shadow: 0 0 10px lightgray;
+}
+
+.search__item {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  padding: 5px 10px;
+  z-index: 1;
+  background: white;
+}
+
+.search__item:hover {
+  background: rgba(204, 204, 204, 0.2);
+}
+
+.search__photo {
+  padding: 0px 5px;
+}
+
+.search__image {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+
+.search__name {
+  font-weight: 500;
+}
+
+.search__username {
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .search {
+    display: none;
+  }
+}
+
 .sidebar__nav {
   display: flex;
   flex-direction: column;
@@ -11114,6 +11198,19 @@ ul {
   }
 }
 
+@media (max-width: 768px) {
+  .sidebar__nav {
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    background: #f8fafc;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
+
 .header {
   padding: 10px;
   box-sizing: border-box;
@@ -11133,6 +11230,12 @@ ul {
 .header__username {
   margin-top: -5px;
   font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding-bottom: 65px;
+  }
 }
 
 .profile__name {

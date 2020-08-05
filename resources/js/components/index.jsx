@@ -5,9 +5,11 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PrivateRoute from '../utils/privateRoute';
+import { history } from '../utils/history';
 
 import { Container, Row, Col } from 'reactstrap';
 import Sidebar from './sidebar';
+import SearchBar from './searchBar';
 
 const Login = lazy(() =>
   import(/* webpackChunkName: "Login" */ '../views/Login')
@@ -38,7 +40,7 @@ const Index = () => {
     <div>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Router>
+          <Router history={history}>
             <Switch>
               <Route exact path="/login">
                 {waitComponent(Login)}
@@ -46,10 +48,10 @@ const Index = () => {
               <Route>
                 <Container>
                   <Row>
-                    <Col xs="2" md="2" lg="2">
+                    <Col xs="12" md="1" lg="2">
                       <Sidebar />
                     </Col>
-                    <Col xs="8" md="8" lg="6">
+                    <Col xs="12" md="7" lg="6" className="main">
                       <Switch>
                         <PrivateRoute
                           exact
@@ -67,8 +69,8 @@ const Index = () => {
                         />
                       </Switch>
                     </Col>
-                    <Col xs="2" md="2" lg="4">
-                      <Sidebar />
+                    <Col xs="0" md="4" lg="4">
+                      <SearchBar />
                     </Col>
                   </Row>
                 </Container>
