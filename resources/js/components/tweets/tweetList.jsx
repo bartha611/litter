@@ -37,7 +37,7 @@ export const TweetList = () => {
                   <b>{tweet.user.name}</b>
                 </span>
                 <span className="text-muted ml-2 tweet__username">
-                  @{tweet.user.name}
+                  @{tweet.user.username}
                 </span>
                 <span className="text-muted ml-2 tweet__date">
                   {sanitizeDate(tweet.updated_at)}

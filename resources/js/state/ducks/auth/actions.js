@@ -46,3 +46,9 @@ export const authError = () => {
     type: types.AUTH_ERROR
   };
 };
+
+export const authReset = () => {
+  return {
+    type: types.AUTH_RESET
+  };
+};

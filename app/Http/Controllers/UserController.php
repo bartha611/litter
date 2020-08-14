@@ -33,7 +33,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $creds = $request->only(['name', 'password']);
+        $creds = $request->only(['username', 'password']);
         if (!$token = auth()->attempt($creds)) {
             return response()->json(['error' => 'unauthorized'], 401);
         }
@@ -57,7 +57,7 @@ class UserController extends Controller
         $search = $request->query('search');
         if ($search) {
             $users = DB::table('users')
-                ->select(['users.id', 'name', 'email', 'profile_photo',
+                ->select(['users.id', 'name', 'email', 'profile_photo', 'username',
                     DB::raw('COUNT(f.follower_id) AS total_followers'),
                     DB::raw('CASE WHEN users.id IN (' . implode(',', $user_followers) . ') THEN 1 ELSE 0 END AS follower_user'),
                 ])

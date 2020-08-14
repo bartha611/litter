@@ -8,6 +8,7 @@ use App\Tweet;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class TweetController extends Controller
@@ -43,7 +44,7 @@ class TweetController extends Controller
 
         $tweets = Tweet::select(['id', 'tweet', 'user_id', 'updated_at'])
             ->whereIn('user_id', array_merge($followers, [$this->user_id]))
-            ->with('user:id,name,profile_photo')
+            ->with('user:id,name,profile_photo,username')
             ->orderBy('id', 'desc')
             ->where(function ($query) use ($cursor) {
                 if ($cursor) {
@@ -67,23 +68,45 @@ class TweetController extends Controller
     public function index(Request $request, $name)
     {
         $cursor = $request->input('cursor');
-        $user = User::where('name', $name)
-            ->withCount(['tweets', 'followers'])
-            ->firstOrFail();
-        $tweets = Tweet::select(['id', 'tweet', 'user_id', 'updated_at'])
+
+        $user_followers = DB::table('followers')->where('user_id', $this->user_id)
+            ->pluck('follower_id')
+            ->toArray();
+
+        $user = DB::table('users AS u')
+            ->select(['u.id AS id', 'u.name AS name', 'u.profile_photo AS profile_photo',
+                'u.username AS username',
+                DB::raw('COUNT(DISTINCT f.id) AS followers_count'),
+                DB::raw('COUNT(DISTINCT t.id) AS tweets_count'),
+            ])
+            ->where('name', $name)
+            ->leftJoin('followers AS f', 'f.user_id', '=', 'u.id')
+            ->leftJoin('tweets AS t', 't.user_id', '=', 'u.id')
+            ->groupBy(['u.id', 'u.name', 'u.profile_photo'])
+            ->first();
+
+        if (!$user) {
+            abort(404, 'Not found');
+        }
+
+        $tweets = DB::table('tweets')
+            ->select(['id', 'tweet', 'user_id', 'updated_at'])
             ->where('user_id', $user->id)
-            ->with('user:id,name,profile_photo')
             ->orderBy('id', 'desc')
             ->where(function ($query) use ($cursor) {
                 if ($cursor) {
-                    $query->where('id', '<=', $cursor);}
+                    $query->where('id', '<=', $cursor);
+                }
             })
             ->limit(11)
             ->get();
 
+        foreach ($tweets as $tweet) {
+            $tweet->user = $user;
+        }
         $cursor = count($tweets) > 10 ? $tweets[10]->id : null;
         $tweets = $tweets->slice(0, 10);
-        return response()->json(compact('tweets', 'cursor', 'user'));
+        return response()->json(compact('user', 'tweets', 'cursor'));
 
     }
 

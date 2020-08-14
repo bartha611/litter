@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
-use App\Tweet;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\CommentUpdateRequest;
+use App\Tweet;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\UnauthorizedException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -15,7 +16,7 @@ class CommentController extends Controller
 {
     /**
      * constructor that gets user id from jwtauth
-     * 
+     *
      * @return void
      */
 
@@ -29,20 +30,37 @@ class CommentController extends Controller
 
     /**
      * display a list of comments base on tweet
-     * 
+     *
      * @param Tweet $tweet
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function index(Tweet $tweet): JsonResponse
+    public function index(Tweet $tweet, Request $request): JsonResponse
     {
-        $comments = Comment::where('tweet_id', $tweet)->with('user')->paginate();
-        return response()->json($comments);
+        $cursor = $request->input('cursor');
+
+        $comments = DB::table('comments AS c')
+            ->select(['c.id', 'c.comment', 'c.user_id', 'username', 'name', 'profile_photo'])
+            ->join('users AS u', 'c.user_id', '=', 'u.id')
+            ->where('tweet_id', $tweet->id)
+            ->where(function ($query) use ($cursor) {
+                if ($cursor) {
+                    $query->where('c.id', '<=', cursor);
+                }
+            })
+            ->orderBy('c.id', 'desc')
+            ->limit(11)
+            ->get();
+
+        $cursor = count($comments) > 10 ? $comments[10]->id : null;
+        $comments = $comments->slice(0, 10);
+        return response()->json(compact('comments', 'cursor'));
     }
 
     /**
      * store a new comment for tweet
-     * 
+     *
      * @param CommentRequest $request
      * @param Tweet $tweet
      * @return JsonResponse
@@ -54,14 +72,14 @@ class CommentController extends Controller
         $comment = Comment::create([
             'user_id' => $this->user,
             'comment' => $request->input('comment'),
-            'tweet_id' => $tweet->id
+            'tweet_id' => $tweet->id,
         ]);
         return response()->json($comment);
     }
 
     /**
      * deletes a comment owned by a user
-     * 
+     *
      * @param Comment $comment
      * @return JsonResponse
      */
@@ -76,7 +94,7 @@ class CommentController extends Controller
 
     /**
      * updates a comment
-     * 
+     *
      * @param Request $request
      * @param Comment $comment
      * @return JsonResponse
@@ -90,14 +108,14 @@ class CommentController extends Controller
             throw new UnauthorizedException('comment not owned by user or does not exist');
         }
         $comment->update([
-            'comment' => $request->input('comment')
+            'comment' => $request->input('comment'),
         ]);
         return response()->json($comment);
     }
 
     /**
-     * shows a particular comment 
-     * 
+     * shows a particular comment
+     *
      * @param int id
      * @return JsonResponse
      */

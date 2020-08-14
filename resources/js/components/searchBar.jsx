@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { searchRequest } from '../state/ducks/search/actions';
 import { useHistory, useLocation } from 'react-router-dom';
 
-const SearchBar = () => {
+const SearchBar = ({ type }) => {
   const location = useLocation();
   const history = useHistory();
   useEffect(() => {
@@ -28,7 +28,7 @@ const SearchBar = () => {
     }
   };
   return (
-    <div className="search">
+    <div className={`search search__${type}`}>
       <FontAwesomeIcon className="search__icon" icon={faSearch} />
       <input
         type="text"
@@ -58,7 +58,7 @@ const SearchBar = () => {
                     {user.name}
                     {isFollower(user)}
                   </div>
-                  <div className="search__username">@{user.name}</div>
+                  <div className="search__username">@{user.username}</div>
                 </div>
               </div>
             );

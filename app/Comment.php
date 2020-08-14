@@ -10,7 +10,7 @@ class Comment extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    protected $hidden = ['created_at', 'user_id', 'tweet_id'];
+    protected $hidden = ['created_at'];
 
     public function user()
     {

@@ -13,12 +13,12 @@ class CommentSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        foreach (range(1, 3000) as $index) {
+        foreach (range(1, 9000) as $index) {
             DB::table('comments')->insert([
                 'user_id' => $faker->numberBetween(1, 100),
                 'tweet_id' => $faker->numberBetween(1, 1000),
                 'comment' => $faker->text(100),
-                'updated_at' => $faker->iso8601()
+                'updated_at' => $faker->iso8601(),
             ]);
         }
     }

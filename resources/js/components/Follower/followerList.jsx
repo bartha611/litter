@@ -32,7 +32,7 @@ const FollowerList = () => {
                     {follower.followed_user.name}
                   </div>
                   <div className="follower__username text-muted">
-                    @{follower.followed_user.name}
+                    @{follower.followed_user.username}
                   </div>
                 </div>
                 <div>{user && <FollowButton follower={follower} />}</div>

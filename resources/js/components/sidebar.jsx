@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouseUser } from '@fortawesome/free-solid-svg-icons';
+import { faHouseUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import {
   faBell,
   faEnvelope,
@@ -13,7 +13,7 @@ const Sidebar = () => {
   const history = useHistory();
   const { user } = useSelector(state => state.auth);
   return (
-    <div className="sidebar position-fixed">
+    <div className="sidebar">
       <ul className="sidebar__nav">
         <li className="sidebar__item">
           <button
@@ -22,6 +22,15 @@ const Sidebar = () => {
           >
             <FontAwesomeIcon icon={faHouseUser} />
             <span className="sidebar__title">Home</span>
+          </button>
+        </li>
+        <li className="sidebar__item">
+          <button
+            className="sidebar__button"
+            onClick={() => history.push('/search')}
+          >
+            <FontAwesomeIcon icon={faSearch} />
+            <span className="sidebar__title">Search</span>
           </button>
         </li>
         <li className="sidebar__item">

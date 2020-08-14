@@ -54,12 +54,14 @@ class FollowerController extends Controller
     {
         $cursor = $request->input('cursor');
         $id = $this->user;
-        $user = DB::table('users')->select(['id', 'name', 'profile_photo', 'biography'])
+        $user = DB::table('users')->select(['id', 'name', 'username', 'profile_photo', 'biography'])
             ->where('name', '=', $follower)
             ->first();
+
         if (!$user) {
             return response()->json(['error' => 'user does not exist'], 500);
         }
+
         $userFollowers = Follower::where('user_id', $this->user)->pluck('follower_id')->toArray();
         $followers = Follower::select(['id', 'follower_id'])
             ->where('user_id', '=', $user->id)

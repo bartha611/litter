@@ -15,6 +15,10 @@ const Login = lazy(() =>
   import(/* webpackChunkName: "Login" */ '../views/Login')
 );
 
+const Signup = lazy(() =>
+  import(/* webpackChunkName: "Signup" */ './auth/Signup')
+);
+
 const Home = lazy(() =>
   import(/* webpackChunkName: "HomePage" */ '../views/Home')
 );
@@ -25,6 +29,10 @@ const Profile = lazy(() =>
 
 const Follower = lazy(() =>
   import(/* webpackChunkName: "Follower" */ '../views/Follower')
+);
+
+const Search = lazy(() =>
+  import(/* webpackChunkName: 'Serach' */ '../views/Search')
 );
 
 function waitComponent(Component) {
@@ -45,6 +53,14 @@ const Index = () => {
               <Route exact path="/login">
                 {waitComponent(Login)}
               </Route>
+              <Route exact path="/signup">
+                {waitComponent(Signup)}
+              </Route>
+              <PrivateRoute
+                exact
+                path="/search"
+                component={waitComponent(Search)}
+              />
               <Route>
                 <Container>
                   <Row>
@@ -69,8 +85,8 @@ const Index = () => {
                         />
                       </Switch>
                     </Col>
-                    <Col xs="0" md="4" lg="4">
-                      <SearchBar />
+                    <Col xs="0" md="4" lg="3">
+                      <SearchBar type="sidebar" />
                     </Col>
                   </Row>
                 </Container>

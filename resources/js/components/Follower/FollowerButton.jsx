@@ -10,7 +10,7 @@ const FollowButton = ({ follower }) => {
       dispatch(followerRequest(`/api/follower/${follower.id}`, 'DELETE'));
     } else {
       dispatch(
-        followerRequest('/api/follower', 'POST', {
+        followerRequest('/api/follower', 'POST', 'POST', {
           follower_id: follower.follower_id
         })
       );

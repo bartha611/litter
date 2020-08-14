@@ -6,3 +6,4 @@ export const AUTH_UPDATE = 'AUTH_UPDATE';
 export const AUTH_DELETE = 'AUTH_DELETE';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const AUTH_ERROR = 'AUTH_ERROR';
+export const AUTH_RESET = 'AUTH_RESET';

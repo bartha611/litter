@@ -17,7 +17,7 @@ const About = () => {
       {user && (
         <div className="about__info">
           <div className="about__name text-bold">{user.name}</div>
-          <div className="about__username text-muted">@{user.name}</div>
+          <div className="about__username text-muted">@{user.username}</div>
           <div className="about__joinedDate text-muted">
             <FontAwesomeIcon icon={faCalendar} />
             {formatDate(user.created_at)}
