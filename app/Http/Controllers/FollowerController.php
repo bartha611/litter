@@ -55,7 +55,7 @@ class FollowerController extends Controller
         $cursor = $request->input('cursor');
         $id = $this->user;
         $user = DB::table('users')->select(['id', 'name', 'username', 'profile_photo', 'biography'])
-            ->where('name', '=', $follower)
+            ->where('username', '=', $follower)
             ->first();
 
         if (!$user) {

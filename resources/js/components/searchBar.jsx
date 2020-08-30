@@ -8,12 +8,15 @@ import { useHistory, useLocation } from 'react-router-dom';
 const SearchBar = ({ type }) => {
   const location = useLocation();
   const history = useHistory();
+
   useEffect(() => {
     setSearch('');
   }, [location]);
+
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
   const { users } = useSelector(state => state.search);
+
   const submit = event => {
     setSearch(event.target.value);
     if (event.target.value.length > 0) {
@@ -44,7 +47,7 @@ const SearchBar = ({ type }) => {
               <div
                 className="search__item border-bottom-0"
                 key={user.id}
-                onClick={() => history.push(`/${user.name}`)}
+                onClick={() => history.push(`/${user.username}`)}
               >
                 <div className="search__photo">
                   <img

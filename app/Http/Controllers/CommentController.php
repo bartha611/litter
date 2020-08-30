@@ -40,13 +40,20 @@ class CommentController extends Controller
     {
         $cursor = $request->input('cursor');
 
+        $tweets = DB::table('tweets AS t')
+            ->select(['t.id', 't.tweet', 't.updated_at', 'u.username', 'u.name', 'u.profile_photo'])
+            ->join('users AS u', 't.user_id', '=', 'u.id')
+            ->where('t.id', $tweet->id)
+            ->first();
+
         $comments = DB::table('comments AS c')
-            ->select(['c.id', 'c.comment', 'c.user_id', 'username', 'name', 'profile_photo'])
+            ->select(['c.id', 'c.comment', 'c.user_id', 'c.updated_at',
+                'username', 'name', 'profile_photo'])
             ->join('users AS u', 'c.user_id', '=', 'u.id')
             ->where('tweet_id', $tweet->id)
             ->where(function ($query) use ($cursor) {
                 if ($cursor) {
-                    $query->where('c.id', '<=', cursor);
+                    $query->where('c.id', '<=', $cursor);
                 }
             })
             ->orderBy('c.id', 'desc')
@@ -55,7 +62,7 @@ class CommentController extends Controller
 
         $cursor = count($comments) > 10 ? $comments[10]->id : null;
         $comments = $comments->slice(0, 10);
-        return response()->json(compact('comments', 'cursor'));
+        return response()->json(compact('comments', 'cursor', 'tweets'));
     }
 
     /**

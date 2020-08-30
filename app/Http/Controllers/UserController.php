@@ -51,10 +51,13 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $user_id = JWTAuth::parseToken()->toUser()->id;
+
         $user_followers = DB::table('followers')->where('user_id', '=', $user_id)
             ->pluck('follower_id')
             ->toArray();
+
         $search = $request->query('search');
+
         if ($search) {
             $users = DB::table('users')
                 ->select(['users.id', 'name', 'email', 'profile_photo', 'username',

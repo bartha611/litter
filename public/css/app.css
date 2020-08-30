@@ -10939,33 +10939,46 @@ ul {
   height: 100%;
 }
 
-.tweet {
+.tweet,
+.comment {
   padding: 10px 5px;
   width: 100%;
   display: flex;
   position: relative;
-}
-
-.tweet__author {
-  font-weight: 500;
   cursor: pointer;
 }
 
-.tweet__author:hover {
-  text-decoration: underline;
+.tweet:hover,
+.comment:hover {
+  background: rgba(226, 226, 230, 0.2);
 }
 
-.tweet__image {
+.tweet__author,
+.comment__author {
+  font-weight: 500;
+  color: black;
+  cursor: pointer;
+}
+
+.tweet__author:hover,
+.comment__author:hover {
+  color: black;
+}
+
+.tweet__image,
+.comment__image {
   padding: 5px;
 }
 
-.tweet__photo {
+.tweet__photo,
+.comment__photo {
   width: 40px;
   height: 40px;
   border-radius: 100%;
 }
 
-.tweet__body {
+.tweet__body,
+.comment__body {
   padding: 10px;
   font-size: 18px;
   width: calc(100% - 45px);
@@ -10976,6 +10989,44 @@ ul {
 
 .col-12 {
   padding: 0;
+}
+
+.option {
+  border-radius: 100%;
+  width: 70px;
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+}
+
+.option__image {
+  position: relative;
+  border-radius: 100%;
+  width: 50%;
+  height: 100%;
+}
+
+.option__count {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  padding-top: 4px;
+  box-sizing: border-box;
+}
+
+.option__icon {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+}
+
+.option__comment:hover {
+  background: rgba(0, 255, 255, 0.1);
+}
+
+.option__like:hover {
+  background: rgba(255, 0, 0, 0.1);
 }
 
 .button {
@@ -11168,6 +11219,28 @@ ul {
 
 .col-md-4 {
   width: 25%;
+}
+
+.border__header {
+  border-style: solid;
+  border-width: 1px 1px 10px 1px;
+  border-color: #dee2e6;
+}
+
+.link {
+  color: black;
+}
+
+.link:hover {
+  color: black;
+}
+
+.link--underline:hover {
+  text-decoration: underline;
+}
+
+.link--noUnderline:hover {
+  text-decoration: none;
 }
 
 .sidebar__nav {

@@ -1,0 +1,19 @@
+.link {
+  color: black;
+
+  &:hover {
+    color: black;
+  }
+
+  &--underline {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &--noUnderline {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

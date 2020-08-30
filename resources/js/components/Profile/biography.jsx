@@ -24,7 +24,7 @@ const About = () => {
           </div>
           <div className="about__following">
             <div
-              onClick={() => history.push(`${user.name}/following`)}
+              onClick={() => history.push(`${user.username}/following`)}
               className="about__following"
             >
               <b>{user.followers_count} </b>

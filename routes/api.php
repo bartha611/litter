@@ -27,6 +27,7 @@ Route::get('/user', 'UserController@index');
 Route::middleware(['api', 'jwt.verify'])->group(function () {
     Route::get('/tweet', 'TweetController@news');
     Route::resource('photo', 'PhotoController');
+    Route::resource('tweet.likes', 'LikesController', ['only' => ['store', 'destroy', 'index', 'show']]);
     Route::resource('tweet', 'TweetController', ['except' => ['index']]);
     Route::resource('follower', 'FollowerController', ['only' => ['store', 'destroy', 'index', 'show']]);
     Route::resource('tweet.comment', 'CommentController', ['except' => ['edit', 'create']])->shallow();

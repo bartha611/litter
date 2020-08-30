@@ -38,19 +38,32 @@ class TweetController extends Controller
     public function news(Request $request)
     {
         $cursor = $request->input('cursor');
+
         $followers = Follower::select(['follower_id'])
             ->where('user_id', $this->user_id)
             ->pluck('follower_id')->toArray();
 
-        $tweets = Tweet::select(['id', 'tweet', 'user_id', 'updated_at'])
-            ->whereIn('user_id', array_merge($followers, [$this->user_id]))
-            ->with('user:id,name,profile_photo,username')
-            ->orderBy('id', 'desc')
+        $liked_tweets = DB::table('likes')
+            ->select('tweet_id')
+            ->where('user_id', $this->user_id)
+            ->pluck('tweet_id')->toArray();
+
+        $tweets = DB::table('tweets AS t')
+            ->select(['t.id', 't.tweet', 't.updated_at', 'u.profile_photo', 'u.name', 'u.username',
+                DB::raw('COUNT(DISTINCT c.id) AS comment_count'),
+                DB::raw('COUNT(DISTINCT l.id) AS likes_count'),
+                DB::raw('CASE WHEN t.id IN (' . implode(',', $liked_tweets) . ') THEN 1 ELSE 0 END AS liked_tweet')])
+            ->join('users AS u', 'u.id', '=', 't.user_id')
+            ->leftJoin('comments AS c', 'c.tweet_id', '=', 't.id')
+            ->leftJoin('likes AS l', 't.id', '=', 'l.tweet_id')
+            ->wherein('t.user_id', array_merge($followers, [$this->user_id]))
             ->where(function ($query) use ($cursor) {
                 if ($cursor) {
-                    $query->where('id', '<=', $cursor);
+                    $query->where('t.id', '<=', $cursor);
                 }
             })
+            ->groupBy(['t.id', 't.tweet', 't.updated_at', 'u.id', 'u.name', 'u.username'])
+            ->orderBy('t.id', 'desc')
             ->limit(11)
             ->get();
 
@@ -75,11 +88,11 @@ class TweetController extends Controller
 
         $user = DB::table('users AS u')
             ->select(['u.id AS id', 'u.name AS name', 'u.profile_photo AS profile_photo',
-                'u.username AS username',
+                'u.username AS username', 'u.created_at',
                 DB::raw('COUNT(DISTINCT f.id) AS followers_count'),
                 DB::raw('COUNT(DISTINCT t.id) AS tweets_count'),
             ])
-            ->where('name', $name)
+            ->where('username', $name)
             ->leftJoin('followers AS f', 'f.user_id', '=', 'u.id')
             ->leftJoin('tweets AS t', 't.user_id', '=', 'u.id')
             ->groupBy(['u.id', 'u.name', 'u.profile_photo'])
@@ -89,21 +102,29 @@ class TweetController extends Controller
             abort(404, 'Not found');
         }
 
-        $tweets = DB::table('tweets')
-            ->select(['id', 'tweet', 'user_id', 'updated_at'])
+        $liked_tweets = DB::table('likes AS l')
             ->where('user_id', $user->id)
-            ->orderBy('id', 'desc')
+            ->pluck('l.tweet_id')->toArray();
+
+        $tweets = DB::table('tweets AS t')
+            ->select(['t.id', 't.tweet', 't.updated_at', 'u.username', 'u.name', 'u.profile_photo',
+                DB::raw('COUNT(DISTINCT c.id) AS comment_count'),
+                DB::raw('COUNT(DISTINCT l.id) AS likes_count'),
+                DB::raw('CASE WHEN t.id IN (' . implode(',', $liked_tweets) . ') THEN 1 ELSE 0 END AS liked_tweet')])
+            ->join('users AS u', 'u.id', '=', 't.user_id')
+            ->leftJoin('likes AS l', 'l.tweet_id', '=', 't.id')
+            ->leftJoin('comments AS c', 'c.tweet_id', '=', 't.id')
+            ->where('t.user_id', $user->id)
+            ->orderBy('t.id', 'desc')
             ->where(function ($query) use ($cursor) {
                 if ($cursor) {
-                    $query->where('id', '<=', $cursor);
+                    $query->where('t.id', '<=', $cursor);
                 }
             })
+            ->groupBy(['t.id', 't.tweet', 't.updated_at', 'u.username', 'u.name', 'u.profile_photo'])
             ->limit(11)
             ->get();
 
-        foreach ($tweets as $tweet) {
-            $tweet->user = $user;
-        }
         $cursor = count($tweets) > 10 ? $tweets[10]->id : null;
         $tweets = $tweets->slice(0, 10);
         return response()->json(compact('user', 'tweets', 'cursor'));
@@ -122,7 +143,7 @@ class TweetController extends Controller
         $data = $request->all();
         $data['user_id'] = $this->user_id;
         $tweet = Tweet::create($data);
-        return response()->json($tweet->load('user:id,name,profile_photo'));
+        return response()->json($tweet->load('user:id,name,username,profile_photo'));
     }
 
     /**

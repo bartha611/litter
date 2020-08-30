@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { followerRequest } from '../../state/ducks/followers/actions';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import FollowButton from './FollowerButton';
 
 const FollowerList = () => {
-  const dispatch = useDispatch();
   const { followers, user } = useSelector(state => state.followers);
-  const submit = id => {
-    dispatch(followerRequest(`/api/follower/${id}`, 'DELETE'));
-  };
   return (
     <div>
       {followers.map(follower => {

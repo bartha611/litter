@@ -32,7 +32,11 @@ const Follower = lazy(() =>
 );
 
 const Search = lazy(() =>
-  import(/* webpackChunkName: 'Serach' */ '../views/Search')
+  import(/* webpackChunkName: 'Search' */ '../views/Search')
+);
+
+const Comment = lazy(() =>
+  import(/* webpackChunkName: 'Comment' */ '../views/Comment')
 );
 
 function waitComponent(Component) {
@@ -82,6 +86,10 @@ const Index = () => {
                         <PrivateRoute
                           path="/:name/following"
                           component={waitComponent(Follower)}
+                        />
+                        <PrivateRoute
+                          path="/:name/status/:tweet"
+                          component={waitComponent(Comment)}
                         />
                       </Switch>
                     </Col>
