@@ -17,6 +17,7 @@ class CreateFollowersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('follower_id')->references('id')->on('users');
+            $table->unique(['user_id', 'follower_id']);
             $table->timestamps();
         });
     }

@@ -3,17 +3,17 @@
     "/css/app.css": "/css/app.css",
     "/About.js": "/About.js",
     "/Comment.js": "/Comment.js",
+    "/CommentHeader.js": "/CommentHeader.js",
     "/CommentList.js": "/CommentList.js",
     "/FollowList.js": "/FollowList.js",
     "/Follower.js": "/Follower.js",
     "/HomePage.js": "/HomePage.js",
     "/Login.js": "/Login.js",
+    "/Options.js": "/Options.js",
     "/Profile.js": "/Profile.js",
     "/Profile_background.js": "/Profile_background.js",
     "/Search.js": "/Search.js",
     "/Signup.js": "/Signup.js",
     "/tweetButton.js": "/tweetButton.js",
-    "/tweetList.js": "/tweetList.js",
-    "/CommentHeader.js": "/CommentHeader.js",
-    "/Options.js": "/Options.js"
+    "/tweetList.js": "/tweetList.js"
 }

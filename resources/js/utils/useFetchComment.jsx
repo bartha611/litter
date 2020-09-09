@@ -17,7 +17,7 @@ export const useFetchComments = (path, name = null) => {
       )
         return;
       dispatch(
-        requestComment(`${url}?cursor=${comment.cursor}`, 'GET', 'PAGINATE')
+        requestComment(`${url}?cursor=${comment.cursor}`, 'PAGINATE', 'GET')
       );
     };
     window.addEventListener('scroll', handleScroll);

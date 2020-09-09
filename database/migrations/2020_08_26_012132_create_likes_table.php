@@ -17,6 +17,7 @@ class CreateLikesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('tweet_id')->constrained();
+            $table->unique(['user_id', 'tweet_id']);
             $table->timestamps();
         });
     }

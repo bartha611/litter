@@ -33,8 +33,8 @@
     "jest-cli": "^26.0.1",
     "jquery": "^3.2",
     "jsonwebtoken": "^8.5.1",
-    "laravel-mix": "^5.0.1",
-    "lodash": "^4.17.13",
+    "laravel-mix": "^5.0.5",
+    "lodash": "^4.17.20",
     "popper.js": "^1.12",
     "prop-types": "^15.7.2",
     "react": "^16.2.0",
@@ -50,5 +50,8 @@
     "sass": "^1.15.2",
     "sass-loader": "^8.0.0",
     "vue-template-compiler": "^2.6.11"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0"
   }
 }

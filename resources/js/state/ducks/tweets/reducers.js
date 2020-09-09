@@ -58,6 +58,18 @@ export default function(state = initialState, action) {
         error: false
       };
     }
+    case types.TWEET_INCREMENT_COMMENT_COUNT: {
+      return {
+        ...state,
+        tweets: state.tweets.map(tweet =>
+          tweet.id === String(action.payload)
+            ? Object.assign({}, tweet, {
+                comment_count: String(Number(tweet.comment_count) + 1)
+              })
+            : tweet
+        )
+      };
+    }
     case types.TWEET_ERROR: {
       return { ...state, error: true, loading: false };
     }

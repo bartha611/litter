@@ -58,3 +58,10 @@ export const tweetPaginate = tweets => {
     payload: tweets
   };
 };
+
+export const tweetIncrementCommentCount = id => {
+  return {
+    type: types.TWEET_INCREMENT_COMMENT_COUNT,
+    payload: id
+  };
+};

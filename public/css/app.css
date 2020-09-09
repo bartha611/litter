@@ -10940,37 +10940,66 @@ ul {
 }
 
 .tweet,
+.tweetModal,
 .comment {
   padding: 10px 5px;
   width: 100%;
   display: flex;
   position: relative;
+}
+
+.tweet--disabled,
+.tweetModal--disabled,
+.comment--disabled {
+  cursor: auto;
+}
+
+.tweet--disabled:hover,
+.tweetModal--disabled:hover,
+.comment--disabled:hover {
+  background: none;
+}
+
+.tweet--enabled,
+.tweetModal--enabled,
+.comment--enabled {
   cursor: pointer;
 }
 
-.tweet:hover,
-.comment:hover {
+.tweet--enabled:hover,
+.tweetModal--enabled:hover,
+.comment--enabled:hover {
   background: rgba(226, 226, 230, 0.2);
 }
 
 .tweet__author,
+.tweetModal__author,
 .comment__author {
   font-weight: 500;
   color: black;
   cursor: pointer;
 }
 
+.tweet__author--disabled,
+.tweetModal__author--disabled,
+.comment__author--disabled {
+  pointer-events: none;
+}
+
 .tweet__author:hover,
+.tweetModal__author:hover,
 .comment__author:hover {
   color: black;
 }
 
 .tweet__image,
+.tweetModal__image,
 .comment__image {
   padding: 5px;
 }
 
 .tweet__photo,
+.tweetModal__photo,
 .comment__photo {
   width: 40px;
   height: 40px;
@@ -10978,6 +11007,7 @@ ul {
 }
 
 .tweet__body,
+.tweetModal__body,
 .comment__body {
   padding: 10px;
   font-size: 18px;

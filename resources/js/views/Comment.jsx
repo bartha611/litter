@@ -25,9 +25,7 @@ const Comment = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(
-      actions.requestComment(`api/tweet/${tweet}/comment`, 'READ', 'GET')
-    );
+    dispatch(actions.requestComment(`api/tweet/${tweet}/reply`, 'READ', 'GET'));
   }, []);
 
   useFetchComments(`/api/tweet/${tweet}/comment`);

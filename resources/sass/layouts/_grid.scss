@@ -1,19 +1,33 @@
 .tweet,
+.tweetModal,
 .comment {
   padding: 10px 5px;
   width: 100%;
   display: flex;
   position: relative;
-  cursor: pointer;
 
-  &:hover {
-    background: rgba(226, 226, 230, 0.2);
+  &--disabled {
+    cursor: auto;
+    &:hover {
+      background: none;
+    }
+  }
+
+  &--enabled {
+    cursor: pointer;
+    &:hover {
+      background: rgba(226, 226, 230, 0.2);
+    }
   }
 
   &__author {
     font-weight: 500;
     color: black;
     cursor: pointer;
+
+    &--disabled {
+      pointer-events: none;
+    }
 
     &:hover {
       color: black;

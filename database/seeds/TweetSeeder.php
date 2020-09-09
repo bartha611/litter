@@ -13,7 +13,7 @@ class TweetSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        foreach (range(1, 1000) as $index) {
+        foreach (range(1, 10000) as $index) {
             DB::table('tweets')->insert([
                 'user_id' => $faker->numberBetween(1, 100),
                 'tweet' => $faker->text(),

@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { tweetRequest } from '../../state/ducks/tweets';
+import { requestComment } from '../../state/ducks/comments';
 
-const TweetButton = () => {
+const TweetButton = ({ tweetId = null }) => {
   const [tweet, setTweet] = useState('');
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth.user);
   const submit = () => {
-    dispatch(tweetRequest('/api/tweet', 'POST', 'POST', { tweet }));
+    if (tweetId) {
+      dispatch(
+        requestComment(`/api/tweet/${tweetId}/comment`, 'POST', 'POST', {
+          comment: tweet
+        })
+      );
+    } else {
+      dispatch(tweetRequest('/api/tweet', 'POST', 'POST', { tweet }));
+    }
   };
 
   return (
@@ -37,6 +47,10 @@ const TweetButton = () => {
       </div>
     </div>
   );
+};
+
+TweetButton.propTypes = {
+  tweetId: PropTypes.string
 };
 
 export default TweetButton;
