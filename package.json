@@ -52,6 +52,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.4.0"
+    "@reduxjs/toolkit": "^1.4.0",
+    "redux-thunk": "^2.3.0"
   }
 }

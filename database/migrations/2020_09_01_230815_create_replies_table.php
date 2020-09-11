@@ -17,8 +17,8 @@ class CreateRepliesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('reply_tweet_id')->index();
             $table->foreignId('tweet_id')->constrained()->onDelete('cascade')->index();
-            $table->foreign('reply_tweet_id')->references('id')->on('tweets')->onDelete('cascade');
-            $table->unique(['reply_tweet_id', 'tweet_id']);
+            $table->foreign('reply_tweet_id')->references('id')->on('tweets')->onDelete('cascade')->index();
+            $table->unique('reply_tweet_id');
         });
     }
 

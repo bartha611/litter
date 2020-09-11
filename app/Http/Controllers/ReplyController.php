@@ -41,22 +41,26 @@ class ReplyController extends Controller
             ->select(['tweet_id', DB::raw('COUNT(*) AS comments_count')])
             ->groupBy('tweet_id');
 
-        $likes_tweets = DB::table('likes')
-            ->where('user_id', $this->user_id)
-            ->pluck('tweet_id')
-            ->toArray();
+        $likesTweets = DB::table('likes')
+            ->select(['tweet_id'])
+            ->where('user_id', $this->user_id);
+
 
         if (!$cursor) {
 
             $parent_tweets = DB::table('tweets AS t')
                 ->select([
-                    't.id', 't.tweet', 't.updated_at', 'u.username', 'u.name',
-                    'u.profile_photo', 'lt.likes_count', 'rt.comments_count',
-                    DB::raw('CASE WHEN t.id IN (' . implode(',', $likes_tweets) . ') THEN 1 ELSE 0 END AS liked_tweet')
+                    't.id', 't.tweet', 't.updated_at', 'u.username', 'u.name', 'u.profile_photo',
+                    DB::raw('IFNULL(lt.likes_count,0) AS likes_count'),
+                    DB::raw('IFNULL(rt.comments_count,0) AS comments_count'),
+                    DB::raw('CASE WHEN lt2.tweet_id IS NULL THEN 0 ELSE 1 END AS liked_tweet')
                 ])
                 ->join('users AS u', 'u.id', '=', 't.user_id')
                 ->leftJoin(DB::raw('(' . $likesTempTable->toSql() . ') AS lt'), 'lt.tweet_id', '=', 't.id')
                 ->leftJoin(DB::raw('(' . $repliesTempTable->toSql() . ') AS rt'), 'rt.tweet_id', '=', 't.id')
+                ->leftJoinSub($likesTweets, 'lt2', function ($join) {
+                    $join->on('t.id', '=', 'lt2.tweet_id');
+                })
                 ->whereIn('t.id', function ($query) use ($tweet) {
                     $query->select('tweet_id')
                         ->from('replies')
@@ -70,11 +74,16 @@ class ReplyController extends Controller
         $reply_tweets = DB::table('tweets AS t')
             ->select([
                 't.id', 't.tweet', 't.updated_at', 'u.name', 'u.username', 'u.profile_photo',
-                'lt.likes_count', 'rt.comments_count'
+                DB::raw('IFNULL(lt.likes_count,0) AS likes_count'),
+                DB::raw('IFNULL(rt.comments_count,0) AS comments_count'),
+                DB::raw('CASE WHEN lt2.tweet_id IS NULL THEN 0 ELSE 1 END likes_tweet')
             ])
             ->join('users AS u', 'u.id', '=', 't.user_id')
             ->leftJoin(DB::raw('(' . $likesTempTable->toSql() . ') AS lt'), 'lt.tweet_id', '=', 't.id')
             ->leftJoin(DB::raw('(' . $repliesTempTable->toSql() . ') AS rt'), 'rt.tweet_id', '=', 't.id')
+            ->leftJoinSub($likesTweets, 'lt2', function ($join) {
+                $join->on('t.id', '=', 'lt2.tweet_id');
+            })
             ->whereIn('t.id', function ($query) use ($tweet) {
                 $query->select('reply_tweet_id')
                     ->from('replies')
@@ -95,24 +104,21 @@ class ReplyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param Tweet $tweet
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Tweet $tweet, Request $request)
     {
-        //
+        $reply_tweet_id = $request->input('reply_tweet_id');
+        DB::table('replies')->insert([
+            'tweet_id' => $tweet->id,
+            'reply_tweet_id' => $reply_tweet_id
+        ]);
+
+        return response()->json(compact('reply'));
     }
 
     /**
@@ -122,17 +128,6 @@ class ReplyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Reply $reply)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Reply  $reply
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reply $reply)
     {
         //
     }

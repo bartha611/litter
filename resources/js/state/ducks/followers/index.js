@@ -1,18 +1,6 @@
-import followerSaga from './sagas';
-import {
-  followerCreate,
-  followerDelete,
-  followerError,
-  followerLoad
-} from './actions';
-import reducer from './reducers';
+import reducer from './followerSlice';
+import { fetchFollowers } from './followerThunk';
 
-export {
-  followerCreate,
-  followerDelete,
-  followerError,
-  followerLoad,
-  followerSaga
-};
+export { fetchFollowers };
 
 export default reducer;

@@ -52,6 +52,10 @@ class UserController extends Controller
     {
         $user_id = JWTAuth::parseToken()->toUser()->id;
 
+        $followersTempTable = DB::table('followers')
+            ->select(['user_id', DB::raw('COUNT(*) AS followers_count')])
+            ->groupBy('user_id');
+
         $user_followers = DB::table('followers')->where('user_id', '=', $user_id)
             ->pluck('follower_id')
             ->toArray();
@@ -59,14 +63,16 @@ class UserController extends Controller
         $search = $request->query('search');
 
         if ($search) {
-            $users = DB::table('users')
-                ->select(['users.id', 'name', 'email', 'profile_photo', 'username',
-                    DB::raw('COUNT(f.follower_id) AS total_followers'),
+            $users = DB::table('users AS u')
+                ->select([
+                    'u.id', 'name', ' profile_photo', 'username',
+                    DB::raw('IFNULL(followers_count,0) AS followers_count'),
                     DB::raw('CASE WHEN users.id IN (' . implode(',', $user_followers) . ') THEN 1 ELSE 0 END AS follower_user'),
                 ])
+                ->leftJoinSub($followersTempTable, 'f', function ($join) {
+                    $join->on('f.user_id', '=', 'u.id');
+                })
                 ->where('name', 'like', $search . '%')
-                ->leftJoin('followers AS f', 'users.id', '=', 'f.follower_id')
-                ->groupBy('users.id', 'name', 'email', 'profile_photo')
                 ->orderBy('total_followers', 'desc')
                 ->limit(10)
                 ->get();
@@ -88,5 +94,4 @@ class UserController extends Controller
         $user = User::where('name', '=', $username)->with('tweets')->get();
         return response()->json($user);
     }
-
 }

@@ -16,29 +16,19 @@ class ReplySeeder extends Seeder
         $count = 0;
         do {
             $tweet_id = $faker->numberBetween(1, 10000);
-            $reply_tweet_id = $faker->numberBetween(1, 10000);
-            $result = DB::table('replies')
+            $reply_tweet_id = $faker->numberBetween($tweet_id, 10000);
+            $reply = DB::table('replies')
                 ->where('reply_tweet_id', $reply_tweet_id)
-                ->where('tweet_id', $tweet_id)
                 ->first();
-            if (!$result) {
-                DB::table('replies')->insert([
-                    'tweet_id' => $tweet_id,
-                    'reply_tweet_id' => $reply_tweet_id
-                ]);
-                $count += 1;
-                $replies = DB::table('replies')
-                    ->where('reply_tweet_id', $tweet_id)
-                    ->pluck('tweet_id')
-                    ->toArray();
-                foreach ($replies as $reply) {
-                    DB::table('replies')->insert([
-                        'tweet_id' => $reply,
+
+            if (!$reply) {
+                DB::table('replies')
+                    ->insert([
+                        'tweet_id' => $tweet_id,
                         'reply_tweet_id' => $reply_tweet_id
                     ]);
-                    $count += 1;
-                }
+                $count += 1;
             }
-        } while ($count < 8500);
+        } while ($count < 9000);
     }
 }
