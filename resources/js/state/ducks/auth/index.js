@@ -1,14 +1,5 @@
-import reducer from './reducers';
-import {
-  authError,
-  authLoad,
-  authLogin,
-  authLogout,
-  authRequest
-} from './actions';
+import reducer, { resetAuth } from './authSlice';
+import { fetchAuth } from './authThunk';
 
-import authSaga from './sagas';
-
-export { authSaga, authError, authLoad, authLogin, authLogout, authRequest };
-
+export { fetchAuth, resetAuth };
 export default reducer;

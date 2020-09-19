@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { tweetRequest } from '../state/ducks/tweets/actions';
+import { fetchTweets } from '../state/ducks/tweets';
 
 export const useFetchTweets = (path, name = null) => {
   const tweet = useSelector(state => state.tweets);
@@ -16,9 +16,7 @@ export const useFetchTweets = (path, name = null) => {
         tweet.loading
       )
         return;
-      dispatch(
-        tweetRequest(`${url}?cursor=${tweet.cursor}`, 'GET', 'PAGINATE')
-      );
+      dispatch(fetchTweets(`${url}?cursor=${tweet.cursor}`, 'GET', 'PAGINATE'));
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);

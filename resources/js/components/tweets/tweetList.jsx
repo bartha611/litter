@@ -8,23 +8,7 @@ const Options = lazy(() =>
 );
 
 export const TweetList = () => {
-  const history = useHistory();
   const { tweets } = useSelector(state => state.tweets);
-
-  const sanitizeDate = date => {
-    const newDate = new Date(date).toDateString();
-    return newDate
-      .split(' ')
-      .slice(1, 3)
-      .join(' ');
-  };
-
-  const toggle = (event, tweet) => {
-    if (typeof event.target.className !== 'object') {
-      history.push(`${tweet.username}/status/${tweet.id}`);
-    }
-  };
-
   return (
     <div>
       {tweets.map(tweet => {

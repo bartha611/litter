@@ -1,5 +1,5 @@
 import React, { useEffect, lazy } from 'react';
-import { followerRequest } from '../state/ducks/followers/actions';
+import { fetchFollowers } from '../state/ducks/followers';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Alert } from 'reactstrap';
@@ -16,7 +16,7 @@ const Follower = () => {
   const { name } = useParams();
   const { error } = useSelector(state => state.followers);
   useEffect(() => {
-    dispatch(followerRequest(`/api/follower/${name}`, 'GET', 'READ'));
+    dispatch(fetchFollowers(`/api/follower/${name}`, 'GET', 'READ'));
   }, []);
   useFetchFollowers('/api/follower', name);
   return (

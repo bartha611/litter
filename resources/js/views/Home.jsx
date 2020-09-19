@@ -1,5 +1,5 @@
 import React, { useEffect, lazy } from 'react';
-import { tweetRequest } from '../../js/state/ducks/tweets/actions';
+import { fetchTweets } from '../../js/state/ducks/tweets';
 import { useDispatch } from 'react-redux';
 
 const TweetButton = lazy(() =>
@@ -18,7 +18,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(tweetRequest('/api/tweet', 'GET', 'READ'));
+    dispatch(fetchTweets('/api/tweet', 'GET', 'READ'));
   }, []);
 
   useFetchTweets('/api/tweet', null);

@@ -4,10 +4,11 @@ const initialState = {
   loading: false,
   tweets: [],
   cursor: null,
-  error: false
+  error: false,
+  user: null
 };
 
-const commentSlice = createSlice({
+const tweetSlice = createSlice({
   name: 'tweets',
   initialState,
   reducers: {
@@ -15,13 +16,41 @@ const commentSlice = createSlice({
       state.loading = true;
       state.error = false;
     },
-    readTweets(state, action) {
+    readTweet(state, action) {
       state.loading = false;
-      state.tweets = action.payload;
+      state.tweets = action.payload.tweets;
+      state.cursor = action.payload.cursor;
+      state.user = action.payload.user;
     },
-    paginateTweets(state, action) {
+    paginateTweet(state, action) {
       state.loading = false;
       state.tweets = [...state.tweets, action.payload.tweets];
+      state.cursor = action.payload.cursor;
+    },
+    createTweet(state, action) {
+      state.loading = false;
+      state.tweets = [action.payload, ...state.tweets];
+    },
+    deleteTweet(state, action) {
+      state.loading = false;
+      state.tweets = state.tweets.filter(
+        tweet => tweet.id !== action.payload.id
+      );
+    },
+    errorTweet(state) {
+      state.loading = false;
+      state.error = true;
     }
   }
 });
+
+export const {
+  deleteTweet,
+  createTweet,
+  readTweet,
+  paginateTweet,
+  loadTweet,
+  errorTweet
+} = tweetSlice.actions;
+
+export default tweetSlice.reducer;

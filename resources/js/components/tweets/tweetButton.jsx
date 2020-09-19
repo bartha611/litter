@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { tweetRequest } from '../../state/ducks/tweets';
-import { requestComment } from '../../state/ducks/comments';
+import { fetchTweets } from '../../state/ducks/tweets';
+import { fetchReplies } from '../../state/ducks/replies';
 
 const TweetButton = ({ tweetId = null }) => {
   const [tweet, setTweet] = useState('');
@@ -11,12 +11,10 @@ const TweetButton = ({ tweetId = null }) => {
   const submit = () => {
     if (tweetId) {
       dispatch(
-        requestComment(`/api/tweet/${tweetId}/comment`, 'POST', 'POST', {
-          comment: tweet
-        })
+        fetchReplies(`/api/tweet/${tweetId}/reply`, 'POST', 'POST', { tweet })
       );
     } else {
-      dispatch(tweetRequest('/api/tweet', 'POST', 'POST', { tweet }));
+      dispatch(fetchTweets('/api/tweet', 'POST', 'POST', { tweet }));
     }
   };
 

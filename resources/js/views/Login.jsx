@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { authRequest, authReset } from '../state/ducks/auth/actions';
+import { fetchAuth, resetAuth } from '../state/ducks/auth/';
 import { useHistory } from 'react-router-dom';
 import {
   Alert,
@@ -22,7 +22,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(authReset());
+    dispatch(resetAuth());
   }, []);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const Login = () => {
 
   const submit = async () => {
     await dispatch(
-      authRequest('POST', '/api/user/login', 'LOGIN', history, {
+      fetchAuth('/api/user/login', 'LOGIN', history, {
         username,
         password
       })

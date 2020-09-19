@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { followerRequest } from '../state/ducks/followers/actions';
+import { fetchFollowers } from '../state/ducks/followers/';
 
 export const useFetchFollowers = (path, name = null) => {
   const followers = useSelector(state => state.followers);
@@ -16,7 +16,7 @@ export const useFetchFollowers = (path, name = null) => {
       )
         return;
       dispatch(
-        followerRequest(`${url}?cursor=${followers.cursor}`, 'GET', 'PAGINATE')
+        fetchFollowers(`${url}?cursor=${followers.cursor}`, 'GET', 'PAGINATE')
       );
     };
     window.addEventListener('scroll', handleScroll);

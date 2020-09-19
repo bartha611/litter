@@ -56,8 +56,12 @@ class ReplyController extends Controller
                     DB::raw('CASE WHEN lt2.tweet_id IS NULL THEN 0 ELSE 1 END AS liked_tweet')
                 ])
                 ->join('users AS u', 'u.id', '=', 't.user_id')
-                ->leftJoin(DB::raw('(' . $likesTempTable->toSql() . ') AS lt'), 'lt.tweet_id', '=', 't.id')
-                ->leftJoin(DB::raw('(' . $repliesTempTable->toSql() . ') AS rt'), 'rt.tweet_id', '=', 't.id')
+                ->leftJoinSub($likesTempTable, 'lt', function ($join) {
+                    $join->on('lt.tweet_id', '=', 't.id');
+                })
+                ->leftJoinSub($repliesTempTable, 'rt', function ($join) {
+                    $join->on('rt.tweet_id', '=', 't.id');
+                })
                 ->leftJoinSub($likesTweets, 'lt2', function ($join) {
                     $join->on('t.id', '=', 'lt2.tweet_id');
                 })
@@ -112,46 +116,22 @@ class ReplyController extends Controller
      */
     public function store(Tweet $tweet, Request $request)
     {
-        $reply_tweet_id = $request->input('reply_tweet_id');
-        DB::table('replies')->insert([
+        $data = $request->all();
+        $data['user_id'] = $this->user_id;
+        $comment = Tweet::create($data);
+        Reply::create([
             'tweet_id' => $tweet->id,
-            'reply_tweet_id' => $reply_tweet_id
+            'reply_tweet_id' => $comment->id
         ]);
+        $reply = DB::table('tweets AS t')
+            ->select(['t.id', 't.tweet', 't.updated_at', 'u.name', 'u.username', 'u.profile_photo'])
+            ->join('users AS u', 'u.id', '=', 't.user_id')
+            ->where('t.id', $comment->id)
+            ->first();
 
+        $reply->liked_comment = "0";
+        $reply->likes_count = "0";
+        $reply->comments_count = "0";
         return response()->json(compact('reply'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Reply  $reply
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Reply $reply)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Reply  $reply
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Reply $reply)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Reply  $reply
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Reply $reply)
-    {
-        //
     }
 }

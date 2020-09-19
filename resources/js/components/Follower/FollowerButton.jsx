@@ -1,16 +1,18 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { followerRequest } from '../../state/ducks/followers/actions';
+import { fetchFollowers } from '../../state/ducks/followers';
 
 const FollowButton = ({ follower }) => {
   const dispatch = useDispatch();
   const submit = follower => {
     if (follower.followed) {
-      dispatch(followerRequest(`/api/follower/${follower.id}`, 'DELETE'));
+      dispatch(
+        fetchFollowers(`/api/follower/${follower.id}`, 'DELETE', 'DELETE')
+      );
     } else {
       dispatch(
-        followerRequest('/api/follower', 'POST', 'POST', {
+        fetchFollowers('/api/follower', 'POST', 'POST', {
           follower_id: follower.follower_id
         })
       );

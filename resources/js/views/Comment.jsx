@@ -1,5 +1,5 @@
 import React, { useEffect, lazy } from 'react';
-import * as actions from '../state/ducks/comments';
+import { fetchReplies } from '../state/ducks/replies';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useFetchComments } from '../utils/useFetchComment';
@@ -25,7 +25,7 @@ const Comment = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(actions.requestComment(`api/tweet/${tweet}/reply`, 'READ', 'GET'));
+    dispatch(fetchReplies(`/api/tweet/${tweet}/reply`, 'GET', 'READ'));
   }, []);
 
   useFetchComments(`/api/tweet/${tweet}/comment`);

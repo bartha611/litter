@@ -2,15 +2,16 @@ import * as actions from './authSlice';
 import api from '../../utils/api';
 
 export const fetchAuth = (
-  payload = null,
+  url,
   operation,
-  history
+  history,
+  payload = null
 ) => async dispatch => {
   dispatch(actions.loadAuth());
   try {
     if (operation === 'LOGIN' || operation === 'SIGNUP') {
       const { data } = await api({
-        url: '/api/user/login',
+        url,
         method: 'POST',
         data: payload
       });

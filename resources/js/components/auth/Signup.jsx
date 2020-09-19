@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 
 import { useDispatch } from 'react-redux';
-import { authRequest } from '../../state/ducks/auth';
+import { fetchAuth } from '../../state/ducks/auth';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faKey, faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +26,7 @@ const SignUp = () => {
 
   const submit = () => {
     dispatch(
-      authRequest('POST', '/api/user/register', 'SIGNUP', history, {
+      fetchAuth('/api/user/register', 'SIGNUP', history, {
         user,
         email,
         password

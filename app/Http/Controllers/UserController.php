@@ -65,7 +65,7 @@ class UserController extends Controller
         if ($search) {
             $users = DB::table('users AS u')
                 ->select([
-                    'u.id', 'name', ' profile_photo', 'username',
+                    'u.id', 'name', 'profile_photo', 'username',
                     DB::raw('IFNULL(followers_count,0) AS followers_count'),
                     DB::raw('CASE WHEN users.id IN (' . implode(',', $user_followers) . ') THEN 1 ELSE 0 END AS follower_user'),
                 ])

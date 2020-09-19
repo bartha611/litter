@@ -1,6 +1,6 @@
 import React, { useEffect, lazy } from 'react';
 import { useDispatch } from 'react-redux';
-import { tweetRequest } from '../state/ducks/tweets/actions';
+import { fetchTweets } from '../state/ducks/tweets';
 import { useParams, useLocation } from 'react-router-dom';
 
 const TweetList = lazy(() =>
@@ -29,7 +29,7 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(tweetRequest(`/api/tweet/${name}`, 'GET', 'READ'));
+    dispatch(fetchTweets(`/api/tweet/${name}`, 'GET', 'READ'));
   }, [location]);
 
   useFetchTweets('/api/tweet', name);

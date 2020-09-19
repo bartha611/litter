@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestComment } from '../state/ducks/comments/actions';
+import { fetchReplies } from '../state/ducks/replies';
 
 export const useFetchComments = (path, name = null) => {
   const comment = useSelector(state => state.comments);
@@ -17,7 +17,7 @@ export const useFetchComments = (path, name = null) => {
       )
         return;
       dispatch(
-        requestComment(`${url}?cursor=${comment.cursor}`, 'PAGINATE', 'GET')
+        fetchReplies(`${url}?cursor=${comment.cursor}`, 'GET', 'PAGINATION')
       );
     };
     window.addEventListener('scroll', handleScroll);

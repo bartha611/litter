@@ -1,37 +1,29 @@
-const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
-import api from '../../utils/api';
-
-export const fetchUsers = createAsyncThunk(
-  'search/fetchUsers',
-  async search => {
-    const response = await api.get(`/api/user?search=${search}`);
-    return response.data;
-  }
-);
+const { createSlice } = require('@reduxjs/toolkit');
 
 const initialState = {
   loading: false,
-  user: [],
+  users: [],
   error: false
 };
 
 const searchSlice = createSlice({
   name: 'search',
   initialState,
-  reducers: {},
-  extraReducers: {
-    [fetchUsers.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.user = action.payload;
-    },
-    [fetchUsers.rejected]: state => {
-      state.loading = false;
+  reducers: {
+    loadSearch(state) {
+      state.loading = true;
       state.error = false;
     },
-    [fetchUsers.pending]: state => {
-      state.loading = true;
+    readSearch(state, action) {
+      state.loading = false;
+      state.users = action.payload;
+    },
+    errorSearch(state) {
+      state.loading = false;
+      state.error = true;
     }
   }
 });
 
+export const { loadSearch, readSearch, errorSearch } = searchSlice.actions;
 export default searchSlice.reducer;
