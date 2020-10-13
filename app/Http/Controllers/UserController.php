@@ -19,8 +19,9 @@ class UserController extends Controller
      */
     public function register(UserCreateRequest $request): JsonResponse
     {
-        $user = User::create($request->all());
+        $user = User::firstOrCreate($request->all());
         $token = auth()->login($user);
+        $user->profile_photo = "https://insta611.s3.amazonaws.com/images/1591320571download.png";
         return response()->json(compact('user', 'token'));
     }
 
@@ -67,13 +68,13 @@ class UserController extends Controller
                 ->select([
                     'u.id', 'name', 'profile_photo', 'username',
                     DB::raw('IFNULL(followers_count,0) AS followers_count'),
-                    DB::raw('CASE WHEN users.id IN (' . implode(',', $user_followers) . ') THEN 1 ELSE 0 END AS follower_user'),
+                    DB::raw('CASE WHEN u.id IN (' . implode("','", array_merge($user_followers, [-1])) . ') THEN 1 ELSE 0 END AS follower_user'),
                 ])
                 ->leftJoinSub($followersTempTable, 'f', function ($join) {
                     $join->on('f.user_id', '=', 'u.id');
                 })
                 ->where('name', 'like', $search . '%')
-                ->orderBy('total_followers', 'desc')
+                ->orderBy('followers_count', 'desc')
                 ->limit(10)
                 ->get();
         } else {

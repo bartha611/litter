@@ -4,12 +4,12 @@ import { useDispatch } from 'react-redux';
 
 const TweetButton = lazy(() =>
   import(
-    /* webpackChunkName: 'tweetButton' */ '../components/tweets/tweetButton'
+    /* webpackChunkName: 'tweetButton' */ '../components/Tweet/TweetButton'
   )
 );
 
 const TweetList = lazy(() =>
-  import(/* webpackChunkName: 'tweetList' */ '../components/tweets/tweetList')
+  import(/* webpackChunkName: 'tweetList' */ '../components/Tweet/TweetList')
 );
 
 import { useFetchTweets } from '../utils/useFetchTweet';

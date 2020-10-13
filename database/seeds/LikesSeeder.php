@@ -25,7 +25,7 @@ class LikesSeeder extends Seeder
                 DB::table('likes')->insert([
                     'tweet_id' => $tweet_id,
                     'user_id' => $user_id,
-                    'updated_at' => $faker->iso8601(),
+                    'updated_at' => $faker->dateTimeBetween('-1 year', 'now')
                 ]);
                 $count += 1;
             }

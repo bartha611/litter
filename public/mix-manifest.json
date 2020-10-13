@@ -15,5 +15,6 @@
     "/Search.js": "/Search.js",
     "/Signup.js": "/Signup.js",
     "/tweetButton.js": "/tweetButton.js",
-    "/tweetList.js": "/tweetList.js"
+    "/tweetList.js": "/tweetList.js",
+    "/Profilebackground.js": "/Profilebackground.js"
 }

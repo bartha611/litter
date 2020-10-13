@@ -16,6 +16,7 @@ export const fetchAuth = (
         data: payload
       });
       dispatch(actions.loginAuth(data.user));
+      console.log(data.token);
       localStorage.setItem('token', data.token);
       history.push('/');
     } else {

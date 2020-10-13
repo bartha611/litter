@@ -19,7 +19,8 @@ import { faUser, faKey, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 const SignUp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [user, setUser] = useState('');
+  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -27,7 +28,8 @@ const SignUp = () => {
   const submit = () => {
     dispatch(
       fetchAuth('/api/user/register', 'SIGNUP', history, {
-        user,
+        username,
+        name,
         email,
         password
       })
@@ -50,8 +52,17 @@ const SignUp = () => {
               type="text"
               name="username"
               placeholder="Username"
-              onChange={e => setUser(e.target.value)}
+              onChange={e => setUsername(e.target.value)}
             />
+          </InputGroup>
+          <br />
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <InputGroupText>
+                <FontAwesomeIcon icon={faUser} />
+              </InputGroupText>
+            </InputGroupAddon>
+            <Input type="text" name="name" placeholder="name" onChange={e => setName(e.target.value)} />
           </InputGroup>
           <br />
           <InputGroup>

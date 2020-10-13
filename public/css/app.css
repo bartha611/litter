@@ -10943,6 +10943,13 @@ ul {
   position: relative;
 }
 
+.tweet:hover,
+.tweetModal:hover,
+.comment:hover {
+  cursor: pointer;
+  background: #f0f0f0;
+}
+
 .tweet--disabled,
 .tweetModal--disabled,
 .comment--disabled {
@@ -10975,22 +10982,29 @@ ul {
   cursor: pointer;
 }
 
-.tweet__author--disabled,
-.tweetModal__author--disabled,
-.comment__author--disabled {
-  pointer-events: none;
-}
-
 .tweet__author:hover,
 .tweetModal__author:hover,
 .comment__author:hover {
   color: black;
 }
 
+.tweet__username--block,
+.tweetModal__username--block,
+.comment__username--block {
+  display: block;
+}
+
+.tweet__date--disabled,
+.tweetModal__date--disabled,
+.comment__date--disabled {
+  display: none;
+}
+
 .tweet__image,
 .tweetModal__image,
 .comment__image {
   padding: 5px;
+  position: relative;
 }
 
 .tweet__photo,
@@ -10999,6 +11013,17 @@ ul {
   width: 40px;
   height: 40px;
   border-radius: 100%;
+}
+
+.tweet__line,
+.tweetModal__line,
+.comment__line {
+  position: absolute;
+  left: 50%;
+  top: 35px;
+  background: lightgray;
+  height: calc(100% - 40px);
+  width: 3px;
 }
 
 .tweet__body,
@@ -11010,6 +11035,18 @@ ul {
   display: flex;
   flex-direction: column;
   overflow-wrap: break-word;
+}
+
+.tweet__tweet--font,
+.tweetModal__tweet--font,
+.comment__tweet--font {
+  font-size: 18px;
+}
+
+.tweet__mainInfo,
+.tweetModal__mainInfo,
+.comment__mainInfo {
+  margin-top: 40px;
 }
 
 .col-12 {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import Tweet from '../tweets/Tweet';
+import Tweet from '../Tweet/Tweet';
 
 const CommentHeader = () => {
   const { parent_tweets } = useSelector(state => state.replies);
@@ -9,13 +8,14 @@ const CommentHeader = () => {
   return (
     <div>
       {parent_tweets &&
-        parent_tweets.map(tweet => {
+        parent_tweets.map((tweet, index) => {
           return (
             <Tweet
               tweet={tweet}
-              disabled={false}
               options={true}
               key={tweet.id}
+              main={index === parent_tweets.length - 1 ? true: false} 
+              parent={index === parent_tweets.length - 1 ? false : true}
             />
           );
         })}

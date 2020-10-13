@@ -17,7 +17,7 @@ class TweetSeeder extends Seeder
             DB::table('tweets')->insert([
                 'user_id' => $faker->numberBetween(1, 100),
                 'tweet' => $faker->text(),
-                'updated_at' => $faker->iso8601(),
+                'updated_at' => $faker->dateTimeBetween('-6 months', '+4 months', 'UTC'),
             ]);
         }
     }

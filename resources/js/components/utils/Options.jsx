@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { faHeart as faHeart1 } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import Tweet from '../tweets/Tweet';
-import TweetButton from '../tweets/tweetButton';
+import Tweet from '../Tweet/Tweet';
+import TweetButton from '../Tweet/TweetButton';
 
 const Options = ({ tweet }) => {
   const [commentModal, setCommentModal] = useState(false);
@@ -34,15 +34,15 @@ const Options = ({ tweet }) => {
           </Modal>
         </div>
         <div className="option__count">
-          <span>{tweet.comment_count}</span>
+          <span>{tweet.replies_count}</span>
         </div>
       </div>
       <div className="option">
         <div className="option__image option__like">
           <FontAwesomeIcon
-            color={tweet.liked_tweet === '0' ? 'black' : 'red'}
+            color={tweet.liked_tweet === 0 ? 'black' : 'red'}
             className="option__icon"
-            icon={tweet.liked_tweet === '0' ? faHeart : faHeart1}
+            icon={tweet.liked_tweet === 0 ? faHeart : faHeart1}
           />
         </div>
         <div className="option__count">
@@ -55,10 +55,10 @@ const Options = ({ tweet }) => {
 
 Options.propTypes = {
   tweet: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    comment_count: PropTypes.string.isRequired,
-    likes_count: PropTypes.string.isRequired,
-    liked_tweet: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    replies_count: PropTypes.number.isRequired,
+    likes_count: PropTypes.number.isRequired,
+    liked_tweet: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     tweet: PropTypes.string.isRequired,

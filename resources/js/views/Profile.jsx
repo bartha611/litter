@@ -4,12 +4,12 @@ import { fetchTweets } from '../state/ducks/tweets';
 import { useParams, useLocation } from 'react-router-dom';
 
 const TweetList = lazy(() =>
-  import(/* webpackChunkName: 'tweetList' */ '../components/tweets/tweetList')
+  import(/* webpackChunkName: 'tweetList' */ '../components/Tweet/TweetList')
 );
 
 const Background = lazy(() =>
   import(
-    /* webpackChunkName: 'Profile_background' */ '../components/profileBackground'
+    /* webpackChunkName: 'Profilebackground' */ '../components/profileBackground'
   )
 );
 

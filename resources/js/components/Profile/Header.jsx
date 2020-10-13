@@ -18,9 +18,8 @@ const Header = ({ user }) => {
 
 Header.propTypes = {
   user: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
     tweets_count: PropTypes.number
   })
 };

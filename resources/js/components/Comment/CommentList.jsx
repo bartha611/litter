@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Tweet from '../tweets/Tweet';
+import Tweet from '../Tweet/Tweet';
 
 const CommentList = () => {
   const { reply_tweets } = useSelector(state => state.replies);
@@ -12,7 +12,8 @@ const CommentList = () => {
             key={comment.id}
             tweet={comment}
             options={true}
-            disabled={false}
+            main={false}
+            parent={false}
           />
         );
       })}

@@ -54,7 +54,7 @@ const Sidebar = () => {
         <li className="sidebar__item">
           <button
             className="sidebar__button"
-            onClick={() => history.push(`/${user.name}`)}
+            onClick={() => history.push(`/${user.username}`)}
           >
             <FontAwesomeIcon icon={faUser} />
             <span className="sidebar__title">Profile</span>

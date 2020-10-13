@@ -48,20 +48,28 @@ class TweetController extends Controller
             ->where('user_id', $this->user_id)
             ->pluck('tweet_id')->toArray();
 
-        $commentTempTable = DB::table('likes AS lt')
+        $likesTempTable = DB::table('likes AS lt')
             ->select('tweet_id', DB::raw('COUNT(*) AS likes_count'))
+            ->groupBy('tweet_id');
+        
+        $commentTempTable = DB::table('replies AS rt')
+            ->select('tweet_id', DB::raw('COUNT(*) AS replies_count'))
             ->groupBy('tweet_id');
 
         $tweets = DB::table('tweets AS t')
             ->select([
                 't.id', 't.tweet', 't.updated_at', 'u.profile_photo', 'u.name', 'u.username',
-                DB::raw('COUNT(DISTINCT r.id) AS comment_count'),
-                DB::raw('COUNT(DISTINCT l.id) AS likes_count'),
-                DB::raw('CASE WHEN t.id IN (' . implode(',', $liked_tweets) . ') THEN 1 ELSE 0 END AS liked_tweet')
+                DB::raw('IFNULL(rt.replies_count,0) AS replies_count'),
+                DB::raw('IFNULL(lt.likes_count,0) AS likes_count'),
+                DB::raw('CASE WHEN t.id IN (' . implode(',', array_merge($liked_tweets, [-1])) . ') THEN 1 ELSE 0 END AS liked_tweet')
             ])
             ->join('users AS u', 'u.id', '=', 't.user_id')
-            ->leftJoin('replies AS r', 'r.tweet_id', '=', 't.id')
-            ->leftJoin('likes AS l', 't.id', '=', 'l.tweet_id')
+            ->leftJoinSub($commentTempTable, 'rt', function($join) {
+                $join->on('rt.tweet_id', '=', 't.id');
+            })
+            ->leftJoinSub($likesTempTable, 'lt', function($join) {
+                $join->on('lt.tweet_id', '=', 't.id');
+            })
             ->wherein('t.user_id', array_merge($followers, [$this->user_id]))
             ->where(function ($query) use ($cursor) {
                 if ($cursor) {
@@ -103,22 +111,22 @@ class TweetController extends Controller
             ->groupBy('user_id');
 
         $tweetsTempTable = DB::table('tweets AS t')
-            ->select(['t.id', DB::raw('IFNULL(COUNT(r.id),0) AS comments_count')])
+            ->select(['t.id', DB::raw('IFNULL(COUNT(r.id),0) AS replies_count')])
             ->leftJoin('replies AS r', 'r.tweet_id', '=', 't.id')
             ->leftJoin('replies AS k', 'k.reply_tweet_id', '=', 't.id')
             ->whereNull('k.id')
             ->groupBy('t.id');
-
-        $likesTempTable = DB::table('likes')
-            ->select('tweet_id', DB::raw('COUNT(*) AS likes_count'))
-            ->groupBy('tweet_id');
+        
+        $likesTempTable = DB::table('likes AS l')
+            ->select(['tweet_id', DB::raw('IFNULL(COUNT(l.id),0) AS likes_count')])
+            ->groupby('tweet_id');
 
         $user = DB::table('users AS u')
             ->select([
                 'u.id', 'u.name', 'u.profile_photo', 'u.username',
                 DB::raw('IFNULL(followers_count,0) AS followers_count'),
                 DB::raw('IFNULL(tweets_count,0) AS tweets_count'),
-                DB::raw('CASE WHEN u.id IN (' . implode(',', $user_followers) . ') THEN 1 ELSE 0 END AS followed_user')
+                DB::raw('CASE WHEN u.id IN (' . implode(',', array_merge($user_followers, [-1])) . ') THEN 1 ELSE 0 END AS followed_user')
             ])
             ->leftJoinSub($followerTempTable, 'f', function ($join) {
                 $join->on('f.user_id', '=', 'u.id');
@@ -141,16 +149,17 @@ class TweetController extends Controller
         $tweets = DB::table('tweets AS t')
             ->select([
                 't.id', 't.tweet', 't.updated_at', 'u.username',
-                'u.name', 'u.profile_photo', 'comments_count',
-                DB::raw('IFNULL(likes_count,0) AS likes_count'),
-                DB::raw('CASE WHEN t.id IN (' . implode(',', $liked_tweets) . ') THEN 1 ELSE 0 END AS liked_tweet')
+                'u.name', 'u.profile_photo',
+                DB::raw('IFNULL(lt.likes_count,0) AS likes_count'),
+                DB::raw('IFNULL(t2.replies_count, 0) AS replies_count'),
+                DB::raw('CASE WHEN t.id IN (' . implode(',', array_merge($liked_tweets, [-1])) . ') THEN 1 ELSE 0 END AS liked_tweet')
             ])
             ->join('users AS u', 'u.id', '=', 't.user_id')
-            ->leftJoinSub($likesTempTable, 'l', function ($join) {
-                $join->on('l.tweet_id', '=', 't.id');
-            })
-            ->leftJoinSub($tweetsTempTable, 't2', function ($join) {
+            ->joinSub($tweetsTempTable, 't2', function ($join) {
                 $join->on('t2.id', '=', 't.id');
+            })
+            ->leftJoinSub($likesTempTable, 'lt', function($join) {
+                $join->on('lt.tweet_id', '=', 't.id');
             })
             ->where('t.user_id', $user->id)
             ->where(function ($query) use ($cursor) {

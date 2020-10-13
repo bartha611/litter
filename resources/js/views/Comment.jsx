@@ -1,7 +1,7 @@
 import React, { useEffect, lazy } from 'react';
 import { fetchReplies } from '../state/ducks/replies';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useFetchComments } from '../utils/useFetchComment';
 
 const CommentList = lazy(() =>
@@ -18,6 +18,7 @@ const CommentHeader = lazy(() =>
 
 const Comment = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { tweet } = useParams();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const Comment = () => {
 
   useEffect(() => {
     dispatch(fetchReplies(`/api/tweet/${tweet}/reply`, 'GET', 'READ'));
-  }, []);
+  }, [location]);
 
   useFetchComments(`/api/tweet/${tweet}/comment`);
 

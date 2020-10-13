@@ -6,6 +6,11 @@
   display: flex;
   position: relative;
 
+  &:hover {
+    cursor: pointer;
+    background: #f0f0f0;
+  }
+
   &--disabled {
     cursor: auto;
     &:hover {
@@ -25,23 +30,41 @@
     color: black;
     cursor: pointer;
 
-    &--disabled {
-      pointer-events: none;
-    }
-
     &:hover {
       color: black;
     }
   }
 
+  &__username {
+    &--block {
+      display: block;
+    }
+  }
+
+  &__date {
+    &--disabled {
+      display: none;
+    }
+  }
+
   &__image {
     padding: 5px;
+    position: relative;
   }
 
   &__photo {
     width: 40px;
     height: 40px;
     border-radius: 100%;
+  }
+
+  &__line {
+    position: absolute;
+    left: 50%;
+    top: 35px;
+    background: lightgray;
+    height: calc(100% - 40px);
+    width: 3px;
   }
 
   &__body {
@@ -52,7 +75,17 @@
     flex-direction: column;
     overflow-wrap: break-word;
   }
-}
+
+  &__tweet {
+    &--font {
+      font-size: 18px;
+    }
+  }
+
+  &__mainInfo {
+    margin-top: 40px;
+  }
+} 
 
 .col-12 {
   padding: 0;

@@ -16,8 +16,11 @@ class CreateRepliesTable extends Migration
         Schema::create('replies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('reply_tweet_id')->index();
-            $table->foreignId('tweet_id')->constrained()->onDelete('cascade')->index();
-            $table->foreign('reply_tweet_id')->references('id')->on('tweets')->onDelete('cascade')->index();
+            $table->unsignedBigInteger('tweet_id')->index();
+
+            $table->foreign('tweet_id')->references('id')->on('tweets')->onDelete('CASCADE');
+            $table->foreign('reply_tweet_id')->references('id')->on('tweets')->onDelete('CASCADE');
+
             $table->unique('reply_tweet_id');
         });
     }
