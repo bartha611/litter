@@ -18,16 +18,6 @@ class RetweetController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -35,7 +25,7 @@ class RetweetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -45,17 +35,6 @@ class RetweetController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Retweet $retweet)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Retweet  $retweet
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Retweet $retweet)
     {
         //
     }

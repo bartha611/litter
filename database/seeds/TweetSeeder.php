@@ -15,7 +15,7 @@ class TweetSeeder extends Seeder
         $faker = Faker\Factory::create();
         foreach (range(1, 10000) as $index) {
             DB::table('tweets')->insert([
-                'user_id' => $faker->numberBetween(1, 100),
+                'user_id' => $faker->numberBetween(1, 101),
                 'tweet' => $faker->text(),
                 'updated_at' => $faker->dateTimeBetween('-6 months', '+4 months', 'UTC'),
             ]);

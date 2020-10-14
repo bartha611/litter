@@ -15,7 +15,7 @@ class LikesSeeder extends Seeder
         $faker = Faker\Factory::create();
         $count = 0;
         do {
-            $user_id = $faker->numberBetween(1, 100);
+            $user_id = $faker->numberBetween(1, 101);
             $tweet_id = $faker->numberBetween(1, 10000);
             $result = DB::table('likes')
                 ->where('user_id', $user_id)
@@ -25,7 +25,7 @@ class LikesSeeder extends Seeder
                 DB::table('likes')->insert([
                     'tweet_id' => $tweet_id,
                     'user_id' => $user_id,
-                    'updated_at' => $faker->dateTimeBetween('-1 year', 'now')
+                    'updated_at' => $faker->dateTimeBetween('-6 months', '+4 months')
                 ]);
                 $count += 1;
             }

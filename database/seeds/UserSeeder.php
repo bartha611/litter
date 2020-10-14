@@ -22,5 +22,12 @@ class UserSeeder extends Seeder
                 'profile_photo' => $faker->imageUrl($width = 400, $height = 400),
             ]);
         }
+        DB::table('users')->insert([
+            'username' => 'bartha611',
+            'name' => 'adam',
+            'email' => 'adambarth611@gmail.com',
+            'password' => bcrypt('a'),
+            'profile_photo' => $faker->imageUrl($width = 400, $height = 400)
+        ]);
     }
 }

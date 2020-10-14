@@ -15,8 +15,8 @@ class FollowerSeeder extends Seeder
         $faker = Faker\Factory::create();
         $count = 0;
         do {
-            $user_id = $faker->numberBetween(1, 100);
-            $follower_id = $faker->numberBetween(1, 100);
+            $user_id = $faker->numberBetween(1, 101);
+            $follower_id = $faker->numberBetween(1, 101);
             $result = DB::table('followers')
                 ->where('user_id', $user_id)
                 ->where('follower_id', $follower_id)

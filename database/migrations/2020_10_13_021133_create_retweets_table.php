@@ -15,11 +15,13 @@ class CreateRetweetsTable extends Migration
     {
         Schema::create('retweets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tweet_id')->index();
-            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('tweet_id');
+            $table->unsignedBigInteger('user_id');
 
             $table->foreign('tweet_id')->references('id')->on('tweets')->onDelete('CASCADE');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
+
+            $table->unique(['tweet_id', 'user_id']);
 
             $table->timestamps();
         });

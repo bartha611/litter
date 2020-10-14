@@ -37,52 +37,56 @@ class TweetController extends Controller
 
     public function news(Request $request)
     {
+        #retrive cursor from request.  cursor comes in form of date value
         $cursor = $request->input('cursor');
 
+        #user followers to find tweets that populate news feed
         $followers = Follower::select(['follower_id'])
             ->where('user_id', $this->user_id)
             ->pluck('follower_id')->toArray();
 
+        #user liked tweets to determine whether tweet already liked or not
         $liked_tweets = DB::table('likes')
             ->select('tweet_id')
             ->where('user_id', $this->user_id)
             ->pluck('tweet_id')->toArray();
 
+        #temporary likes table that contains total likes count per tweet
         $likesTempTable = DB::table('likes AS lt')
             ->select('tweet_id', DB::raw('COUNT(*) AS likes_count'))
             ->groupBy('tweet_id');
         
+        #temporary replies table that contains replies count per tweet
         $commentTempTable = DB::table('replies AS rt')
             ->select('tweet_id', DB::raw('COUNT(*) AS replies_count'))
             ->groupBy('tweet_id');
 
+        #get tweets from table
         $tweets = DB::table('tweets AS t')
             ->select([
                 't.id', 't.tweet', 't.updated_at', 'u.profile_photo', 'u.name', 'u.username',
-                DB::raw('IFNULL(rt.replies_count,0) AS replies_count'),
+                DB::raw('IFNULL(ct.replies_count,0) AS replies_count'),
                 DB::raw('IFNULL(lt.likes_count,0) AS likes_count'),
                 DB::raw('CASE WHEN t.id IN (' . implode(',', array_merge($liked_tweets, [-1])) . ') THEN 1 ELSE 0 END AS liked_tweet')
             ])
             ->join('users AS u', 'u.id', '=', 't.user_id')
-            ->leftJoinSub($commentTempTable, 'rt', function($join) {
-                $join->on('rt.tweet_id', '=', 't.id');
+            ->leftJoinSub($commentTempTable, 'ct', function($join) {
+                $join->on('ct.tweet_id', '=', 't.id');
             })
             ->leftJoinSub($likesTempTable, 'lt', function($join) {
                 $join->on('lt.tweet_id', '=', 't.id');
             })
-            ->wherein('t.user_id', array_merge($followers, [$this->user_id]))
-            ->where(function ($query) use ($cursor) {
-                if ($cursor) {
-                    $query->where('t.id', '<=', $cursor);
-                }
-            })
-            ->groupBy(['t.id', 't.tweet', 't.updated_at', 'u.id', 'u.name', 'u.username'])
-            ->orderBy('t.id', 'desc')
-            ->limit(11)
-            ->get();
+            ->wherein('t.user_id', array_merge($followers, [$this->user_id]));
+        
+        #get retweets from table
+        $retweets = DB::table('tweets AS t')
+            ->select([
+                't.id', 't.tweet', 'rt.updated_at', 'u.profile_photo', 'u.name', 'u.username'
+            ])
 
-        $cursor = count($tweets) > 10 ? $tweets[10]->id : null;
-        $tweets = $tweets->slice(0, 10);
+
+        $cursor = count($tweets) > 25 ? $tweets[25]->id : null;
+        $tweets = $tweets->slice(0, 25);
         return response()->json(compact('tweets', 'cursor'));
     }
 
