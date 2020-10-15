@@ -15,12 +15,14 @@ class FollowerSeeder extends Seeder
         $faker = Faker\Factory::create();
         $count = 0;
         do {
-            $user_id = $faker->numberBetween(1, 101);
-            $follower_id = $faker->numberBetween(1, 101);
+            $user_id = $faker->numberBetween(1, 100);
+            $follower_id = $faker->numberBetween(1, 100);
+
             $result = DB::table('followers')
                 ->where('user_id', $user_id)
                 ->where('follower_id', $follower_id)
                 ->first();
+
             if (!$result) {
                 DB::table('followers')->insert([
                     'user_id' => $user_id,
@@ -28,6 +30,7 @@ class FollowerSeeder extends Seeder
                 ]);
                 $count += 1;
             }
+
         } while ($count < 1000);
     }
 }

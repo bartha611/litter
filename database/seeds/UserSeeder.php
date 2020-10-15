@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        foreach (range(1, 100) as $index) {
+        foreach (range(1, 99) as $index) {
             DB::table('users')->insert([
                 'username' => $faker->userName,
                 'name' => $faker->name,

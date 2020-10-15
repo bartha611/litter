@@ -41,7 +41,7 @@ class TweetController extends Controller
         $cursor = $request->input('cursor');
 
         #user followers to find tweets that populate news feed
-        $followers = Follower::select(['follower_id'])
+        $followers = DB::table('followers')->select(['follower_id'])
             ->where('user_id', $this->user_id)
             ->pluck('follower_id')->toArray();
 
@@ -77,12 +77,7 @@ class TweetController extends Controller
                 $join->on('lt.tweet_id', '=', 't.id');
             })
             ->wherein('t.user_id', array_merge($followers, [$this->user_id]));
-        
-        #get retweets from table
-        $retweets = DB::table('tweets AS t')
-            ->select([
-                't.id', 't.tweet', 'rt.updated_at', 'u.profile_photo', 'u.name', 'u.username'
-            ])
+       
 
 
         $cursor = count($tweets) > 25 ? $tweets[25]->id : null;

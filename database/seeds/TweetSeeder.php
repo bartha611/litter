@@ -13,12 +13,59 @@ class TweetSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        foreach (range(1, 10000) as $index) {
-            DB::table('tweets')->insert([
-                'user_id' => $faker->numberBetween(1, 101),
-                'tweet' => $faker->text(),
-                'updated_at' => $faker->dateTimeBetween('-6 months', '+4 months', 'UTC'),
-            ]);
+
+        // dates array contains datetimes and tweets contain indexes that aren't 
+        $dates = [];
+        $tweets = [1, 2, 3, 4, 5];
+
+        // iterate over a range of 20000 to create dates
+
+        foreach (range(1, 20000) as $index) {
+            array_push($dates, $faker->dateTimeBetween('-6 months', '+4 months'));
         }
+
+        // sort dates
+        usort($dates, function ($a, $b) {
+            $a = $a->format('Y-m-d h:i:s');
+            $b = $b->format('Y-m-d h:i:s');
+
+            return strtotime($a) - strtotime($b);
+        });
+
+        // insert into appropriate fields
+        foreach (range(1, 20000) as $index) {
+
+            $number = rand(1, 10);
+
+            if ($number < 6 or $index < 6) {
+                // insert as a tweet and insert index into array
+
+                DB::table('tweets')->insert([
+                    'tweet' => $faker->text(),
+                    'user_id' => $faker->numberBetween(1,100),
+                    'updated_at' => $dates[$index]
+                ]);
+                array_push($tweets, $index);
+            } elseif ($number < 9) {
+                // insert into tweets as a reply
+
+                DB::table('tweets')->insert([
+                    'tweet' => $faker->text(),
+                    'user_id' => $faker->numberBetween(1, 100),
+                    'reply_tweet_id' => $tweets[rand(0, count($tweets) - 1)],
+                    'updated_at' => $dates[$index]
+                ]);               
+            } else {
+                // insert as a retweet
+
+                DB::table('tweets')->insert([
+                    'user_id' => $faker->numberBetween(1,100),
+                    'retweet_id' => $tweets[rand(0, count($tweets) - 1)],
+                    'updated_at' => $dates[$index]
+                ]);
+            }
+
+        }
+
     }
 }
