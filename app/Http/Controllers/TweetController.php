@@ -89,6 +89,7 @@ class TweetController extends Controller
         $data = $request->all();
         $data['user_id'] = $this->user_id;
         $tweet = $this->tweet_repo->store($data);
+        
         return response()->json($tweet);
     }
 
