@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Tweet;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TweetRequest extends FormRequest
+class TweetUpdateDestroyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,8 @@ class TweetRequest extends FormRequest
      */
     public function authorize()
     {
-        
+        $tweet = Tweet::find($this->route('tweet'));
+
         return true;
     }
 
@@ -25,7 +27,8 @@ class TweetRequest extends FormRequest
     public function rules()
     {
         return [
-            'tweet' => 'required|max:1000'
+            'tweet_id' => 'required|exists:App\Tweet,id',
+            'tweet' => 'nullable|max:1000'
         ];
     }
 }

@@ -20,11 +20,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/user/register', 'UserController@register');
 Route::post('/user/login', 'UserController@login');
-Route::get('/tweet/{name}', 'TweetController@index');
 Route::get('/user', 'UserController@index');
 // Route::post('/photo', 'PhotoController@create');
 
 Route::middleware(['api', 'jwt.verify'])->group(function () {
+    Route::get('/tweet/{name}', 'TweetController@index');
     Route::get('/tweet', 'TweetController@news');
     Route::resource('photo', 'PhotoController');
     Route::resource('tweet.likes', 'LikesController', ['only' => ['store', 'destroy', 'index', 'show']]);
