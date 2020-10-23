@@ -11,4 +11,8 @@ interface TweetRepositoryInterface {
     public function tweetNews($id, $cursor, $news);
 
     public function store($data);
+
+    public function delete($id);
+
+    public function update($id, $tweet);
 }

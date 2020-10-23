@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use App\Tweet;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class TweetUpdateDestroyRequest extends FormRequest
 {
@@ -14,9 +16,9 @@ class TweetUpdateDestroyRequest extends FormRequest
      */
     public function authorize()
     {
-        $tweet = Tweet::find($this->route('tweet'));
+        $tweet = DB::table('tweets')->where('id', $this->route('tweet'))->pluck('user_id');
 
-        return true;
+        return auth()->user()->username == "bartha611";
     }
 
     /**

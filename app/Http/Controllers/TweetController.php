@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TweetRequest;
+use App\Http\Requests\TweetUpdateDestroyRequest;
 use App\Repository\Eloquent\TweetRepository;
 use App\Repository\Eloquent\UserRepository;
 use App\Tweet;
@@ -77,6 +78,12 @@ class TweetController extends Controller
         return response()->json(compact('user', 'tweets', 'cursor'));
     }
 
+    public function show(Tweet $tweet)
+    {
+        $answer = Tweet::where('id', $tweet->id)->withCount(['replies', 'likes'])->get();
+        return response()->json($answer);
+    }
+
     /**
      * Store a new tweet
      *
@@ -89,53 +96,43 @@ class TweetController extends Controller
         $data = $request->all();
         $data['user_id'] = $this->user_id;
         $tweet = $this->tweet_repo->store($data);
-        
+
         return response()->json($tweet);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param  \App\Tweet  $tweet
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
 
-    public function update(TweetRequest $request, Tweet $tweet)
+    public function update(TweetRequest $request, Tweet $tweet): JsonResponse
     {
-        $tweet = Tweet::where('id', $tweet)->where('user_id', $this->user_id)->firstOrFail();
-        $tweet->update([
-            'tweet' => $request->input('tweet'),
-        ]);
-        return response()->json($tweet);
+        if ($this->user_id != $tweet->user_id) {
+            abort(403, "User not authorized to update tweet");
+        }
+        $data = $this->tweet_repo->update($tweet->id, $request->get('tweet'));
+        return response()->json($data);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param TweetUpdateDestroyRequest $request
      * @param  \App\Tweet  $tweet
      * @return \Illuminate\Http\Response
      */
 
     public function destroy(Tweet $tweet)
     {
-        $tweet_id = $tweet->id;
-        $delete_tweet = Tweet::where('id', $tweet_id)
-            ->where('user_id', $this->user)
-            ->firstOrFail();
-        $delete_tweet->delete();
-        return response()->json($tweet_id);
+        $id = $tweet->id;
+        if ($this->user_id !== $tweet->user_id) {
+            abort(403, "User forbidden");
+        }
+        $this->tweet_repo->delete($id);
+        return response()->json($id);
     }
 
-    /**
-     * shows a tweet by user
-     *
-     * @param string $tweet
-     * @return JsonResponse
-     */
-
-    public function show($tweet)
-    {
-        return Tweet::where('id', $tweet)->with(['comments.user'])->firstOrFail();
-    }
 }

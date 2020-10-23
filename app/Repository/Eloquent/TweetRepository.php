@@ -62,8 +62,37 @@ class TweetRepository implements TweetRepositoryInterface {
 
     public function store($data)
     {
-        $tweet = Tweet::create($data);
-        return $tweet->load('user:id,name,username,profile_photo');
+        $tweet = Tweet::create($data)->load('user:id,name,username,profile_photo');
+        unset($tweet->user_id);
+        return $tweet;
+    }
+
+    /**
+     * Deletes tweet 
+     * 
+     * @param Integer $id Id of tweet
+     */
+
+    public function delete($id) 
+    {
+        Tweet::destroy($id);
+        return $id;
+    }
+
+    /**
+     * Updates a tweet
+     * 
+     * @param Integer $id Tweet id
+     * @param String $tweet updated tweet 
+     */
+
+    public function update($id, $tweet)
+    {
+        $answer = Tweet::find($id);
+        $answer->tweet = $tweet;
+        $answer = $answer->load('user:id,name,username,profile_photo');
+        unset($answer->user_id);
+        return $answer;
     }
 
     /**

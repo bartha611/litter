@@ -17,8 +17,19 @@ class Tweet extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function comments()
+    public function replies()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Tweet::class, 'reply_tweet_id');
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Likes::class);
+    }
+
+    public function retweets()
+    {
+        return $this->hasMany(Tweet::class, 'retweet_id');
+    }
+
 }
