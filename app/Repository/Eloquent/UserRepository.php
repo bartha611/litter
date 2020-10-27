@@ -17,18 +17,35 @@ class UserRepository implements UserRepositoryInterface {
         $this->tweet_repo = $tweet_repo;
     }   
 
-    public function findUserById($id)
+    /**
+     * Finds user based on id 
+     * @param String $name id or username being searched
+     * @param String $id id of logged in user 
+     * @return Object|null  
+     */
+
+    public function findUserWithCounts($name, $id)
     {
+        $user_followers = $this->follower_repo->findFollowersById($id);
+        array_push($user_followers, -1);
+
 
         $answer = DB::table('users AS u')
             ->select([
                 'u.id', 'u.name', 'u.username', 'u.profile_photo',
-                'COALESCE(follower_count, 0) AS follower_count'
+                DB::raw('COALESCE(lt.followers_count, 0) AS followers_count'),
+                DB::raw('COALESCE(tu.tweets_count, 0) AS tweets_count'),
+                DB::raw('CASE WHEN u.id IN (' . implode(",", $user_followers) . ') THEN 1 ELSE 0 END AS followed_user')
             ]) 
             ->leftJoinSub($this->follower_repo->followerTempTable(), 'lt', function ($join) {
                 $join->on('lt.user_id', '=', 'u.id');
             })
-            ->where('user_id', $id);
+            ->leftJoinSub($this->tweet_repo->tweetUserTable(), 'tu', function ($join) {
+                $join->on('tu.user_id', '=', 'u.id');
+            })
+            ->where('user_id', $name)
+            ->orWhere('u.username', '=', $name)
+            ->get();
 
         return $answer;
     }
@@ -64,35 +81,4 @@ class UserRepository implements UserRepositoryInterface {
         return $answer;
     }
 
-    /**
-     * Finds user with tweet and follower counts
-     * 
-     * @param String $name username of person being searched
-     * @param Integer $id user id of the person conducting the search 
-     * @return Object|Null $user returns a user object or null value
-     */
-
-    public function findUserWithCounts($name, $id)
-    {
-        $user_followers = $this->follower_repo->findFollowersById($id);
-
-        $user = DB::table('users AS u')
-            ->select([
-                'u.id', 'u.name', 'u.profile_photo', 'u.username',
-                DB::raw('IFNULL(followers_count,0) AS followers_count'),
-                DB::raw('IFNULL(tweets_count,0) AS tweets_count'),
-                DB::raw('CASE WHEN u.id IN (' . implode(',', $user_followers) . ') THEN 1 ELSE 0 END AS followed_user')
-            ])
-            ->leftJoinSub($this->follower_repo->followerTempTable(), 'f', function ($join) {
-                $join->on('f.user_id', '=', 'u.id');
-            })
-            ->leftJoinSub($this->tweet_repo->tweetUserTable(), 't', function ($join) {
-                $join->on('t.user_id', '=', 'u.id');
-            })
-            ->where('username', $name)
-            ->groupBy(['u.id', 'u.name', 'u.username', 'u.profile_photo'])
-            ->first();
-
-        return $user;
-    }
 }

@@ -16,6 +16,7 @@ class CreateTweetsTable extends Migration
         Schema::create('tweets', function (Blueprint $table) {
             $table->id();
             $table->text('tweet');
+
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('retweet_id')->nullable();
             $table->unsignedBigInteger('reply_tweet_id')->nullable();

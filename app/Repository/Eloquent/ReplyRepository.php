@@ -4,6 +4,7 @@ namespace App\Repository\Eloquent;
 
 use App\Repository\ReplyRepositoryInterface;
 use Illuminate\Support\Facades\DB;
+use Staudenmeir\LaravelCte\Query\Builder;
 
 class ReplyRepository implements ReplyRepositoryInterface {
 
@@ -20,5 +21,16 @@ class ReplyRepository implements ReplyRepositoryInterface {
             ->groupBy('reply_tweet_id');
 
         return $builder;
+    }
+
+    /**
+     * find replies based on tweet id
+     * @param $id Id of tweet
+     * @return Object|null 
+     */
+
+    public function findReplies($id)
+    {
+        
     }
 }
