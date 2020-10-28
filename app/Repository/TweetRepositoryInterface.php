@@ -4,6 +4,9 @@ namespace App\Repository;
 
 interface TweetRepositoryInterface {
 
+
+    public function getTweets($user_id);
+
     public function retweetTempTable();
 
     public function tweetUserTable();

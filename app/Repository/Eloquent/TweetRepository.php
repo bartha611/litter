@@ -21,6 +21,7 @@ class TweetRepository implements TweetRepositoryInterface {
 
     /**
      * Returns a table with columns user_id and retweets_count
+     * 
      * @return \Illuminate\Database\Query\Builder
      */
 
@@ -96,27 +97,15 @@ class TweetRepository implements TweetRepositoryInterface {
     }
 
     /**
-     * Returns news tweets for user 
+     * returns a query builder for tweets.  Provides counts for retweets, replies, and likes.
      * 
-     * @param Integer $id  user id
-     * @param String $cursor  cursor for pagination
-     * @param Boolean $news  determines whether to include followers
-     * 
-     * @return \Illuminate\Support\Collection $tweets
+     * @param String $user_id Logged-in user id
+     * @return \Illuminate\Database\Query\Builder
      */
 
-    public function tweetNews($id, $cursor, $news)
+    public function getTweets($user_id) 
     {
-        $liked_tweets = $this->likes_repo->findUserLikedTweets($id);
-
-        if ($news) {
-            $followers = $this->follower_repo->findFollowersById($id);
-        } else {
-            $followers = [];
-        }
-
-        #add user_id to followers
-        array_merge($followers, [$id]);
+        $liked_tweets = $this->likes_repo->findUserLikedTweets($user_id);
 
         $tweets = DB::table('tweets AS t')
             ->select([
@@ -138,37 +127,43 @@ class TweetRepository implements TweetRepositoryInterface {
             ->leftJoinSub($this->retweetTempTable(), 'rt', function($join) {
                 $join->on('rt.retweet_id', '=', 't.id');
             })
-            ->wherein('t.user_id', $followers)
-            ->where(function($query) use ($cursor) {
+            ->orderBy('t.id', 'desc');
+
+        return $tweets;
+    }
+
+    /**
+     * Returns news tweets for user 
+     * 
+     * @param Integer $id  user id
+     * @param String $cursor  cursor for pagination
+     * @param Boolean $news  determines whether to include followers
+     * 
+     * @return \Illuminate\Support\Collection $tweets
+     */
+
+    public function tweetNews($id, $cursor, $news)
+    {
+
+        if ($news) {
+            $followers = $this->follower_repo->findFollowersById($id);
+        } else {
+            $followers = [];
+        }
+
+        #add user_id to followers
+        array_merge($followers, [$id]);
+
+        $tweets = $this->getTweets($id)
+            ->whereIn('u.id', $followers)
+            ->where(function ($query) use ($cursor) {
                 if ($cursor) {
                     $query->where('t.id', '<=', $cursor);
                 }
             })
-            ->whereNull('t.reply_tweet_id')
-            ->orderBy('t.id', 'desc')
             ->limit(40)
             ->get();
 
-        foreach ($tweets as $tweet) {
-            $tweet->user = [
-                'id' => $tweet->user_id,
-                'name' => $tweet->name,
-                'username' => $tweet->username,
-                'profile_photo' => $tweet->profile_photo
-            ];
-            if (!$tweet->retweet) {
-                $tweet->retweet_status = null;
-            } else {
-            $tweet->retweet_status = [
-                'tweet' => $tweet->retweet,
-                'username' => $tweet->retweet_username,
-                'profile_photo' => $tweet->retweet_profile_photo,
-                'name' => $tweet->retweet_name
-            ];
-            }
-            unset($tweet->retweet, $tweet->retweet_username, $tweet->retweet_name, $tweet->retweet_profile_photo,
-                $tweet->user_id, $tweet->name, $tweet->username, $tweet->profile_photo, $tweet->user_id);
-        }
         return $tweets;
     } 
 }

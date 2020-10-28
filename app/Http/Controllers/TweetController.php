@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TweetRequest;
 use App\Http\Requests\TweetUpdateDestroyRequest;
+use App\Http\Resources\TweetCollection;
 use App\Repository\Eloquent\TweetRepository;
 use App\Repository\Eloquent\UserRepository;
 use App\Tweet;
@@ -51,7 +52,7 @@ class TweetController extends Controller
       
         $cursor = count($tweets) > 40 ? $tweets[40]->id : null;
         $tweets = $tweets->slice(0, 40);
-        return response()->json(compact('tweets', 'cursor'));
+        return TweetCollection::collection($tweets);
     }
 
     /**
