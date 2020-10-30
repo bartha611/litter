@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Follower;
+use App\Http\Resources\FollowerCollection;
+use App\Repository\Eloquent\FollowerRepository;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,16 +14,14 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class FollowerController extends Controller
 {
-    /**
-     * gets userid in middleware
-     *
-     * @return null
-     */
+    protected $follower_repo;
 
-    public function __construct()
+    public function __construct(FollowerRepository $follower_repo)
     {
+        $this->follower_repo = $follower_repo;
+
         $this->middleware(function ($request, $next) {
-            $this->user = JWTAuth::parseToken()->toUser()->id;
+            $this->user_id = JWTAuth::parseToken()->toUser()->id;
             return $next($request);
         });
     }
@@ -34,8 +34,9 @@ class FollowerController extends Controller
 
     public function index()
     {
-        $followers = Follower::select(['id', 'follower_id'])->where('user_id', $this->user)->with('FollowedUser')->get();
-        return response()->json($followers);
+        $followers = $this->follower_repo->getFollowers($this->user_id, $this->user_id);
+        $followers = FollowerCollection::collection($followers);
+        return response()->json(compact('followers'));
     }
 
     /**
@@ -50,39 +51,10 @@ class FollowerController extends Controller
      * @return JsonResponse
      */
 
-    public function show(Request $request, $follower)
+    public function show(Request $request, User $follower)
     {
-        $cursor = $request->input('cursor');
-        $id = $this->user;
-        $user = DB::table('users')->select(['id', 'name', 'username', 'profile_photo', 'biography'])
-            ->where('username', '=', $follower)
-            ->first();
-
-        if (!$user) {
-            return response()->json(['error' => 'user does not exist'], 500);
-        }
-
-        $userFollowers = Follower::where('user_id', $this->user)->pluck('follower_id')->toArray();
-        $followers = Follower::select(['id', 'follower_id'])
-            ->where('user_id', '=', $user->id)
-            ->with('FollowedUser')
-            ->where(function ($query) use ($id, $user, $userFollowers, $cursor) {
-                if ($cursor) {
-                    $query->where('id', '<=', $cursor);
-                }
-                if (intval($user->id) != intval($id)) {
-                    $query->whereNotIn('follower_id', $userFollowers);
-                }
-            })
-            ->orderBy('id', 'desc')
-            ->limit(11)
-            ->get();
-        $cursor = count($followers) > 10 ? $followers[10]->id : null;
-        $followers = $followers->slice(0, 10);
-        foreach ($followers as $follower) {
-            $follower['followed'] = $user->id == $id;
-        }
-        return response()->json(compact('user', 'followers', 'cursor'));
+        $followers = $this->follower_repo->getFollowers($follower->id, $this->user_id);
+        return FollowerCollection::collection($followers);
     }
 
     public function store(Request $request): JsonResponse

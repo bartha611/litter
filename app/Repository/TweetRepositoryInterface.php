@@ -4,18 +4,11 @@ namespace App\Repository;
 
 interface TweetRepositoryInterface {
 
+    public function create($data);
 
-    public function getTweets($user_id);
-
-    public function retweetTempTable();
-
-    public function tweetUserTable();
-
-    public function tweetNews($id, $cursor, $news);
-
-    public function store($data);
-
-    public function delete($id);
+    public function read($user_id, $cursor, $news);
 
     public function update($id, $tweet);
+
+    public function delete($id);
 }

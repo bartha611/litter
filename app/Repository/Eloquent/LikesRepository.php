@@ -2,34 +2,46 @@
 
 namespace App\Repository\Eloquent;
 
+use App\Likes;
 use App\Repository\LikesRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
 class LikesRepository implements LikesRepositoryInterface {
+
     /**
-     * Returns a table with columns tweet_id and likes_count
+     * Creates a like given user_id and tweet_id
      * 
-     * @return Illuminate\Database\Query\Builder
-     *
+     * @param String $user_id User id of person liking the tweet
+     * @param String $tweet_id Tweet id of tweet being liked
      */
 
-    public function likesTempTable()
+    public function create($user_id, $tweet_id)
     {
-        $builder = DB::table('likes')
-            ->select(['tweet_id', DB::raw('COUNT(*) AS likes_count')])
-            ->groupBy('tweet_id');
-
-        return $builder;
+        $like = Likes::create(['tweet_id' => $tweet_id, 'user_id' => $user_id]);
+        return $like;
     }
 
     /**
-     * Returns an array of user-liked tweet ids
+     * Deletes like id given id of like
      * 
-     * @param Integer $id
+     * @param String $id Id of like being deleted
+     * @return String Id of like being deleted
+     */
+
+    public function delete($id)
+    {
+        Likes::destroy($id);
+        return $id;
+    }
+
+    /**
+     * Returns an array of user-liked tweet ids given user_id
+     * 
+     * @param Integer $user_id
      * @return Array $likes
      */
 
-    public function findUserLikedTweets($id) {
+    public function findLikedTweets($id) {
         $likes = DB::table('likes AS l')
             ->select('tweet_id')
             ->where('user_id', $id)

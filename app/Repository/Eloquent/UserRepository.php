@@ -4,17 +4,16 @@ namespace App\Repository\Eloquent;
 
 use Illuminate\Support\Facades\DB;
 use App\Repository\UserRepositoryInterface;
-use App\Repository\Eloquent\FollowerRepository;
 
 class UserRepository implements UserRepositoryInterface {
 
-    protected $follower_repo = null;
-    protected $tweet_repo = null;
+    protected $table_repo;
+    protected $follower_repo;
 
-    public function __construct(FollowerRepository $follower_repo, TweetRepository $tweet_repo)
+    public function __construct(TableRepository $table_repo, FollowerRepository $follower_repo)
     {
+        $this->table_repo = $table_repo;
         $this->follower_repo = $follower_repo;
-        $this->tweet_repo = $tweet_repo;
     }   
 
     /**
@@ -37,15 +36,15 @@ class UserRepository implements UserRepositoryInterface {
                 DB::raw('COALESCE(tu.tweets_count, 0) AS tweets_count'),
                 DB::raw('CASE WHEN u.id IN (' . implode(",", $user_followers) . ') THEN 1 ELSE 0 END AS followed_user')
             ]) 
-            ->leftJoinSub($this->follower_repo->followerTempTable(), 'lt', function ($join) {
+            ->leftJoinSub($this->table_repo->followerTempTable(), 'lt', function ($join) {
                 $join->on('lt.user_id', '=', 'u.id');
             })
-            ->leftJoinSub($this->tweet_repo->tweetUserTable(), 'tu', function ($join) {
+            ->leftJoinSub($this->table_repo->tweetUserTable(), 'tu', function ($join) {
                 $join->on('tu.user_id', '=', 'u.id');
             })
-            ->where('user_id', $name)
+            ->where('u.id', $name)
             ->orWhere('u.username', '=', $name)
-            ->get();
+            ->first();
 
         return $answer;
     }
@@ -70,7 +69,7 @@ class UserRepository implements UserRepositoryInterface {
                 DB::raw('COALESCE(followers_count, 0) AS followers_count'),
                 DB::raw('CASE WHEN u.id IN ( ' . implode(",", $user_followers) . ') THEN 1 ELSE 0 END AS follower_user')
             ])
-            ->leftJoinSub($this->follower_repo->followerTempTable(), 'lt', function ($join) {
+            ->leftJoinSub($this->table_repo->followerTempTable(), 'lt', function ($join) {
                 $join->on('lt.user_id', '=', 'u.id');
             })
             ->where('name', 'like', $search . '%')

@@ -2,33 +2,37 @@
 
 namespace App\Repository\Eloquent;
 
+use App\Http\Resources\TweetCollection;
 use App\Repository\ReplyRepositoryInterface;
 use App\Tweet;
 use Illuminate\Support\Facades\DB;
 use Staudenmeir\LaravelCte\Query\Builder;
 
 class ReplyRepository implements ReplyRepositoryInterface {
-    protected $follower_repo;
-    protected $tweet_repo;
 
-    public function __construct(FollowerRepository $follower_repo, TweetRepository $tweet_repo)
+    protected $follower_repo;
+    protected $table_repo;
+
+    public function __construct(FollowerRepository $follower_repo, TableRepository $table_repo)
     {
         $this->follower_repo = $follower_repo; 
-        $this->tweet_repo = $tweet_repo;
+        $this->table_repo = $table_repo;
     }
+
     /**
-     * Returns a table with columns tweet_id and replies_count
-     * 
-     * @return Illuminate\Database\Query\Builder
+     * Creates a tweet reply
+     * @param String $user_id User id of person replying
+     * @param String $reply_tweet_id Tweet id that user is replying to
+     * @param String $content Tweet content of reply
      */
 
-    public function replyTempTable()
+    public function create($user_id, $reply_tweet_id, $content)
     {
-        $builder = DB::table('tweets')
-            ->select(['reply_tweet_id', DB::raw('COUNT(*) AS replies_count')])
-            ->groupBy('reply_tweet_id');
-
-        return $builder;
+        $tweet = Tweet::create(['user_id' => $user_id, 'reply_tweet_id' => $reply_tweet_id, 'tweet' => $content])
+            ->load('user:id,username,name,profile_photo')
+            ->loadCount(['replies', 'retweets', 'replies']);
+        
+        return $tweet;
     }
 
     /**
@@ -49,12 +53,39 @@ class ReplyRepository implements ReplyRepositoryInterface {
                     ->join('tree', 'tree.reply_tweet_id', '=', 'tweets.id')
             );
 
-        $ids = DB::table('tree')
+        $tweets = DB::table('tree')
             ->withRecursiveExpression('tree', $query)
-            ->pluck('id')
-            ->toArray();
+            ->joinSub($this->table_repo->Tweets($user_id), 'lt', function ($join) {
+                $join->on('lt.id', '=', 'tree.id');
+            })
+            ->orderBy('tree.id', 'asc')
+            ->get();
 
-        return $ids;
+        return $tweets;
+    }
+
+    /**
+     * Finds reply tweets given tweet id
+     * 
+     * @param String $tweet_id Tweet id
+     * @param String $user_id User id of logged-in user.  Determines liked_tweet parameter
+     */
+
+    public function findChildTweets($tweet_id, $user_id, $cursor)
+    {
+        $tweets = $this->table_repo->Tweets($user_id)
+            ->where('t.reply_tweet_id', $tweet_id)
+            ->where(function ($query) use ($cursor) {
+                if ($cursor) {
+                    $query->where('t.id', '<=', $cursor);
+                }
+            })
+            ->limit(41)
+            ->orderBy('t.id', 'desc')
+            ->get();
+
+        return $tweets;
+
     }
 
 }

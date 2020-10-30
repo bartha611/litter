@@ -19,7 +19,7 @@ class Follower extends Model
         return $this->hasMany(Tweet::class, 'user_id', 'follower_id');
     }
 
-    public function FollowedUser()
+    public function FollowerUser()
     {
         return $this->belongsTo(User::class, 'follower_id');
     }

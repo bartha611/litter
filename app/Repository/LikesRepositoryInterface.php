@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 interface LikesRepositoryInterface {
-    public function likesTempTable();
 
-    public function findUserLikedTweets($id);
+    public function findLikedTweets($id);
+
+    public function create($user_id, $tweet_id);
+
+    public function delete($id);
 }

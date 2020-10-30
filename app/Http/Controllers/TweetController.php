@@ -48,11 +48,13 @@ class TweetController extends Controller
 
         $cursor = $request->input('cursor');
 
-        $tweets = $this->tweet_repo->tweetNews($this->user_id, $cursor, true);
+        $tweets = $this->tweet_repo->read($this->user_id, $cursor, true);
       
         $cursor = count($tweets) > 40 ? $tweets[40]->id : null;
         $tweets = $tweets->slice(0, 40);
-        return TweetCollection::collection($tweets);
+        $tweets = TweetCollection::collection($tweets);
+        
+        return response()->json(compact('tweets', 'cursor'));
     }
 
     /**
@@ -72,11 +74,14 @@ class TweetController extends Controller
             abort(404, "User doesn't exist");
         }
 
-        $tweets = $this->tweet_repo->tweetNews($user->id, $cursor, false);
+        $tweets = $this->tweet_repo->read($user->id, $cursor, false);
 
         $cursor = count($tweets) > 40 ? $tweets[40]->id : null;
         $tweets = $tweets->slice(0, 40);
-        return response()->json(compact('user', 'tweets', 'cursor'));
+
+        $tweets = TweetCollection::collection($tweets);
+        return response()->json(compact('tweets', 'cursor'));
+
     }
 
     public function show(Tweet $tweet)
@@ -92,11 +97,11 @@ class TweetController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function store(TweetRequest $request): JsonResponse
+    public function store(TweetRequest $request)
     {
         $data = $request->all();
         $data['user_id'] = $this->user_id;
-        $tweet = $this->tweet_repo->store($data);
+        $tweet = $this->tweet_repo->create($data);
 
         return response()->json($tweet);
     }
@@ -109,11 +114,8 @@ class TweetController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function update(TweetRequest $request, Tweet $tweet): JsonResponse
+    public function update(TweetUpdateDestroyRequest $request, Tweet $tweet): JsonResponse
     {
-        if ($this->user_id != $tweet->user_id) {
-            abort(403, "User not authorized to update tweet");
-        }
         $data = $this->tweet_repo->update($tweet->id, $request->get('tweet'));
         return response()->json($data);
     }
@@ -126,14 +128,10 @@ class TweetController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy(Tweet $tweet)
+    public function destroy(TweetUpdateDestroyRequest $tweet)
     {
-        $id = $tweet->id;
-        if ($this->user_id !== $tweet->user_id) {
-            abort(403, "User forbidden");
-        }
-        $this->tweet_repo->delete($id);
-        return response()->json($id);
+        $response = $this->tweet_repo->delete($tweet->id);
+        return response()->json($response);
     }
 
 }

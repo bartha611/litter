@@ -16,9 +16,11 @@ class TweetUpdateDestroyRequest extends FormRequest
      */
     public function authorize()
     {
-        $tweet = DB::table('tweets')->where('id', $this->route('tweet'))->pluck('user_id');
+        $tweet = $this->route('tweet');
 
-        return auth()->user()->username == "bartha611";
+        return $tweet->user_id === JWTAuth::toUser()->id;
+
+        
     }
 
     /**
@@ -29,7 +31,6 @@ class TweetUpdateDestroyRequest extends FormRequest
     public function rules()
     {
         return [
-            'tweet_id' => 'required|exists:App\Tweet,id',
             'tweet' => 'nullable|max:1000'
         ];
     }

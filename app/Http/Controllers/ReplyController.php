@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TweetRequest;
+use App\Http\Resources\TweetCollection;
 use App\Reply;
 use App\Repository\Eloquent\ReplyRepository;
 use App\Tweet;
@@ -35,9 +37,20 @@ class ReplyController extends Controller
 
     public function index(Tweet $tweet, Request $request)
     {
-        $answer = $this->reply_repo->findParentTweets($tweet->id);
+        $cursor = $request->input('cursor');
 
-        return $answer;
+        $parent_tweets = $this->reply_repo->findParentTweets($tweet->id, $this->user_id);
+
+        $child_tweets = $this->reply_repo->findChildTweets($tweet->id, $this->user_id, $cursor);
+
+        $cursor = count($child_tweets) > 40 ? $child_tweets[40]->id : null;
+        $child_tweets = $child_tweets->splice(0, 40);
+
+        $parent_tweets = TweetCollection::collection($parent_tweets);
+        $child_tweets = TweetCollection::collection($child_tweets);
+
+
+        return response()->json(compact('parent_tweets', 'child_tweets', 'cursor'));
     }
 
     /**
@@ -47,24 +60,10 @@ class ReplyController extends Controller
      * @param Tweet $tweet
      * @return \Illuminate\Http\Response
      */
-    public function store(Tweet $tweet, Request $request)
-    {
-        $data = $request->all();
-        $data['user_id'] = $this->user_id;
-        $comment = Tweet::create($data);
-        Reply::create([
-            'tweet_id' => $tweet->id,
-            'reply_tweet_id' => $comment->id
-        ]);
-        $reply = DB::table('tweets AS t')
-            ->select(['t.id', 't.tweet', 't.updated_at', 'u.name', 'u.username', 'u.profile_photo'])
-            ->join('users AS u', 'u.id', '=', 't.user_id')
-            ->where('t.id', $comment->id)
-            ->first();
 
-        $reply->liked_comment = "0";
-        $reply->likes_count = "0";
-        $reply->comments_count = "0";
-        return response()->json(compact('reply'));
+    public function store(Tweet $tweet, TweetRequest $request)
+    {
+        $tweet = $this->reply_repo->create($this->user_id, $tweet->id, $request->get('tweet'));
+        return $tweet;
     }
 }
