@@ -4,7 +4,7 @@ namespace App\Repository;
 
 interface LikesRepositoryInterface {
 
-    public function findLikedTweets($id);
+    public function findLikedTweets($id, $user_id);
 
     public function create($user_id, $tweet_id);
 

@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\DB;
 
 class LikesRepository implements LikesRepositoryInterface {
 
+    protected $table_repo;
+
+    public function __construct(TableRepository $table_repo)
+    {
+        $this->table_repo = $table_repo;
+    }
+
     /**
      * Creates a like given user_id and tweet_id
      * 
@@ -37,20 +44,25 @@ class LikesRepository implements LikesRepositoryInterface {
     /**
      * Returns an array of user-liked tweet ids given user_id
      * 
-     * @param Integer $user_id
+     * @param String $id User id of individual being searched
+     * @param String $user_id Id of logged in user
      * @return Array $likes
      */
 
-    public function findLikedTweets($id) {
-        $likes = DB::table('likes AS l')
+    public function findLikedTweets($id, $user_id) {
+        $user_liked_tweets = DB::table('likes')
             ->select('tweet_id')
-            ->where('user_id', $id)
-            ->pluck('tweet_id')
-            ->toArray();
+            ->where('user_id', $id);
 
-        #push an impossible value to array to prevent a MySql error
-        array_push($likes, -1);
-
-        return $likes;
+        $liked_tweets = $this->table_repo->Tweets($id)
+            ->joinSub($user_liked_tweets, 'ul', function($join) {
+                $join->on('ul.tweet_id', '=', 't.id');
+            })
+            ->orderBy('t.id', 'desc')
+            ->limit(21)
+            ->get();
+        
+        return $liked_tweets;
     }
+
 }

@@ -13,7 +13,7 @@ const FollowButton = ({ follower }) => {
     } else {
       dispatch(
         fetchFollowers('/api/follower', 'POST', 'POST', {
-          follower_id: follower.follower_id
+          following_id: follower.following_id
         })
       );
     }
@@ -38,7 +38,7 @@ const FollowButton = ({ follower }) => {
 FollowButton.propTypes = {
   follower: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    follower_id: PropTypes.string.isRequired,
+    following_id: PropTypes.string.isRequired,
     followed: PropTypes.bool.isRequired,
     followed_user: PropTypes.shape({
       id: PropTypes.number.isRequired,

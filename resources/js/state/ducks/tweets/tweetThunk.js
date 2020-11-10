@@ -7,6 +7,7 @@ const populateData = results => {
     PAGINATE: actions.paginateTweet(results),
     CREATE: actions.createTweet(results),
     DELETE: actions.deleteTweet(results),
+    LIKE: actions.likeTweet(results),
     ERROR: actions.errorTweet(results)
   };
 };

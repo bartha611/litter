@@ -6,12 +6,7 @@ use App\Repository\TableRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
 class TableRepository implements TableRepositoryInterface {
-    protected $likes_repo;
 
-    public function __construct(LikesRepository $likes_repo)
-    {
-        $this->likes_repo = $likes_repo; 
-    }
     /**
      * Returns a table with columns user_id and followers_count
      * 
@@ -98,7 +93,11 @@ class TableRepository implements TableRepositoryInterface {
 
     public function Tweets($user_id) 
     {
-        $liked_tweets = $this->likes_repo->findLikedTweets($user_id);
+
+        $liked_tweets = DB::table('likes')
+            ->where('user_id', $user_id)
+            ->pluck('tweet_id')
+            ->toArray();
 
         $tweets = DB::table('tweets AS t')
             ->select([

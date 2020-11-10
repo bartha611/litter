@@ -16,17 +16,17 @@ class FollowerSeeder extends Seeder
         $count = 0;
         do {
             $user_id = $faker->numberBetween(1, 100);
-            $follower_id = $faker->numberBetween(1, 100);
+            $following_id = $faker->numberBetween(1, 100);
 
             $result = DB::table('followers')
                 ->where('user_id', $user_id)
-                ->where('follower_id', $follower_id)
+                ->where('following_id', $following_id)
                 ->first();
 
             if (!$result) {
                 DB::table('followers')->insert([
                     'user_id' => $user_id,
-                    'follower_id' => $follower_id
+                    'following_id' => $following_id
                 ]);
                 $count += 1;
             }

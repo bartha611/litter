@@ -28,7 +28,7 @@ const followerSlice = createSlice({
     createFollower(state, action) {
       state.loading = false;
       state.followers = state.followers.map(follower => {
-        follower.follower_id === action.payload.follower_id
+        follower.following_id === action.payload.following_id
           ? Object.assign({}, follower, { followed: true })
           : follower;
       });
@@ -36,7 +36,7 @@ const followerSlice = createSlice({
     deleteFollower(state, action) {
       state.loading = false;
       state.followers = state.followers.map(follower => {
-        follower.follower_id === action.payload.follower_id
+        follower.following_id === action.payload.following_id
           ? Object.assign({}, follower, { followed: false })
           : follower;
       });

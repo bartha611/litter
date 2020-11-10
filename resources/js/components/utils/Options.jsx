@@ -6,11 +6,20 @@ import { faComment, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import Tweet from '../Tweet/Tweet';
 import TweetButton from '../Tweet/TweetButton';
+import { fetchTweets } from '../../state/ducks/tweets';
 
 const Options = ({ tweet }) => {
   const [commentModal, setCommentModal] = useState(false);
 
   const toggleComment = () => setCommentModal(!commentModal);
+
+  const likeTweet = ({ liked_tweet, id }) => {
+    if (liked_tweet) {
+      fetchTweets(`/api/tweet/${id}`)
+    } else {
+
+    }
+  }
 
   return (
     <div className=" justify-content-around d-flex">
@@ -43,6 +52,7 @@ const Options = ({ tweet }) => {
             color={tweet.liked_tweet === 0 ? 'black' : 'red'}
             className="option__icon"
             icon={tweet.liked_tweet === 0 ? faHeart : faHeart1}
+            
           />
         </div>
         <div className="option__count">

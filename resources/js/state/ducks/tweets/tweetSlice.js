@@ -24,7 +24,7 @@ const tweetSlice = createSlice({
     },
     paginateTweet(state, action) {
       state.loading = false;
-      state.tweets = [...state.tweets, action.payload.tweets];
+      state.tweets = [...state.tweets, ...action.payload.tweets];
       state.cursor = action.payload.cursor;
     },
     createTweet(state, action) {
@@ -36,6 +36,12 @@ const tweetSlice = createSlice({
       state.tweets = state.tweets.filter(
         tweet => tweet.id !== action.payload.id
       );
+    },
+    likeTweet(state, action) {
+      state.loading = false;
+      state.tweets.map(tweet => {
+        tweet.liked_tweet = tweet.id === action.payload.id ? !tweet.liked_tweet : tweet.liked_tweet;
+      })
     },
     errorTweet(state) {
       state.loading = false;
@@ -49,6 +55,7 @@ export const {
   createTweet,
   readTweet,
   paginateTweet,
+  likeTweet,
   loadTweet,
   errorTweet
 } = tweetSlice.actions;

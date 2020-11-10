@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Follower extends Model
 {
-    protected $fillable = ['user_id', 'follower_id'];
+    protected $fillable = ['user_id', 'following_id'];
 
     protected $dates = ['created_at', 'updated_at'];
 
@@ -16,12 +16,12 @@ class Follower extends Model
     }
     public function tweets()
     {
-        return $this->hasMany(Tweet::class, 'user_id', 'follower_id');
+        return $this->hasMany(Tweet::class, 'user_id', 'following_id');
     }
 
     public function FollowerUser()
     {
-        return $this->belongsTo(User::class, 'follower_id');
+        return $this->belongsTo(User::class, 'following_id');
     }
 
 }

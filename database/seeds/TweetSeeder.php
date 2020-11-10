@@ -37,7 +37,7 @@ class TweetSeeder extends Seeder
 
             $number = rand(1, 10);
 
-            if ($number < 4 or $index < 6) {
+            if ($number < 3 or $index < 6) {
                 // insert as a tweet and insert index into array
 
                 DB::table('tweets')->insert([

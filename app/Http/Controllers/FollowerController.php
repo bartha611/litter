@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Follower;
+use App\Http\Requests\FollowerUpdateDeleteRequest;
 use App\Http\Resources\FollowerCollection;
 use App\Repository\Eloquent\FollowerRepository;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\UnauthorizedException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class FollowerController extends Controller
@@ -27,59 +26,68 @@ class FollowerController extends Controller
     }
 
     /**
-     * Gets a listing of followers for user
-     *
+     * Gets a list of those who are following @user_id
+     * 
+     * @param User $user
      * @return JsonResponse
      */
 
-    public function index()
+    public function following(Request $request, User $user)
     {
-        $followers = $this->follower_repo->getFollowers($this->user_id, $this->user_id);
+        $cursor = $request->input('cursor');
+        $following = $this->follower_repo->getFollowing($user->id, $this->user_id, $cursor);
+
+        $cursor = count($following) > 20 ? $following[20]->id : null;
+        $following = $following->slice(0, 20);
+        $following = FollowerCollection::collection($following);
+
+        return response()->json(compact('following', 'cursor'));
+    }
+
+    /**
+     * Finds followers of user
+     * 
+     * @param Request $request
+     * @param String $user
+     * @return JsonResponse
+     */
+
+    public function follower(Request $request, User $user)
+    {
+        $cursor = $request->input('cursor');
+        $followers = $this->follower_repo->getFollowers($user->id, $this->user_id, $cursor);
+
+        $cursor = count($followers) > 20 ? $followers[20]->id : null;
+        $followers = $followers->slice(0, 40);
         $followers = FollowerCollection::collection($followers);
-        return response()->json(compact('followers'));
+
+        return response()->json(compact('followers', 'cursor'));
     }
 
     /**
+     * Stores new user and following combination
+     * 
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param User $user
      */
 
-    /**
-     *
-     * @param Request $request
-     * @param String $follower
-     * @return JsonResponse
-     */
-
-    public function show(Request $request, User $follower)
+    public function store(Request $request, User $user)
     {
-        $followers = $this->follower_repo->getFollowers($follower->id, $this->user_id);
-        return FollowerCollection::collection($followers);
-    }
-
-    public function store(Request $request): JsonResponse
-    {
-        $data = $request->all();
-        $data['user_id'] = $this->user;
-        $follower = Follower::firstOrCreate($data);
-        return response()->json($follower);
+        $response = $this->follower_repo->create($this->user_id, $user->id);
+        return response()->json($response);
     }
 
     /**
-     * unfollows the user
+     * Deletes following
      *
      * @param Request $request
      * @param Follower $follower
      * @return JsonResponse
      */
 
-    public function destroy(Request $request, Follower $follower)
+    public function destroy(FollowerUpdateDeleteRequest $request, Follower $follower)
     {
-        if ($follower->user_id != $this->user) {
-            throw new UnauthorizedException("Unauthorized to unfollow");
-        }
-        $id = $follower->id;
-        $follower->delete();
+        $id = $this->follower_repo->delete($follower->id);
         return response()->json($id);
     }
 }

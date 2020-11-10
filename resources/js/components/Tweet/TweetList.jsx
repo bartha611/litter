@@ -1,10 +1,6 @@
-import React, { lazy } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import Tweet from './Tweet';
-
-const Options = lazy(() =>
-  import(/* webpackChunkName: 'Options' */ '../utils/Options')
-);
 
 export const TweetList = () => {
   const { tweets } = useSelector(state => state.tweets);

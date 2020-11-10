@@ -8,6 +8,7 @@ use App\Http\Resources\TweetCollection;
 use App\Repository\Eloquent\TweetRepository;
 use App\Repository\Eloquent\UserRepository;
 use App\Tweet;
+use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -60,19 +61,15 @@ class TweetController extends Controller
     /**
      * returns a list of tweets for user
      * @param Request $request
-     * @param String $name Username of the user being searched
+     * @param User $user - User 
      * @return JsonResponse
      */
 
-    public function index(Request $request, $name)
+    public function index(Request $request, User $user)
     {
         $cursor = $request->input('cursor');
 
-        $user = $this->user_repo->findUserWithCounts($name, $this->user_id);
-
-        if (!$user) {
-            abort(404, "User doesn't exist");
-        }
+        $user = $this->user_repo->findUserWithCounts($user->id, $this->user_id);
 
         $tweets = $this->tweet_repo->read($user->id, $cursor, false);
 
@@ -80,7 +77,7 @@ class TweetController extends Controller
         $tweets = $tweets->slice(0, 40);
 
         $tweets = TweetCollection::collection($tweets);
-        return response()->json(compact('tweets', 'cursor'));
+        return response()->json(compact('user', 'tweets', 'cursor'));
 
     }
 

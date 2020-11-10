@@ -14,16 +14,26 @@ class FollowerCollection extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        
+        $response = [
             'id' => $this->id,
-            'followed_user' => $this->followed_user,
-            'follower_user' => [
+            'followed_user' => $this->followed_user
+        ];
+        if (isset($this->following_id)) {
+            $response['following_user'] = [
+                'id' => $this->following_id,
+                'name' => $this->name,
+                'username' => $this->username,
+                'profile_photo' => $this->profile_photo
+            ];
+        } else {
+            $response['follower_user'] = [
                 'id' => $this->follower_id,
                 'name' => $this->name,
                 'username' => $this->username,
-                'profile_photo' => $this->profile_photo,
-                'biography' => $this->biography
-            ]
-        ];
+                'profile_photo' => $this->profile_photo
+            ];
+        }
+        return $response;
     }
 }

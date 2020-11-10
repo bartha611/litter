@@ -23,7 +23,7 @@ const Tweet = ({ tweet , options, parent, main }) => {
 
   const toggle = (event, tweet) => {
     if (typeof event.target.className !== 'object') {
-      history.push(`/${tweet.username}/status/${tweet.id}`);
+      history.push(`/${tweet.user.username}/status/${tweet.id}`);
     }
   };
 
@@ -36,7 +36,7 @@ const Tweet = ({ tweet , options, parent, main }) => {
     >
       <div className="tweet__image">
         <img
-          src={tweet.profile_photo}
+          src={tweet.user.profile_photo}
           className="tweet__photo"
           alt="user profile photo"
         />
@@ -48,14 +48,14 @@ const Tweet = ({ tweet , options, parent, main }) => {
         <div className="tweet__info">
           <a
             className={`tweet__author`}
-            href={`/${encodeURIComponent(tweet.username)}`}
+            href={`/${encodeURIComponent(tweet.user.username)}`}
           >
             <span>
-              <b>{tweet.name}</b>
+              <b>{tweet.user.name}</b>
             </span>
           </a>
           <span className={`text-muted ml-2 tweet__username ${main ? `tweet__username--block`: ""}`}>
-            @{tweet.username}
+            @{tweet.user.username}
           </span>
           <span className={`text-muted ml-2 tweet__date ${main ? `tweet__date--disabled` : ``}`}>
             {sanitizeDate(tweet.updated_at)}
@@ -69,7 +69,6 @@ const Tweet = ({ tweet , options, parent, main }) => {
           </div>
         )}
         {options && <Options tweet={tweet} />}
-        {tweet.loading && <div>IsLoading</div>}
       </div>
     </div>
   );
@@ -82,11 +81,14 @@ Tweet.propTypes = {
     replies_count: PropTypes.number.isRequired,
     likes_count: PropTypes.number.isRequired,
     liked_tweet: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
     tweet: PropTypes.string.isRequired,
-    profile_photo: PropTypes.string.isRequired,
-    updated_at: PropTypes.string.isRequired
+    updated_at: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      profile_photo: PropTypes.string.isRequired,
+    }).isRequired
   }).isRequired
 };
 
