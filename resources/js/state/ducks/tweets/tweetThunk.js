@@ -8,6 +8,7 @@ const populateData = results => {
     CREATE: actions.createTweet(results),
     DELETE: actions.deleteTweet(results),
     LIKE: actions.likeTweet(results),
+    UNLIKE: actions.unlikeTweet(results),
     ERROR: actions.errorTweet(results)
   };
 };

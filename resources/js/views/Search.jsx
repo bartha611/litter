@@ -6,7 +6,7 @@ const SearchBar = lazy(() =>
 );
 
 const Sidebar = lazy(() =>
-  import(/* webpackChunkName: 'Sidebar' */ '../components/sidebar')
+  import(/* webpackChunkName: 'Sidebar' */ '../components/Sidebar')
 );
 
 const Search = () => {

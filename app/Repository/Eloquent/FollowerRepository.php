@@ -24,14 +24,15 @@ class FollowerRepository implements FollowerRepositoryInterface {
     /**
      * Deletes a follower entry given id
      * 
-     * @param String $id Follower table id
+     * @param String $user_id Logged in user id
+     * @param String $following_id Follower user id
      * @return String $id of Follower table 
      */
 
-    public function delete($id)
+    public function delete($user_id, $following_id)
     {
-        Follower::destroy($id);
-        return $id;
+        Follower::where(['user_id' => $user_id, 'following_id' => $following_id])->delete(); 
+        return $following_id;
     }
 
     /**

@@ -24,14 +24,16 @@ class FollowerCollection extends JsonResource
                 'id' => $this->following_id,
                 'name' => $this->name,
                 'username' => $this->username,
-                'profile_photo' => $this->profile_photo
+                'profile_photo' => $this->profile_photo,
+                'biography' => $this->biography
             ];
         } else {
             $response['follower_user'] = [
                 'id' => $this->follower_id,
                 'name' => $this->name,
                 'username' => $this->username,
-                'profile_photo' => $this->profile_photo
+                'profile_photo' => $this->profile_photo,
+                'biography' => $this->biography
             ];
         }
         return $response;

@@ -1,4 +1,5 @@
 const { createSlice } = require('@reduxjs/toolkit');
+import { createReply } from '../replies/replySlice';
 
 const initialState = {
   loading: false,
@@ -40,12 +41,38 @@ const tweetSlice = createSlice({
     likeTweet(state, action) {
       state.loading = false;
       state.tweets.map(tweet => {
-        tweet.liked_tweet = tweet.id === action.payload.id ? !tweet.liked_tweet : tweet.liked_tweet;
-      })
+        tweet.likes_count =
+          tweet.id === action.payload.tweet_id
+            ? tweet.likes_count + 1
+            : tweet.likes_count;
+        tweet.liked_tweet =
+          tweet.id === action.payload.tweet_id ? 1 : tweet.liked_tweet;
+      });
+    },
+    unlikeTweet(state, action) {
+      state.loading = false;
+      state.tweets.map(tweet => {
+        tweet.likes_count =
+          tweet.id === action.payload.tweet_id
+            ? tweet.likes_count - 1
+            : tweet.likes_count;
+        tweet.liked_tweet =
+          tweet.id === action.payload.tweet_id ? 0 : tweet.liked_tweet;
+      });
     },
     errorTweet(state) {
       state.loading = false;
       state.error = true;
+    }
+  },
+  extraReducers: {
+    [createReply]: (state, action) => {
+      state.tweets.map(tweet => {
+        tweet.replies_count =
+          tweet.id === action.payload.reply_tweet_id
+            ? tweet.replies_count + 1
+            : tweet.replies_count;
+      });
     }
   }
 });
@@ -56,6 +83,7 @@ export const {
   readTweet,
   paginateTweet,
   likeTweet,
+  unlikeTweet,
   loadTweet,
   errorTweet
 } = tweetSlice.actions;

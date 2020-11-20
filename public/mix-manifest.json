@@ -1,19 +1,13 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/About.js": "/About.js",
     "/Comment.js": "/Comment.js",
-    "/CommentHeader.js": "/CommentHeader.js",
-    "/CommentList.js": "/CommentList.js",
     "/FollowList.js": "/FollowList.js",
     "/Follower.js": "/Follower.js",
-    "/HomePage.js": "/HomePage.js",
+    "/Home.js": "/Home.js",
     "/Login.js": "/Login.js",
-    "/Options.js": "/Options.js",
     "/Profile.js": "/Profile.js",
-    "/Profilebackground.js": "/Profilebackground.js",
-    "/Search.js": "/Search.js",
     "/Signup.js": "/Signup.js",
-    "/tweetButton.js": "/tweetButton.js",
-    "/tweetList.js": "/tweetList.js"
+    "/TweetCompose.js": "/TweetCompose.js",
+    "/sidebar.js": "/sidebar.js"
 }

@@ -3,15 +3,26 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTweets } from '../../state/ducks/tweets';
 import { fetchReplies } from '../../state/ducks/replies';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const TweetButton = ({ tweetId = null }) => {
+  const history = useHistory();
+  const location = useLocation();
   const [tweet, setTweet] = useState('');
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth.user);
+
   const submit = () => {
     if (tweetId) {
       dispatch(
-        fetchReplies(`/api/tweet/${tweetId}/reply`, 'POST', 'POST', { tweet })
+        fetchReplies(
+          `/api/tweet/${tweetId}/reply`,
+          'POST',
+          'CREATE',
+          { tweet },
+          history,
+          location
+        )
       );
     } else {
       dispatch(fetchTweets('/api/tweet', 'POST', 'POST', { tweet }));

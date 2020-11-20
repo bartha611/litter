@@ -16,9 +16,9 @@ const Follower = () => {
   const { name } = useParams();
   const { error } = useSelector(state => state.followers);
   useEffect(() => {
-    dispatch(fetchFollowers(`/api/follower/${name}`, 'GET', 'READ'));
+    dispatch(fetchFollowers(`/api/user/${name}/follower`, 'GET', 'READ'));
   }, []);
-  useFetchFollowers('/api/follower', name);
+  useFetchFollowers(name);
   return (
     <div>
       <FollowerList />

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Follower;
 use Illuminate\Foundation\Http\FormRequest;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -14,10 +15,10 @@ class FollowerUpdateDeleteRequest extends FormRequest
      */
     public function authorize()
     {
-        $following = $this->route('follower');
-        echo $following;
+        $user = $this->route('user');
+        $following_user = Follower::where(['user_id' => JWTAuth::toUser()->id, 'following_id' => $user->id])->first();
 
-        return $following->user_id === JWTAuth::toUser()->id;
+        return $following_user !== null;
     }
 
     /**

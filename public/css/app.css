@@ -10934,119 +10934,125 @@ ul {
   height: 100%;
 }
 
-.tweet,
-.tweetModal,
-.comment {
+body {
+  font-size: 18px;
+}
+
+.tweet {
   padding: 10px 5px;
   width: 100%;
   display: flex;
   position: relative;
 }
 
-.tweet:hover,
-.tweetModal:hover,
-.comment:hover {
-  cursor: pointer;
-  background: #f0f0f0;
-}
-
-.tweet--disabled,
-.tweetModal--disabled,
-.comment--disabled {
+.tweet--disabled {
   cursor: auto;
 }
 
-.tweet--disabled:hover,
-.tweetModal--disabled:hover,
-.comment--disabled:hover {
+.tweet--disabled:hover {
   background: none;
 }
 
-.tweet--enabled,
-.tweetModal--enabled,
-.comment--enabled {
+.tweet--enabled {
   cursor: pointer;
 }
 
-.tweet--enabled:hover,
-.tweetModal--enabled:hover,
-.comment--enabled:hover {
+.tweet--enabled:hover {
   background: rgba(226, 226, 230, 0.2);
 }
 
-.tweet__author,
-.tweetModal__author,
-.comment__author {
+.tweet__author {
   font-weight: 500;
-  color: black;
+  color: gray;
+}
+
+.tweet__author--disabled {
+  cursor: default;
+}
+
+.tweet__author--disabled:hover {
+  background: none;
+  text-decoration: none;
+}
+
+.tweet__author--enabled {
   cursor: pointer;
 }
 
-.tweet__author:hover,
-.tweetModal__author:hover,
-.comment__author:hover {
-  color: black;
+.tweet__author--enabled:hover {
+  text-decoration: underline;
+  -webkit-text-decoration-color: gray;
+          text-decoration-color: gray;
 }
 
-.tweet__username--block,
-.tweetModal__username--block,
-.comment__username--block {
+.tweet__author--block {
   display: block;
+  margin-left: 0;
 }
 
-.tweet__date--disabled,
-.tweetModal__date--disabled,
-.comment__date--disabled {
+.tweet__author--span {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+.tweet__username--span {
+  margin-left: 0.5rem;
+}
+
+.tweet__username--block {
+  display: block;
+  margin-left: 0;
+  margin-top: -5px;
+}
+
+.tweet__date {
+  margin-left: 0.5rem;
+}
+
+.tweet__date--disabled {
   display: none;
 }
 
-.tweet__image,
-.tweetModal__image,
-.comment__image {
-  padding: 5px;
+.tweet__image {
   position: relative;
+  padding-top: 5px;
 }
 
-.tweet__photo,
-.tweetModal__photo,
-.comment__photo {
+.tweet__photo {
   width: 40px;
   height: 40px;
   border-radius: 100%;
 }
 
-.tweet__line,
-.tweetModal__line,
-.comment__line {
+.tweet__line {
   position: absolute;
   left: 50%;
   top: 35px;
-  background: lightgray;
+  background: gray;
   height: calc(100% - 40px);
   width: 3px;
 }
 
-.tweet__body,
-.tweetModal__body,
-.comment__body {
-  padding: 10px;
-  font-size: 18px;
+.tweet__body {
+  padding: 0px 10px;
   width: calc(100% - 45px);
   display: flex;
   flex-direction: column;
   overflow-wrap: break-word;
 }
 
-.tweet__tweet--font,
-.tweetModal__tweet--font,
-.comment__tweet--font {
+.tweet__tweet--font {
   font-size: 18px;
 }
 
-.tweet__mainInfo,
-.tweetModal__mainInfo,
-.comment__mainInfo {
+.tweet__mainInfo {
   margin-top: 40px;
+}
+
+.tweet__handlers {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .col-12 {
@@ -11066,6 +11072,7 @@ ul {
   border-radius: 100%;
   width: 50%;
   height: 100%;
+  color: black;
 }
 
 .option__count {
@@ -11094,7 +11101,7 @@ ul {
 .button {
   display: flex;
   flex-direction: row;
-  padding: 10px 5px;
+  padding: 1rem 0.5rem;
   width: 100%;
   border-style: solid;
   border-color: #dee2e6;
@@ -11148,11 +11155,10 @@ ul {
 }
 
 .following__button {
-  padding: 5px 10px;
-  border-radius: 16px;
-  font-size: 14px;
+  padding: 0.5rem 1rem;
+  border-radius: 1.6rem;
+  font-size: 1.4rem;
   cursor: pointer;
-  background-color: transparent;
   position: relative;
   width: 100px;
 }
@@ -11162,16 +11168,16 @@ ul {
 }
 
 .following__button--unfollow {
-  color: white;
-  background-color: blue;
+  background: #3490dc;
+  color: #fff;
+}
+
+.following__button--unfollow:hover {
+  background: #e3342f;
 }
 
 .following__button--unfollow:after {
   content: "Following";
-}
-
-.following__button--unfollow:hover {
-  background-color: red;
 }
 
 .following__button--unfollow:hover:after {
@@ -11303,6 +11309,39 @@ ul {
 
 .link--noUnderline:hover {
   text-decoration: none;
+}
+
+.handlers {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.handlers__button {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 100%;
+  text-align: center;
+  padding-top: 0.5rem;
+}
+
+.handlers__button--likes:hover {
+  background: rgba(255, 0, 0, 0.2);
+}
+
+.handlers__button--comment:hover {
+  background: rgba(0, 255, 255, 0.2);
+}
+
+.handlers__button--retweet:hover {
+  background: rgba(0, 230, 64, 0.2);
+}
+
+.handlers {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
 }
 
 .sidebar__nav {

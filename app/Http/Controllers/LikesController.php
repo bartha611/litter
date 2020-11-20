@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LikesCreateRequest;
-use App\Http\Requests\LikesDestroyRequest;
 use App\Http\Resources\TweetCollection;
+use App\Likes;
 use App\Repository\Eloquent\LikesRepository;
 use App\Tweet;
 use App\User;
+use Illuminate\Http\Request;
+use stdClass;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LikesController extends Controller
@@ -61,10 +63,20 @@ class LikesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy(LikesDestroyRequest $likes)
+    public function destroy(Request $request, Tweet $tweet)
     {
-        $id = $likes->id;
-        $this->likes_repo->delete($id);
-        return response()->json($id);
+        $likes = Likes::where('tweet_id', $tweet->id)
+            ->where('user_id', $this->user_id)
+            ->first();
+
+        if (!$likes) {
+            abort(404, "Like doesn't exist");
+        }
+
+        $object = new stdClass();
+        $object->id = $likes->id;
+        $object->tweet_id = $likes->tweet_id;
+        $this->likes_repo->delete($object->id);
+        return response()->json($object);
     }
 }

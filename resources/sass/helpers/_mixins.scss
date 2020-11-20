@@ -1,0 +1,12 @@
+@mixin btn($color-background, $color-text: #fff, $color-hover: '') {
+  background: $color-background;
+  color: $color-text;
+
+  &:hover {
+    @if $color-hover != '' {
+      background: $color-hover;
+    } @else {
+      background: darken($color-background, 10%);
+    }
+  }
+}

@@ -3,6 +3,7 @@
 
 // Variables
 @import 'variables';
+@import 'helpers/_mixins.scss';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -14,6 +15,7 @@
 @import 'components/_inputs.scss';
 @import 'components/_borders.scss';
 @import 'components/_links.scss';
+@import 'components/_lists.scss';
 
 @import 'layouts/_sidebar.scss';
 @import 'layouts/_header.scss';

@@ -57,6 +57,7 @@ class TweetRepository implements TweetRepositoryInterface {
 
         $tweets = $this->table_repo->Tweets($user_id)
             ->whereIn('u.id', $followers)
+            ->whereNull('t.reply_tweet_id')
             ->where(function ($query) use ($cursor) {
                 if ($cursor) {
                     $query->where('t.id', '<=', $cursor);

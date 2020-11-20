@@ -29,6 +29,7 @@ Route::middleware(['api', 'jwt.verify'])->group(function () {
     Route::group(['prefix' => 'tweet'], function() {
         Route::get('/', 'TweetController@news');
         Route::post('/{tweet}/likes', 'LikesController@store');
+        Route::delete('/{tweet}/likes', 'LikesController@destroy');
     });
 
     Route::group(['prefix' => '/user/{user}'], function() {
@@ -37,11 +38,12 @@ Route::middleware(['api', 'jwt.verify'])->group(function () {
         Route::post('/follower', 'FollowerController@store');
         Route::get('/following', 'FollowerController@following');
         Route::get('/tweet', 'TweetController@index');
+        Route::delete('/following', 'FollowerController@destroy');
     });
 
     Route::resource('tweet.reply', 'ReplyController', ['except' => ['edit', 'create']])->shallow();
 
     Route::resource('tweet', 'TweetController', ['except' => ['index', 'edit', 'create']]);
 
-    Route::delete('/follower/{follower}', 'FollowerController@destroy');
+    Route::delete('/likes/{likes}', 'LikesController@destroy');
 });

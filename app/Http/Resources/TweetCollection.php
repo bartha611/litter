@@ -33,6 +33,7 @@ class TweetCollection extends JsonResource
             'replies_count' => $this->replies_count,
             'likes_count' => $this->likes_count,
             'liked_tweet' => $this->liked_tweet,
+            'reply_tweet_id' => $this->reply_tweet_id,
             'user' => [
                 'id' => $this->user_id,
                 'name' => $this->name,

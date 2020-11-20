@@ -1,15 +1,10 @@
-.tweet,
-.tweetModal,
-.comment {
+@use '../_variables.scss';
+
+.tweet {
   padding: 10px 5px;
   width: 100%;
   display: flex;
   position: relative;
-
-  &:hover {
-    cursor: pointer;
-    background: #f0f0f0;
-  }
 
   &--disabled {
     cursor: auto;
@@ -27,29 +22,57 @@
 
   &__author {
     font-weight: 500;
-    color: black;
-    cursor: pointer;
+    color: gray;
 
-    &:hover {
-      color: black;
+    &--disabled {
+      cursor: default;
+      &:hover {
+        background: none;
+        text-decoration: none;
+      }
+    }
+
+    &--enabled {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+        text-decoration-color: gray;
+      }
+    }
+
+    &--block {
+      display: block;
+      margin-left: 0;
+    }
+
+    &--span {
+      display: inline-block;
+      margin-left: $margin-left;
     }
   }
 
   &__username {
+    &--span {
+      margin-left: $margin-left;
+    }
+
     &--block {
       display: block;
+      margin-left: 0;
+      margin-top: -5px;
     }
   }
 
   &__date {
+    margin-left: $margin-left;
     &--disabled {
       display: none;
     }
   }
 
   &__image {
-    padding: 5px;
     position: relative;
+    padding-top: 5px;
   }
 
   &__photo {
@@ -62,14 +85,13 @@
     position: absolute;
     left: 50%;
     top: 35px;
-    background: lightgray;
+    background: gray;
     height: calc(100% - 40px);
     width: 3px;
   }
 
   &__body {
-    padding: 10px;
-    font-size: 18px;
+    padding: 0px 10px;
     width: calc(100% - 45px);
     display: flex;
     flex-direction: column;
@@ -85,7 +107,13 @@
   &__mainInfo {
     margin-top: 40px;
   }
-} 
+
+  &__handlers {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+}
 
 .col-12 {
   padding: 0;
@@ -103,6 +131,7 @@
     border-radius: 100%;
     width: 50%;
     height: 100%;
+    color: black;
   }
 
   &__count {

@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchFollowers } from '../state/ducks/followers/';
 
-export const useFetchFollowers = (path, name = null) => {
+export const useFetchFollowers = name => {
   const followers = useSelector(state => state.followers);
   const dispatch = useDispatch();
-  const url = path + (name ? `/${name}` : '');
+  const url = `/api/user/${name}/following`;
 
   useEffect(() => {
     const handleScroll = () => {

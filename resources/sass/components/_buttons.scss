@@ -1,7 +1,7 @@
 .button {
   display: flex;
   flex-direction: row;
-  padding: 10px 5px;
+  padding: 1rem 0.5rem;
   width: 100%;
   border-style: solid;
   border-color: #dee2e6;
@@ -55,11 +55,10 @@
 }
 
 .following__button {
-  padding: 5px 10px;
-  border-radius: 16px;
-  font-size: 14px;
+  padding: 0.5rem 1rem;
+  border-radius: 1.6rem;
+  font-size: 1.4rem;
   cursor: pointer;
-  background-color: transparent;
   position: relative;
   width: 100px;
 
@@ -68,14 +67,11 @@
   }
 
   &--unfollow {
-    color: white;
-    background-color: blue;
+    @include btn($blue, #fff, $red);
     &:after {
       content: 'Following';
     }
-    &:hover {
-      background-color: red;
-    }
+
     &:hover:after {
       content: 'Unfollow';
     }

@@ -3,24 +3,45 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchFollowers } from '../../state/ducks/followers';
 
+/**
+ *
+ * @param {object} props - Component props
+ * @param {object} props.follower - Follower object
+ * @param {Number} props.follower.followed_user - Number either 0 or 1 that determines whether user follows follower
+ * @param {object} props.follower.follower_user - user information about follower
+ * @param {Number} props.follower.follower_user.id - User id of follower
+ * @param {String} props.follower.follower_user.name - Name of follower
+ * @param {String} props.follower.follower_user.profile_photo - Profile photo of follower
+ * @param {String} props.follower.follower_user.biography - Biography of follower
+ *
+ */
+
 const FollowButton = ({ follower }) => {
   const dispatch = useDispatch();
+
   const submit = follower => {
-    if (follower.followed) {
+    if (follower.followed_user === 1) {
       dispatch(
-        fetchFollowers(`/api/follower/${follower.id}`, 'DELETE', 'DELETE')
+        fetchFollowers(
+          `/api/user/${follower.follower_user.id}/following`,
+          'DELETE',
+          'DELETE'
+        )
       );
     } else {
       dispatch(
-        fetchFollowers('/api/follower', 'POST', 'POST', {
-          following_id: follower.following_id
-        })
+        fetchFollowers(
+          `/api/user/${follower.followed_user.id}/follower`,
+          'POST',
+          'POST'
+        )
       );
     }
   };
+
   return (
     <div>
-      {follower.followed === true ? (
+      {follower.followed_user === 1 ? (
         <button
           className="following__button following__button--unfollow"
           onClick={() => submit(follower)}
@@ -37,16 +58,12 @@ const FollowButton = ({ follower }) => {
 
 FollowButton.propTypes = {
   follower: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    following_id: PropTypes.string.isRequired,
-    followed: PropTypes.bool.isRequired,
-    followed_user: PropTypes.shape({
+    followed_user: PropTypes.bool.isRequired,
+    follower_user: PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       profile_photo: PropTypes.string,
-      email: PropTypes.string.isRequired,
-      biography: PropTypes.string,
-      created_at: PropTypes.string
+      biography: PropTypes.string
     })
   }).isRequired
 };

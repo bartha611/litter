@@ -41,16 +41,15 @@ class ReplyController extends Controller
 
         $parent_tweets = $this->reply_repo->findParentTweets($tweet->id, $this->user_id);
 
-        $child_tweets = $this->reply_repo->findChildTweets($tweet->id, $this->user_id, $cursor);
+        $reply_tweets = $this->reply_repo->findChildTweets($tweet->id, $this->user_id, $cursor);
 
-        $cursor = count($child_tweets) > 40 ? $child_tweets[40]->id : null;
-        $child_tweets = $child_tweets->splice(0, 40);
+        $cursor = count($reply_tweets) > 40 ? $reply_tweets[40]->id : null;
+        $reply_tweets = $reply_tweets->splice(0, 40);
 
         $parent_tweets = TweetCollection::collection($parent_tweets);
-        $child_tweets = TweetCollection::collection($child_tweets);
+        $reply_tweets = TweetCollection::collection($reply_tweets);
 
-
-        return response()->json(compact('parent_tweets', 'child_tweets', 'cursor'));
+        return response()->json(compact('parent_tweets', 'reply_tweets', 'cursor'));
     }
 
     /**

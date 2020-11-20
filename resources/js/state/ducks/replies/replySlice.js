@@ -32,7 +32,9 @@ const replySlice = createSlice({
       state.loading = false;
     },
     createReply(state, action) {
-      state.reply_tweets = [action.payload, ...state.reply_tweets];
+      const parent = state.parent_tweets[state.parent_tweets.length - 1];
+
+      state.reply_tweets = action.payload.reply_tweet_id === parent ? [action.payload, ...state.reply_tweets] : state.reply_tweets;
       state.loading = false;
     },
     deleteReply(state, action) {

@@ -14,8 +14,7 @@ const CommentHeader = () => {
               tweet={tweet}
               options={true}
               key={tweet.id}
-              main={index === parent_tweets.length - 1 ? true: false} 
-              parent={index === parent_tweets.length - 1 ? false : true}
+              parent={index === parent_tweets.length - 1 ? true : false}
             />
           );
         })}

@@ -14,17 +14,24 @@ export const fetchReplies = (
   url,
   method,
   operation,
-  data = null
+  data = null,
+  history,
+  location
 ) => async dispatch => {
   dispatch(actions.loadReply());
   try {
-    dispatch(actions.loadReply());
     const response = await api({
-      method,
       url,
+      method,
       data
     });
     dispatch(populateData(response.data)[operation]);
+    history.push({
+      pathname: '/',
+      state: {
+        from: location.pathname
+      }
+    });
   } catch (err) {
     dispatch(actions.errorReply());
   }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Likes;
 use Illuminate\Foundation\Http\FormRequest;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -14,7 +15,11 @@ class LikesDestroyRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->route('likes')->id === JWTAuth::toUser()->id;
+        $likes = Likes::where('tweet_id', $this->route('tweet')->id)
+            ->where('user_id', JWTAuth::toUser()->id)
+            ->first();
+        
+        return isset($likes->id);
     }
 
     /**

@@ -15,7 +15,7 @@ const FollowerList = () => {
           >
             <div className="follower__image">
               <img
-                src={follower.followed_user.profile_photo}
+                src={follower.follower_user.profile_photo}
                 alt="follower profile photo"
                 className="follower__photo"
               />
@@ -24,16 +24,16 @@ const FollowerList = () => {
               <div className="follower__info flex justify-content-between">
                 <div className="follower__user">
                   <div className="follower__name">
-                    {follower.followed_user.name}
+                    {follower.follower_user.name}
                   </div>
                   <div className="follower__username text-muted">
-                    @{follower.followed_user.username}
+                    @{follower.follower_user.username}
                   </div>
                 </div>
                 <div>{user && <FollowButton follower={follower} />}</div>
               </div>
               <div className="follower__biography">
-                {follower.followed_user.biography}
+                {follower.follower_user.biography}
               </div>
             </div>
           </div>

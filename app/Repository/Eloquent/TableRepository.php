@@ -101,7 +101,7 @@ class TableRepository implements TableRepositoryInterface {
 
         $tweets = DB::table('tweets AS t')
             ->select([
-                't.id', 't.tweet', 't.updated_at','t.user_id', 'u.profile_photo', 'u.name', 'u.username',
+                't.id', 't.tweet', 't.updated_at','t.user_id', 't.reply_tweet_id', 'u.profile_photo', 'u.name', 'u.username',
                 'rtt.tweet AS retweet', 'rtu.username AS retweet_username', 'rtu.name AS retweet_name',
                 'rtu.profile_photo AS retweet_profile_photo',
                 DB::raw('COALESCE(rt.retweets_count,0) AS retweets_count'),

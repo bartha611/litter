@@ -10,12 +10,12 @@ import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 const TweetHandler = () => {
   return (
-    <div>
-      <ul>
-        <li><FontAwesomeIcon icon={faComment} /></li>
-        <li><FontAwesomeIcon icon={faRetweet} /></li>
-        <li><FontAwesomeIcon icon={faHeart} /></li>
+      <ul className = "handlers">
+        <li className = "handlers__button handlers__button--comment"><FontAwesomeIcon icon={faComment} /></li>
+        <li className = "handlers__button handlers__button--retweet"><FontAwesomeIcon icon={faRetweet} /></li>
+        <li className = "handlers__button handlers__button--likes"><FontAwesomeIcon icon={faHeart} /></li>
       </ul>
-    </div>
   )
 }
+
+export default TweetHandler;

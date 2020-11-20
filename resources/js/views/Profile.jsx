@@ -2,20 +2,9 @@ import React, { useEffect, lazy } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchTweets } from '../state/ducks/tweets';
 import { useParams, useLocation } from 'react-router-dom';
-
-const TweetList = lazy(() =>
-  import(/* webpackChunkName: 'tweetList' */ '../components/Tweet/TweetList')
-);
-
-const Background = lazy(() =>
-  import(
-    /* webpackChunkName: 'Profilebackground' */ '../components/profileBackground'
-  )
-);
-
-const About = lazy(() =>
-  import(/* webpackChunkName: 'About' */ '../components/Profile/biography')
-);
+import TweetList from '../components/Tweet/TweetList';
+import Background from '../components/Profile/ProfileBackground';
+import About from '../components/Profile/Biography';
 
 import { useFetchTweets } from '../utils/useFetchTweet';
 
@@ -29,10 +18,10 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(fetchTweets(`/api/tweet/${name}`, 'GET', 'READ'));
+    dispatch(fetchTweets(`/api/user/${name}/tweet`, 'GET', 'READ'));
   }, [location]);
 
-  useFetchTweets('/api/tweet', name);
+  useFetchTweets(name);
 
   return (
     <div>

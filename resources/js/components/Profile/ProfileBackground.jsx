@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import Header from './Profile/Header';
+import Header from './Header';
 
 const Background = () => {
   const { user } = useSelector(state => state.tweets);
