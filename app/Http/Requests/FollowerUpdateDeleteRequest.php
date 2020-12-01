@@ -15,10 +15,8 @@ class FollowerUpdateDeleteRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = $this->route('user');
-        $following_user = Follower::where(['user_id' => JWTAuth::toUser()->id, 'following_id' => $user->id])->first();
-
-        return $following_user !== null;
+        $follower = $this->route('follower');
+        return $follower->user_id === JWTAuth::toUser()->id;
     }
 
     /**

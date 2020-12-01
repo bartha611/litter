@@ -18,16 +18,24 @@ const Options = ({ tweet }) => {
   };
 
   return (
-    <div className=" justify-content-around d-flex">
+    <div className="justify-content-around d-flex">
       <div className="option">
         <Link
           className="option__image option__comment"
           to={{
             pathname: '/compose/tweet',
-            state: { background: location, tweet }
+            state: {
+              background: location,
+              tweet,
+              scrollY: document.body.style.top
+            }
           }}
         >
-          <FontAwesomeIcon className="option__icon" icon={faComment} />
+          <FontAwesomeIcon
+            color="white"
+            className="option__icon"
+            icon={faComment}
+          />
         </Link>
         <div className="option__count">
           <span>{tweet.replies_count}</span>
@@ -39,7 +47,7 @@ const Options = ({ tweet }) => {
           onClick={() => likeTweet(tweet)}
         >
           <FontAwesomeIcon
-            color={tweet.liked_tweet === 0 ? 'black' : 'red'}
+            color={tweet.liked_tweet === 0 ? 'white' : 'red'}
             className="option__icon"
             icon={tweet.liked_tweet === 0 ? faHeart : faHeart1}
           />

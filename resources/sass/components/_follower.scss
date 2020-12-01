@@ -1,0 +1,30 @@
+.follower {
+  &__button {
+    border-radius: 1.6rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    position: relative;
+    width: 10rem;
+
+    &--unfollow {
+      @include btn($blue, #fff, $red);
+
+      &:after {
+        content: 'Following';
+      }
+
+      &:hover:after {
+        content: 'Unfollow';
+      }
+    }
+
+    &--follow {
+      @include btn($black, $navy-blue);
+      border: 0.1rem solid $navy-blue;
+
+      &:after {
+        content: 'Follow';
+      }
+    }
+  }
+}

@@ -29,6 +29,7 @@ class TweetRepository implements TweetRepositoryInterface {
         $tweet = Tweet::create($data)
             ->load('user:id,name,username,profile_photo')
             ->loadCount(['retweets', 'replies', 'likes']);
+        $tweet->liked_tweet = 0;
         unset($tweet->user_id);
         return $tweet;
     }

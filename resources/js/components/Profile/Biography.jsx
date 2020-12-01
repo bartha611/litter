@@ -13,7 +13,7 @@ const About = () => {
   };
 
   return (
-    <div className="about border-left border-right border-bottom">
+    <div className="about">
       {user && (
         <div className="about__info">
           <div className="about__name text-bold">{user.name}</div>

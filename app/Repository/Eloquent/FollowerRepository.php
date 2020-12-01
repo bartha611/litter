@@ -29,10 +29,10 @@ class FollowerRepository implements FollowerRepositoryInterface {
      * @return String $id of Follower table 
      */
 
-    public function delete($user_id, $following_id)
+    public function delete($follower_id)
     {
-        Follower::where(['user_id' => $user_id, 'following_id' => $following_id])->delete(); 
-        return $following_id;
+        Follower::where('id', $follower_id)->delete(); 
+        return $follower_id;
     }
 
     /**
@@ -63,21 +63,23 @@ class FollowerRepository implements FollowerRepositoryInterface {
 
     public function getFollowers($id, $user_id, $cursor)
     {
-
-        $user_followers = $this->findFollowersById($user_id);
-
         $followers = DB::table('followers AS f')
             ->select([
                 'f.id', 'f.user_id AS follower_id', 'u.username', 'u.name', 'u.profile_photo','u.biography',
-                DB::raw('CASE WHEN f.following_id IN (' . implode(',', $user_followers) . ') THEN 1 ELSE 0 END AS followed_user')
+                'fu.id AS followed_user'
             ])
             ->join('users AS u', 'u.id', '=', 'f.user_id')
+            ->leftJoin('followers AS fu', function ($join) use ($user_id) {
+                $join->on('fu.following_id', '=', 'f.user_id')
+                    ->where('fu.user_id', $user_id);
+            })
             ->where('f.following_id', $id)
             ->where(function ($query) use ($cursor) {
                 if ($cursor) {
                     $query->where('f.id', '<=', $cursor);
                 }
             })
+            ->orderBy('followed_user', 'desc')
             ->orderBy('f.id', 'desc')
             ->limit(21)
             ->get();
@@ -93,20 +95,24 @@ class FollowerRepository implements FollowerRepositoryInterface {
 
     public function getFollowing($id, $user_id, $cursor)
     {
-        $user_followers = $this->findFollowersById($user_id);
 
         $following = DB::table('followers AS f')
             ->select([
                 'f.id', 'f.following_id AS following_id', 'u.username', 'u.name', 'u.profile_photo', 'u.biography',
-                DB::raw('CASE WHEN f.following_id IN (' . implode(",", $user_followers) . ') THEN 1 ELSE 0 END followed_user')
+                'fu.id AS followed_user'
             ])
             ->join('users AS u', 'u.id', '=', 'f.following_id')
+            ->leftJoin('followers AS fu', function ($join) use ($user_id) {
+                $join->on('fu.following_id', '=', 'f.following_id')
+                    ->where('fu.user_id', $user_id);
+            })
             ->where('f.user_id', $id)
             ->where(function ($query) use ($cursor) {
                 if ($cursor) {
                     $query->where('f.id', '<=', $cursor);
                 }
             })
+            ->orderBy('followed_user', 'desc')
             ->orderBy('f.id', 'desc')
             ->limit(21)
             ->get();

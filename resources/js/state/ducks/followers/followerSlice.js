@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   loading: false,
-  followers: [],
+  following: [],
   cursor: null,
   error: false
 };
 
 const followerSlice = createSlice({
-  name: 'followers',
+  name: 'following',
   initialState,
   reducers: {
     loadFollowers(state) {
@@ -17,17 +17,17 @@ const followerSlice = createSlice({
     },
     readFollowers(state, action) {
       state.loading = false;
-      state.followers = action.payload.followers;
+      state.following = action.payload.following;
       state.cursor = action.payload.cursor;
     },
     paginateFollowers(state, action) {
       state.loading = false;
-      state.followers = state.followers.concat(action.payload.followers);
+      state.following = state.following.concat(action.payload.following);
       state.cursor = action.payload.cursor;
     },
     createFollower(state, action) {
       state.loading = false;
-      state.followers = state.followers.map(follower => {
+      state.following = state.following.map(follower => {
         follower.follower_user.id === action.payload.following_id
           ? Object.assign({}, follower, { followed_user: true })
           : follower;
@@ -35,7 +35,7 @@ const followerSlice = createSlice({
     },
     deleteFollower(state, action) {
       state.loading = false;
-      state.followers = state.followers.map(follower => {
+      state.following = state.following.map(follower => {
         follower.follower_user.id === action.payload.following_id
           ? Object.assign({}, follower, { followed_user: false })
           : follower;

@@ -8,7 +8,7 @@ interface FollowerRepositoryInterface {
 
     public function create($user_id, $following_id);
 
-    public function delete($user_id, $following_id);
+    public function delete($follower_id);
 
     public function getFollowers($id, $user_id, $cursor);
 

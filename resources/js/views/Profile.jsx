@@ -1,5 +1,5 @@
 import React, { useEffect, lazy } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchTweets } from '../state/ducks/tweets';
 import { useParams, useLocation } from 'react-router-dom';
 import TweetList from '../components/Tweet/TweetList';
@@ -8,18 +8,18 @@ import About from '../components/Profile/Biography';
 
 import { useFetchTweets } from '../utils/useFetchTweet';
 
-const Profile = () => {
+const Profile = ({ background }) => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const { tweets } = useSelector(state => state.tweets);
   let { name } = useParams();
+  let from = location.state && location.state.from;
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!background && (from !== '/compose/tweet' || tweets.length === 0)) {
+      dispatch(fetchTweets(`/api/user/${name}/tweet`, 'GET', 'READ'));
+    }
   }, []);
-
-  useEffect(() => {
-    dispatch(fetchTweets(`/api/user/${name}/tweet`, 'GET', 'READ'));
-  }, [location]);
 
   useFetchTweets(name);
 

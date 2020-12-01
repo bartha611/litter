@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../state/ducks/search';
 import { useHistory, useLocation } from 'react-router-dom';
 
-const SearchBar = ({ type }) => {
+const SearchBar = () => {
   const location = useLocation();
   const history = useHistory();
 
   useEffect(() => {
     setSearch('');
-  }, [location]);
+  }, []);
 
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
@@ -30,9 +30,10 @@ const SearchBar = ({ type }) => {
       return '';
     }
   };
+
   return (
-    <div className={`search search__${type}`}>
-      <FontAwesomeIcon className="search__icon" icon={faSearch} />
+    <div className="search">
+      <FontAwesomeIcon color="blue" className="search__icon" icon={faSearch} />
       <input
         type="text"
         className="search__input"

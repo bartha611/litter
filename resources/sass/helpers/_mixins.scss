@@ -1,12 +1,24 @@
 @mixin btn($color-background, $color-text: #fff, $color-hover: '') {
-  background: $color-background;
   color: $color-text;
+  padding: $button-padding;
+  background: $color-background;
 
-  &:hover {
+  &:not(:disabled):hover {
     @if $color-hover != '' {
       background: $color-hover;
     } @else {
-      background: darken($color-background, 10%);
+      opacity: 0.4;
     }
   }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+@mixin TweetImage() {
+  width: $image-width;
+  height: $image-height;
+  border-radius: 100%;
 }

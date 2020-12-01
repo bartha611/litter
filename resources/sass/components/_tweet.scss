@@ -1,0 +1,78 @@
+.tweet {
+  padding: 10px 5px;
+  width: 100%;
+  display: flex;
+  position: relative;
+  border-bottom: 0.1rem solid $dark-grey;
+
+  &--disabled {
+    cursor: auto;
+    &:hover {
+      background: none;
+    }
+  }
+
+  &--enabled {
+    cursor: pointer;
+    &:hover {
+      background: rgba($dark-grey, 0.15);
+    }
+  }
+
+  &__body {
+    padding: 0px 0.5rem;
+    width: calc(100% - #{$image-width});
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: break-word;
+  }
+
+  &__author {
+    font-weight: bolder;
+    &--disabled {
+      cursor: default;
+      &:hover {
+        background: none;
+        text-decoration: none;
+      }
+    }
+
+    &--enabled {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+        text-decoration-color: gray;
+      }
+    }
+  }
+
+  &__username {
+    margin-left: $margin-left;
+    color: $dark-grey;
+  }
+
+  &__date {
+    margin-left: $margin-left;
+    color: $dark-grey;
+  }
+
+  &__image {
+    position: relative;
+    padding: 0.5rem;
+  }
+
+  &__photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
+
+  &__line {
+    position: absolute;
+    left: 50%;
+    top: 35px;
+    background: gray;
+    height: calc(100% - 40px);
+    width: 3px;
+  }
+}

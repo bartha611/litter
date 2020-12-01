@@ -5,9 +5,14 @@
     "/FollowList.js": "/FollowList.js",
     "/Follower.js": "/Follower.js",
     "/Home.js": "/Home.js",
+    "/Home~TweetCompose.js": "/Home~TweetCompose.js",
     "/Login.js": "/Login.js",
     "/Profile.js": "/Profile.js",
     "/Signup.js": "/Signup.js",
     "/TweetCompose.js": "/TweetCompose.js",
-    "/sidebar.js": "/sidebar.js"
+    "/sidebar.js": "/sidebar.js",
+    "/Search.js": "/Search.js",
+    "/vendors~Login~Profile~Search~Signup~TweetCompose~sidebar.js": "/vendors~Login~Profile~Search~Signup~TweetCompose~sidebar.js",
+    "/vendors~Login~Search~Signup~TweetCompose~sidebar.js": "/vendors~Login~Search~Signup~TweetCompose~sidebar.js",
+    "/vendors~Profile~sidebar.js": "/vendors~Profile~sidebar.js"
 }

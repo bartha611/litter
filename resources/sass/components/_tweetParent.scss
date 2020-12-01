@@ -1,0 +1,46 @@
+.TweetParent {
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 0.5rem 2rem;
+
+  &__header {
+    display: flex;
+    justify-content: start;
+  }
+
+  &__photo {
+    height: $parent-image-height;
+    width: $parent-image-width;
+    border-radius: 100%;
+  }
+
+  &__info {
+    padding: 0px 0.5rem;
+  }
+
+  &__author {
+    font-weight: bolder;
+  }
+
+  &__username {
+    color: $dark-grey;
+    margin-top: -1rem;
+  }
+
+  &__body {
+    padding: 2rem 0;
+  }
+
+  &__dateInfo {
+    font-size: 1.8rem;
+  }
+
+  &__time {
+    color: $dark-grey;
+  }
+
+  &__date {
+    color: $dark-grey;
+    margin-left: $margin-left;
+  }
+}

@@ -12,8 +12,8 @@ const Profile = lazy(() =>
   import(/* webpackChunkName: 'Profile' */ '../views/Profile')
 );
 
-const Follower = lazy(() =>
-  import(/*webpackChunkName: 'Follower' */ '../views/Follower')
+const FollowerView = lazy(() =>
+  import(/*webpackChunkName: 'Follower' */ '../views/FollowerView')
 );
 
 const Comment = lazy(() =>
@@ -41,8 +41,16 @@ const ModalSwitch = () => {
             path="/"
             component={Wrapper(Home)}
           />
-          <PrivateRoute exact path="/:name" component={Wrapper(Profile)} />
-          <PrivateRoute path="/:name/following" component={Wrapper(Follower)} />
+          <PrivateRoute
+            exact
+            background={background}
+            path="/:name"
+            component={Wrapper(Profile)}
+          />
+          <PrivateRoute
+            path="/:name/following"
+            component={Wrapper(FollowerView)}
+          />
           <PrivateRoute
             path="/:name/status/:tweet"
             component={Wrapper(Comment)}

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import TweetHandler from './TweetHandlers';
-import Options from '../utils/Options';
 
 /**
  * @param {object} props Component props
@@ -17,14 +16,12 @@ import Options from '../utils/Options';
  * @param {string} props.tweet.user.username - The username of user who wrote the tweet
  * @param {string} props.tweet.user.name - The name of the user who wrote the tweet
  * @param {string} props.tweet.user.profile_photo - The profile photo of user who wrote the tweet
- * @param {boolean} props.options - Boolean that determines whether to populate with tweet handlers
- * @param {boolean} props.parent - Boolean that determines whether tweet is the parent
  * @param {boolean} props.disabled - Boolean that determines whether links are disabled
  * @param {boolean} props.line - Boolean that determines whether there is a line from image to next tweet
  *
  */
 
-const Tweet = ({ tweet, options, parent, disabled, line }) => {
+const Tweet = ({ tweet, disabled, line }) => {
   const history = useHistory();
 
   const sanitizeDate = date => {
@@ -35,19 +32,8 @@ const Tweet = ({ tweet, options, parent, disabled, line }) => {
       .join(' ');
   };
 
-  const getTime = date => {
-    const newDate = new Date(date);
-    return newDate.toLocaleString('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true
-    });
-  };
-
-  const toggle = (event, tweet) => {
-    console.log(event.target.className);
-    console.log(event.target.className == 'tweet__tweet');
-    if (event.target.className === 'tweet__tweet' && !disabled) {
+  const toggle = e => {
+    if (e.target.className !== 'tweet__author') {
       history.push(`/${tweet.user.username}/status/${tweet.id}`);
     }
   };
@@ -62,10 +48,8 @@ const Tweet = ({ tweet, options, parent, disabled, line }) => {
   return (
     <div
       key={tweet.id}
-      className={`border-right border-left border-bottom tweet ${
-        disabled ? '' : 'tweet--disabled'
-      }`}
-      onClick={event => toggle(event, tweet)}
+      className={`tweet ${disabled ? 'tweet--disabled' : 'tweet--enabled'}`}
+      onClick={toggle}
     >
       <div className="tweet__image">
         <img
@@ -86,40 +70,11 @@ const Tweet = ({ tweet, options, parent, disabled, line }) => {
           >
             <span className="tweet__author">{tweet.user.name}</span>
           </Link>
-          <span
-            className={`text-muted tweet__username ${
-              parent ? `tweet__username--block` : 'tweet__username--span'
-            }`}
-          >
-            @{tweet.user.username}
-          </span>
-          <span
-            className={`text-muted tweet__date ${
-              parent ? `tweet__date--disabled` : ``
-            }`}
-          >
-            {sanitizeDate(tweet.updated_at)}
-          </span>
+          <span className="tweet__username">@{tweet.user.username}</span>
+          <span className="tweet__date">{sanitizeDate(tweet.updated_at)}</span>
         </div>
-        <div className={`tweet__tweet ${parent ? `tweet__tweet--font` : ``}`}>
-          {tweet.tweet}
-        </div>
-        {parent && (
-          <div className="tweet__parentInfo">
-            <span className={'text-muted tweet__time'}>
-              {getTime(tweet.updated_at)}
-            </span>
-            <span className="text-muted tweet__date">
-              {sanitizeDate(tweet.updated_at)}
-            </span>
-          </div>
-        )}
-        {parent && (
-          <div className="tweet__handlers">
-            <TweetHandler />
-          </div>
-        )}
-        {options && <Options tweet={tweet} />}
+        <div className="tweet__tweet">{tweet.tweet}</div>
+        <TweetHandler tweet={tweet} />
       </div>
     </div>
   );

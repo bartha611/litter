@@ -2,26 +2,30 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import 'variables';
+@import 'helpers/_variables.scss';
 @import 'helpers/_mixins.scss';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-@import 'index.scss';
 @import 'layouts/_grid.scss';
 
-@import 'components/_buttons.scss';
+@import 'components/_tweetParent.scss';
+@import 'components/_tweetbutton.scss';
+@import 'components/_follower.scss';
 @import 'components/_inputs.scss';
 @import 'components/_borders.scss';
-@import 'components/_links.scss';
-@import 'components/_lists.scss';
+@import 'components/_searchBar.scss';
+@import 'components/_handlers.scss';
+@import 'components/_tweetCompose.scss';
+@import 'components/_tweet.scss';
 
 @import 'layouts/_sidebar.scss';
 @import 'layouts/_header.scss';
-@import 'layouts/_search.scss';
 
-@import 'pages/_home.scss';
 @import 'pages/_profileBackground.scss';
 @import 'pages/_biography.scss';
 @import 'pages/_following.scss';
+
+@import 'base/_typography.scss';
+@import 'base/_reset.scss';

@@ -85,9 +85,9 @@ class FollowerController extends Controller
      * @return JsonResponse
      */
 
-    public function destroy(FollowerUpdateDeleteRequest $request, User $user)
+    public function destroy(FollowerUpdateDeleteRequest $request, Follower $follower)
     {
-        $following_id = $this->follower_repo->delete($this->user_id, $user->id);
+        $following_id = $this->follower_repo->delete($follower->id);
         return response()->json(compact('following_id'));
     }
 }

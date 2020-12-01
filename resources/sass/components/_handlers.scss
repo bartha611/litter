@@ -1,0 +1,29 @@
+.handlers {
+  display: flex;
+  padding: 0.5rem 0;
+  justify-content: space-around;
+
+  &__button {
+    width: $handler-width;
+    height: $handler-width;
+    border-radius: 100%;
+    padding: 0.5rem 0;
+    text-align: center;
+    cursor: pointer;
+
+    &--comment:hover {
+      background: rgba($comment_background, 0.2);
+      color: $comment_background;
+    }
+
+    &--retweet:hover {
+      background: rgba($retweet_background, 0.2);
+      color: $retweet_background;
+    }
+
+    &--likes:hover {
+      background: rgba($likes_background, 0.2);
+      color: $likes_background;
+    }
+  }
+}

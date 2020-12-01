@@ -3,6 +3,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import Tweet from './Tweet';
 import TweetButton from './TweetButton';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * Creates a tweet compose modal
@@ -12,6 +14,7 @@ const TweetCompose = ({ tweet = null }) => {
   const history = useHistory();
   const location = useLocation();
   let tweetId = location.state && location.state.tweet.id;
+  const lastLocation = location.state && location.state.background.pathname;
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -21,9 +24,9 @@ const TweetCompose = ({ tweet = null }) => {
   const back = e => {
     e.stopPropagation();
     console.log(e.target.className);
-    if (!e.target.className) {
+    if (e.target.className === 'TweetCompose') {
       history.push({
-        pathname: '/',
+        pathname: `${lastLocation}`,
         state: {
           from: location.pathname
         }
@@ -31,28 +34,29 @@ const TweetCompose = ({ tweet = null }) => {
     }
   };
 
+  const _onClick = e => {
+    history.push({
+      pathname: `${lastLocation}`,
+      state: {
+        from: location.pathname
+      }
+    });
+  };
+
   return (
-    <div
-      onClick={back}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'rgba(0, 0, 0, 0.15)'
-      }}
-    >
-      <div
-        className="modalButton"
-        style={{
-          background: 'black',
-          width: '400px',
-          margin: '0 auto',
-          color: 'white',
-          marginTop: '150px'
-        }}
-      >
+    <div onClick={back} className="TweetCompose">
+      <div className="TweetCompose__modal">
+        <div className="TweetCompose__header">
+          <span className="TweetCompose__close">
+            <FontAwesomeIcon
+              onClick={_onClick}
+              color="inherit"
+              icon={faTimes}
+              size="lg"
+              className="TweetCompose__icon"
+            />
+          </span>
+        </div>
         {tweet && (
           <Tweet
             tweet={tweet}

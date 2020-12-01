@@ -9,17 +9,10 @@ import Tweet from './Tweet';
 export const TweetList = () => {
   const { tweets } = useSelector(state => state.tweets);
   return (
-    <div>
+    <div className="tweetList">
       {tweets.map(tweet => {
         return (
-          <Tweet
-            key={tweet.id}
-            tweet={tweet}
-            options={true}
-            main={false}
-            parent={false}
-            line={false}
-          />
+          <Tweet key={tweet.id} tweet={tweet} line={false} disabled={false} />
         );
       })}
     </div>
