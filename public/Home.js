@@ -8,7 +8,37 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"TweetList\", function() { return TweetList; });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _Tweet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Tweet */ \"./resources/js/components/Tweet/Tweet.jsx\");\n\n\n\n/**\n * Component that displays list of tweets\n */\n\nvar TweetList = function TweetList() {\n  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__[\"useSelector\"])(function (state) {\n    return state.tweets;\n  }),\n      tweets = _useSelector.tweets;\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"tweetList\"\n  }, tweets.map(function (tweet) {\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Tweet__WEBPACK_IMPORTED_MODULE_2__[\"default\"], {\n      key: tweet.id,\n      tweet: tweet,\n      line: false,\n      disabled: false\n    });\n  }));\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (TweetList);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9Ud2VldC9Ud2VldExpc3QuanN4PzU0ZDMiXSwibmFtZXMiOlsiVHdlZXRMaXN0IiwidXNlU2VsZWN0b3IiLCJzdGF0ZSIsInR3ZWV0cyIsIm1hcCIsInR3ZWV0IiwiaWQiXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUVBOzs7O0FBSU8sSUFBTUEsU0FBUyxHQUFHLFNBQVpBLFNBQVksR0FBTTtBQUFBLHFCQUNWQywrREFBVyxDQUFDLFVBQUFDLEtBQUs7QUFBQSxXQUFJQSxLQUFLLENBQUNDLE1BQVY7QUFBQSxHQUFOLENBREQ7QUFBQSxNQUNyQkEsTUFEcUIsZ0JBQ3JCQSxNQURxQjs7QUFFN0Isc0JBQ0U7QUFBSyxhQUFTLEVBQUM7QUFBZixLQUNHQSxNQUFNLENBQUNDLEdBQVAsQ0FBVyxVQUFBQyxLQUFLLEVBQUk7QUFDbkIsd0JBQ0UsMkRBQUMsOENBQUQ7QUFBTyxTQUFHLEVBQUVBLEtBQUssQ0FBQ0MsRUFBbEI7QUFBc0IsV0FBSyxFQUFFRCxLQUE3QjtBQUFvQyxVQUFJLEVBQUUsS0FBMUM7QUFBaUQsY0FBUSxFQUFFO0FBQTNELE1BREY7QUFHRCxHQUpBLENBREgsQ0FERjtBQVNELENBWE07QUFhUUwsd0VBQWYiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9Ud2VldC9Ud2VldExpc3QuanN4LmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7IHVzZVNlbGVjdG9yIH0gZnJvbSAncmVhY3QtcmVkdXgnO1xuaW1wb3J0IFR3ZWV0IGZyb20gJy4vVHdlZXQnO1xuXG4vKipcbiAqIENvbXBvbmVudCB0aGF0IGRpc3BsYXlzIGxpc3Qgb2YgdHdlZXRzXG4gKi9cblxuZXhwb3J0IGNvbnN0IFR3ZWV0TGlzdCA9ICgpID0+IHtcbiAgY29uc3QgeyB0d2VldHMgfSA9IHVzZVNlbGVjdG9yKHN0YXRlID0+IHN0YXRlLnR3ZWV0cyk7XG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9XCJ0d2VldExpc3RcIj5cbiAgICAgIHt0d2VldHMubWFwKHR3ZWV0ID0+IHtcbiAgICAgICAgcmV0dXJuIChcbiAgICAgICAgICA8VHdlZXQga2V5PXt0d2VldC5pZH0gdHdlZXQ9e3R3ZWV0fSBsaW5lPXtmYWxzZX0gZGlzYWJsZWQ9e2ZhbHNlfSAvPlxuICAgICAgICApO1xuICAgICAgfSl9XG4gICAgPC9kaXY+XG4gICk7XG59O1xuXG5leHBvcnQgZGVmYXVsdCBUd2VldExpc3Q7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/components/Tweet/TweetList.jsx\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TweetList", function() { return TweetList; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Tweet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Tweet */ "./resources/js/components/Tweet/Tweet.jsx");
+
+
+
+/**
+ * Component that displays list of tweets
+ */
+
+var TweetList = function TweetList() {
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.tweets;
+  }),
+      tweets = _useSelector.tweets;
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "tweetList"
+  }, tweets.map(function (tweet) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Tweet__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      key: tweet.id,
+      tweet: tweet,
+      line: false,
+      disabled: false
+    });
+  }));
+};
+/* harmony default export */ __webpack_exports__["default"] = (TweetList);
 
 /***/ }),
 
@@ -20,7 +50,34 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"useFetchTweets\", function() { return useFetchTweets; });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _state_ducks_tweets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../state/ducks/tweets */ \"./resources/js/state/ducks/tweets/index.js\");\n\n\n\nvar useFetchTweets = function useFetchTweets() {\n  var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;\n  var tweet = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__[\"useSelector\"])(function (state) {\n    return state.tweets;\n  });\n  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__[\"useDispatch\"])();\n  var url = name ? '/api/tweet' : \"/api/user/\".concat(name, \"/tweet\");\n  Object(react__WEBPACK_IMPORTED_MODULE_0__[\"useEffect\"])(function () {\n    var handleScroll = function handleScroll() {\n      if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight || !tweet.cursor || tweet.loading) return;\n      dispatch(Object(_state_ducks_tweets__WEBPACK_IMPORTED_MODULE_2__[\"fetchTweets\"])(\"\".concat(url, \"?cursor=\").concat(tweet.cursor), 'GET', 'PAGINATE'));\n    };\n\n    window.addEventListener('scroll', handleScroll);\n    return function () {\n      return window.removeEventListener('scroll', handleScroll);\n    };\n  });\n};//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvdXRpbHMvdXNlRmV0Y2hUd2VldC5qc3g/NjAyNSJdLCJuYW1lcyI6WyJ1c2VGZXRjaFR3ZWV0cyIsIm5hbWUiLCJ0d2VldCIsInVzZVNlbGVjdG9yIiwic3RhdGUiLCJ0d2VldHMiLCJkaXNwYXRjaCIsInVzZURpc3BhdGNoIiwidXJsIiwidXNlRWZmZWN0IiwiaGFuZGxlU2Nyb2xsIiwid2luZG93IiwiaW5uZXJIZWlnaHQiLCJkb2N1bWVudCIsImRvY3VtZW50RWxlbWVudCIsInNjcm9sbFRvcCIsIm9mZnNldEhlaWdodCIsImN1cnNvciIsImxvYWRpbmciLCJmZXRjaFR3ZWV0cyIsImFkZEV2ZW50TGlzdGVuZXIiLCJyZW1vdmVFdmVudExpc3RlbmVyIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFFTyxJQUFNQSxjQUFjLEdBQUcsU0FBakJBLGNBQWlCLEdBQWlCO0FBQUEsTUFBaEJDLElBQWdCLHVFQUFULElBQVM7QUFDN0MsTUFBTUMsS0FBSyxHQUFHQywrREFBVyxDQUFDLFVBQUFDLEtBQUs7QUFBQSxXQUFJQSxLQUFLLENBQUNDLE1BQVY7QUFBQSxHQUFOLENBQXpCO0FBQ0EsTUFBTUMsUUFBUSxHQUFHQywrREFBVyxFQUE1QjtBQUNBLE1BQU1DLEdBQUcsR0FBR1AsSUFBSSxHQUFHLFlBQUgsdUJBQStCQSxJQUEvQixXQUFoQjtBQUVBUSx5REFBUyxDQUFDLFlBQU07QUFDZCxRQUFNQyxZQUFZLEdBQUcsU0FBZkEsWUFBZSxHQUFNO0FBQ3pCLFVBQ0VDLE1BQU0sQ0FBQ0MsV0FBUCxHQUFxQkMsUUFBUSxDQUFDQyxlQUFULENBQXlCQyxTQUE5QyxHQUNFRixRQUFRLENBQUNDLGVBQVQsQ0FBeUJFLFlBRDNCLElBRUEsQ0FBQ2QsS0FBSyxDQUFDZSxNQUZQLElBR0FmLEtBQUssQ0FBQ2dCLE9BSlIsRUFNRTtBQUNGWixjQUFRLENBQUNhLHVFQUFXLFdBQUlYLEdBQUoscUJBQWtCTixLQUFLLENBQUNlLE1BQXhCLEdBQWtDLEtBQWxDLEVBQXlDLFVBQXpDLENBQVosQ0FBUjtBQUNELEtBVEQ7O0FBVUFOLFVBQU0sQ0FBQ1MsZ0JBQVAsQ0FBd0IsUUFBeEIsRUFBa0NWLFlBQWxDO0FBQ0EsV0FBTztBQUFBLGFBQU1DLE1BQU0sQ0FBQ1UsbUJBQVAsQ0FBMkIsUUFBM0IsRUFBcUNYLFlBQXJDLENBQU47QUFBQSxLQUFQO0FBQ0QsR0FiUSxDQUFUO0FBY0QsQ0FuQk0iLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvdXRpbHMvdXNlRmV0Y2hUd2VldC5qc3guanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyB1c2VFZmZlY3QgfSBmcm9tICdyZWFjdCc7XG5pbXBvcnQgeyB1c2VEaXNwYXRjaCwgdXNlU2VsZWN0b3IgfSBmcm9tICdyZWFjdC1yZWR1eCc7XG5pbXBvcnQgeyBmZXRjaFR3ZWV0cyB9IGZyb20gJy4uL3N0YXRlL2R1Y2tzL3R3ZWV0cyc7XG5cbmV4cG9ydCBjb25zdCB1c2VGZXRjaFR3ZWV0cyA9IChuYW1lID0gbnVsbCkgPT4ge1xuICBjb25zdCB0d2VldCA9IHVzZVNlbGVjdG9yKHN0YXRlID0+IHN0YXRlLnR3ZWV0cyk7XG4gIGNvbnN0IGRpc3BhdGNoID0gdXNlRGlzcGF0Y2goKTtcbiAgY29uc3QgdXJsID0gbmFtZSA/ICcvYXBpL3R3ZWV0JyA6IGAvYXBpL3VzZXIvJHtuYW1lfS90d2VldGA7XG5cbiAgdXNlRWZmZWN0KCgpID0+IHtcbiAgICBjb25zdCBoYW5kbGVTY3JvbGwgPSAoKSA9PiB7XG4gICAgICBpZiAoXG4gICAgICAgIHdpbmRvdy5pbm5lckhlaWdodCArIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5zY3JvbGxUb3AgPFxuICAgICAgICAgIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5vZmZzZXRIZWlnaHQgfHxcbiAgICAgICAgIXR3ZWV0LmN1cnNvciB8fFxuICAgICAgICB0d2VldC5sb2FkaW5nXG4gICAgICApXG4gICAgICAgIHJldHVybjtcbiAgICAgIGRpc3BhdGNoKGZldGNoVHdlZXRzKGAke3VybH0/Y3Vyc29yPSR7dHdlZXQuY3Vyc29yfWAsICdHRVQnLCAnUEFHSU5BVEUnKSk7XG4gICAgfTtcbiAgICB3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcignc2Nyb2xsJywgaGFuZGxlU2Nyb2xsKTtcbiAgICByZXR1cm4gKCkgPT4gd2luZG93LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ3Njcm9sbCcsIGhhbmRsZVNjcm9sbCk7XG4gIH0pO1xufTtcbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/js/utils/useFetchTweet.jsx\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useFetchTweets", function() { return useFetchTweets; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _state_ducks_tweets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../state/ducks/tweets */ "./resources/js/state/ducks/tweets/index.js");
+
+
+
+var useFetchTweets = function useFetchTweets() {
+  var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var tweet = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.tweets;
+  });
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
+  var url = !name ? '/api/tweet' : "/api/user/".concat(name, "/tweet");
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    var handleScroll = function handleScroll() {
+      if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight || !tweet.cursor || tweet.loading) return;
+      dispatch(Object(_state_ducks_tweets__WEBPACK_IMPORTED_MODULE_2__["fetchTweets"])("".concat(url, "?cursor=").concat(tweet.cursor), 'GET', 'PAGINATE'));
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return function () {
+      return window.removeEventListener('scroll', handleScroll);
+    };
+  });
+};
 
 /***/ }),
 
@@ -32,7 +89,56 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _js_state_ducks_tweets__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/state/ducks/tweets */ \"./resources/js/state/ducks/tweets/index.js\");\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _components_Tweet_TweetButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Tweet/TweetButton */ \"./resources/js/components/Tweet/TweetButton.jsx\");\n/* harmony import */ var _components_Tweet_TweetList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Tweet/TweetList */ \"./resources/js/components/Tweet/TweetList.jsx\");\n/* harmony import */ var _utils_useFetchTweet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/useFetchTweet */ \"./resources/js/utils/useFetchTweet.jsx\");\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/esm/react-router-dom.js\");\n/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! prop-types */ \"./node_modules/prop-types/index.js\");\n/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);\n\n\n\n\n\n\n\n\n\nvar Home = function Home(_ref) {\n  var background = _ref.background;\n  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__[\"useDispatch\"])();\n  var tweets = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__[\"useSelector\"])(function (state) {\n    return state.tweets.tweets;\n  });\n  var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_6__[\"useLocation\"])();\n  var from = location.state && location.state.from;\n  Object(react__WEBPACK_IMPORTED_MODULE_0__[\"useEffect\"])(function () {\n    if (!background && (from !== '/compose/tweet' || tweets.length === 0)) {\n      dispatch(Object(_js_state_ducks_tweets__WEBPACK_IMPORTED_MODULE_1__[\"fetchTweets\"])('/api/tweet', 'GET', 'READ'));\n    }\n  }, []);\n  Object(_utils_useFetchTweet__WEBPACK_IMPORTED_MODULE_5__[\"useFetchTweets\"])();\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Tweet_TweetButton__WEBPACK_IMPORTED_MODULE_3__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Tweet_TweetList__WEBPACK_IMPORTED_MODULE_4__[\"default\"], null));\n};\n\nHome.propTypes = {\n  background: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.shape({\n    hash: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string.isRequired,\n    key: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string.isRequired,\n    pathname: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string.isRequired,\n    search: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string.isRequired,\n    state: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.shape({\n      from: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string\n    })\n  }).isRequired\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (Home);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvdmlld3MvSG9tZS5qc3g/NTY1NSJdLCJuYW1lcyI6WyJIb21lIiwiYmFja2dyb3VuZCIsImRpc3BhdGNoIiwidXNlRGlzcGF0Y2giLCJ0d2VldHMiLCJ1c2VTZWxlY3RvciIsInN0YXRlIiwibG9jYXRpb24iLCJ1c2VMb2NhdGlvbiIsImZyb20iLCJ1c2VFZmZlY3QiLCJsZW5ndGgiLCJmZXRjaFR3ZWV0cyIsInVzZUZldGNoVHdlZXRzIiwicHJvcFR5cGVzIiwiUHJvcFR5cGVzIiwic2hhcGUiLCJoYXNoIiwic3RyaW5nIiwiaXNSZXF1aXJlZCIsImtleSIsInBhdGhuYW1lIiwic2VhcmNoIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUVBO0FBQ0E7QUFDQTs7QUFFQSxJQUFNQSxJQUFJLEdBQUcsU0FBUEEsSUFBTyxPQUFvQjtBQUFBLE1BQWpCQyxVQUFpQixRQUFqQkEsVUFBaUI7QUFDL0IsTUFBTUMsUUFBUSxHQUFHQywrREFBVyxFQUE1QjtBQUNBLE1BQU1DLE1BQU0sR0FBR0MsK0RBQVcsQ0FBQyxVQUFBQyxLQUFLO0FBQUEsV0FBSUEsS0FBSyxDQUFDRixNQUFOLENBQWFBLE1BQWpCO0FBQUEsR0FBTixDQUExQjtBQUNBLE1BQU1HLFFBQVEsR0FBR0Msb0VBQVcsRUFBNUI7QUFDQSxNQUFJQyxJQUFJLEdBQUdGLFFBQVEsQ0FBQ0QsS0FBVCxJQUFrQkMsUUFBUSxDQUFDRCxLQUFULENBQWVHLElBQTVDO0FBRUFDLHlEQUFTLENBQUMsWUFBTTtBQUNkLFFBQUksQ0FBQ1QsVUFBRCxLQUFnQlEsSUFBSSxLQUFLLGdCQUFULElBQTZCTCxNQUFNLENBQUNPLE1BQVAsS0FBa0IsQ0FBL0QsQ0FBSixFQUF1RTtBQUNyRVQsY0FBUSxDQUFDVSwwRUFBVyxDQUFDLFlBQUQsRUFBZSxLQUFmLEVBQXNCLE1BQXRCLENBQVosQ0FBUjtBQUNEO0FBQ0YsR0FKUSxFQUlOLEVBSk0sQ0FBVDtBQU1BQyw2RUFBYztBQUNkLHNCQUNFLHFGQUNFLDJEQUFDLHFFQUFELE9BREYsZUFFRSwyREFBQyxtRUFBRCxPQUZGLENBREY7QUFNRCxDQW5CRDs7QUFxQkFiLElBQUksQ0FBQ2MsU0FBTCxHQUFpQjtBQUNmYixZQUFVLEVBQUVjLGlEQUFTLENBQUNDLEtBQVYsQ0FBZ0I7QUFDMUJDLFFBQUksRUFBRUYsaURBQVMsQ0FBQ0csTUFBVixDQUFpQkMsVUFERztBQUUxQkMsT0FBRyxFQUFFTCxpREFBUyxDQUFDRyxNQUFWLENBQWlCQyxVQUZJO0FBRzFCRSxZQUFRLEVBQUVOLGlEQUFTLENBQUNHLE1BQVYsQ0FBaUJDLFVBSEQ7QUFJMUJHLFVBQU0sRUFBRVAsaURBQVMsQ0FBQ0csTUFBVixDQUFpQkMsVUFKQztBQUsxQmIsU0FBSyxFQUFFUyxpREFBUyxDQUFDQyxLQUFWLENBQWdCO0FBQ3JCUCxVQUFJLEVBQUVNLGlEQUFTLENBQUNHO0FBREssS0FBaEI7QUFMbUIsR0FBaEIsRUFRVEM7QUFUWSxDQUFqQjtBQVllbkIsbUVBQWYiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvdmlld3MvSG9tZS5qc3guanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QsIHsgdXNlRWZmZWN0LCBsYXp5IH0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsgZmV0Y2hUd2VldHMgfSBmcm9tICcuLi8uLi9qcy9zdGF0ZS9kdWNrcy90d2VldHMnO1xuaW1wb3J0IHsgdXNlRGlzcGF0Y2gsIHVzZVNlbGVjdG9yIH0gZnJvbSAncmVhY3QtcmVkdXgnO1xuaW1wb3J0IFR3ZWV0QnV0dG9uIGZyb20gJy4uL2NvbXBvbmVudHMvVHdlZXQvVHdlZXRCdXR0b24nO1xuaW1wb3J0IFR3ZWV0TGlzdCBmcm9tICcuLi9jb21wb25lbnRzL1R3ZWV0L1R3ZWV0TGlzdCc7XG5cbmltcG9ydCB7IHVzZUZldGNoVHdlZXRzIH0gZnJvbSAnLi4vdXRpbHMvdXNlRmV0Y2hUd2VldCc7XG5pbXBvcnQgeyB1c2VMb2NhdGlvbiB9IGZyb20gJ3JlYWN0LXJvdXRlci1kb20nO1xuaW1wb3J0IFByb3BUeXBlcyBmcm9tICdwcm9wLXR5cGVzJztcblxuY29uc3QgSG9tZSA9ICh7IGJhY2tncm91bmQgfSkgPT4ge1xuICBjb25zdCBkaXNwYXRjaCA9IHVzZURpc3BhdGNoKCk7XG4gIGNvbnN0IHR3ZWV0cyA9IHVzZVNlbGVjdG9yKHN0YXRlID0+IHN0YXRlLnR3ZWV0cy50d2VldHMpO1xuICBjb25zdCBsb2NhdGlvbiA9IHVzZUxvY2F0aW9uKCk7XG4gIGxldCBmcm9tID0gbG9jYXRpb24uc3RhdGUgJiYgbG9jYXRpb24uc3RhdGUuZnJvbTtcblxuICB1c2VFZmZlY3QoKCkgPT4ge1xuICAgIGlmICghYmFja2dyb3VuZCAmJiAoZnJvbSAhPT0gJy9jb21wb3NlL3R3ZWV0JyB8fCB0d2VldHMubGVuZ3RoID09PSAwKSkge1xuICAgICAgZGlzcGF0Y2goZmV0Y2hUd2VldHMoJy9hcGkvdHdlZXQnLCAnR0VUJywgJ1JFQUQnKSk7XG4gICAgfVxuICB9LCBbXSk7XG5cbiAgdXNlRmV0Y2hUd2VldHMoKTtcbiAgcmV0dXJuIChcbiAgICA8ZGl2PlxuICAgICAgPFR3ZWV0QnV0dG9uIC8+XG4gICAgICA8VHdlZXRMaXN0IC8+XG4gICAgPC9kaXY+XG4gICk7XG59O1xuXG5Ib21lLnByb3BUeXBlcyA9IHtcbiAgYmFja2dyb3VuZDogUHJvcFR5cGVzLnNoYXBlKHtcbiAgICBoYXNoOiBQcm9wVHlwZXMuc3RyaW5nLmlzUmVxdWlyZWQsXG4gICAga2V5OiBQcm9wVHlwZXMuc3RyaW5nLmlzUmVxdWlyZWQsXG4gICAgcGF0aG5hbWU6IFByb3BUeXBlcy5zdHJpbmcuaXNSZXF1aXJlZCxcbiAgICBzZWFyY2g6IFByb3BUeXBlcy5zdHJpbmcuaXNSZXF1aXJlZCxcbiAgICBzdGF0ZTogUHJvcFR5cGVzLnNoYXBlKHtcbiAgICAgIGZyb206IFByb3BUeXBlcy5zdHJpbmdcbiAgICB9KVxuICB9KS5pc1JlcXVpcmVkXG59O1xuXG5leHBvcnQgZGVmYXVsdCBIb21lO1xuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/js/views/Home.jsx\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _js_state_ducks_tweets__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/state/ducks/tweets */ "./resources/js/state/ducks/tweets/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _components_Tweet_TweetButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Tweet/TweetButton */ "./resources/js/components/Tweet/TweetButton.jsx");
+/* harmony import */ var _components_Tweet_TweetList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Tweet/TweetList */ "./resources/js/components/Tweet/TweetList.jsx");
+/* harmony import */ var _utils_useFetchTweet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/useFetchTweet */ "./resources/js/utils/useFetchTweet.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
+
+
+
+
+
+
+
+
+
+var Home = function Home(_ref) {
+  var background = _ref.background;
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+  var tweets = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(function (state) {
+    return state.tweets.tweets;
+  });
+  var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["useLocation"])();
+  var from = location.state && location.state.from;
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (!background && (from !== '/compose/tweet' || tweets.length === 0)) {
+      dispatch(Object(_js_state_ducks_tweets__WEBPACK_IMPORTED_MODULE_1__["fetchTweets"])('/api/tweet', 'GET', 'READ'));
+      window.scrollTo(0, 0);
+    }
+  }, []);
+  Object(_utils_useFetchTweet__WEBPACK_IMPORTED_MODULE_5__["useFetchTweets"])();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Tweet_TweetButton__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Tweet_TweetList__WEBPACK_IMPORTED_MODULE_4__["default"], null));
+};
+
+Home.propTypes = {
+  background: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.shape({
+    hash: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string.isRequired,
+    key: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string.isRequired,
+    pathname: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string.isRequired,
+    search: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string.isRequired,
+    state: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.shape({
+      from: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string
+    })
+  }).isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (Home);
 
 /***/ })
 

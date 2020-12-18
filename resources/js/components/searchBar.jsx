@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers } from '../state/ducks/search';
+import { fetchUsers } from '../state/ducks/user';
 import { useHistory, useLocation } from 'react-router-dom';
 
 const SearchBar = () => {
@@ -15,12 +15,12 @@ const SearchBar = () => {
 
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
-  const { users } = useSelector(state => state.search);
+  const { users } = useSelector(state => state.user);
 
   const submit = event => {
     setSearch(event.target.value);
     if (event.target.value.length > 0) {
-      dispatch(fetchUsers(event.target.value));
+      dispatch(fetchUsers(`/api/user?search=${event.target.value}`));
     }
   };
   const isFollower = user => {

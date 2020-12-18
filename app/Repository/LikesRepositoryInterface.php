@@ -9,4 +9,6 @@ interface LikesRepositoryInterface {
     public function create($user_id, $tweet_id);
 
     public function delete($id);
+
+    public function findUsersLikedTweet($tweet, $user_id);
 }

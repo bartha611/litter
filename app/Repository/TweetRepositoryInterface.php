@@ -11,4 +11,6 @@ interface TweetRepositoryInterface {
     public function update($id, $tweet);
 
     public function delete($id);
+
+    public function findUsersRetweetTweet($tweet_id, $user_id);
 }

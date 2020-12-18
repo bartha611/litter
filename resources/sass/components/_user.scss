@@ -1,0 +1,36 @@
+.user {
+  display: flex;
+  padding: $box-padding;
+  border-bottom: 0.1rem solid $dark-grey;
+
+  &__image {
+    padding: $flex-padding;
+  }
+
+  &__photo {
+    height: $image-height;
+    width: $image-width;
+    border-radius: 100%;
+  }
+
+  &__body {
+    width: calc(100% - #{$image-height});
+    padding: 0 0.5rem;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__username {
+    color: $dark-grey;
+    margin-top: -1rem;
+  }
+
+  &__biography {
+    min-height: 4rem;
+    overflow-wrap: break-word;
+  }
+}

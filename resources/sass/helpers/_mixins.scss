@@ -2,12 +2,13 @@
   color: $color-text;
   padding: $button-padding;
   background: $color-background;
+  height: 4rem;
 
   &:not(:disabled):hover {
     @if $color-hover != '' {
       background: $color-hover;
     } @else {
-      opacity: 0.4;
+      background: rgba($white, 0.1);
     }
   }
 

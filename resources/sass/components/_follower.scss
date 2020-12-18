@@ -1,6 +1,6 @@
 .follower {
   &__button {
-    border-radius: 1.6rem;
+    border-radius: 2rem;
     font-size: 1.4rem;
     cursor: pointer;
     position: relative;
@@ -19,8 +19,8 @@
     }
 
     &--follow {
-      @include btn($black, $navy-blue);
-      border: 0.1rem solid $navy-blue;
+      @include btn($black, $cyan);
+      border: 0.1rem solid $cyan;
 
       &:after {
         content: 'Follow';

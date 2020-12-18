@@ -1,7 +1,7 @@
 .tweetButton {
   display: flex;
   flex-direction: row;
-  padding: 1rem 0.5rem;
+  padding: $box-padding;
   width: 100%;
   border-top: 0.1rem solid $dark-grey;
   border-bottom: 1rem solid $dark-grey;
@@ -16,7 +16,7 @@
 
   &__body {
     width: calc(100% - #{$image-width});
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 0;
   }
 
   &__message {
@@ -37,6 +37,7 @@
   }
 
   &__submit {
+    border: none;
     border-radius: 2.5rem;
     @include btn($blue);
 

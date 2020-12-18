@@ -25,14 +25,17 @@ Route::get('/user', 'UserController@index');
 
 Route::middleware(['api', 'jwt.verify'])->group(function () {
     Route::resource('photo', 'PhotoController');
+    Route::get('/tweet', 'TweetController@news');
 
-    Route::group(['prefix' => 'tweet'], function() {
-        Route::get('/', 'TweetController@news');
-        Route::post('/{tweet}/likes', 'LikesController@store');
-        Route::delete('/{tweet}/likes', 'LikesController@destroy');
+    Route::group(['prefix' => 'tweet/{tweet}'], function() {
+        Route::get('/likes', 'LikesController@getUsers');
+        Route::get('/retweets', 'TweetController@findUsersRetweet');
+        Route::post('/likes', 'LikesController@store');
+        Route::delete('/likes', 'LikesController@destroy');
     });
 
     Route::group(['prefix' => '/user/{user}'], function() {
+        Route::post('', 'UserController@update');
         Route::get('/likes', 'LikesController@show');
         Route::get('/follower', 'FollowerController@follower');
         Route::post('/follower', 'FollowerController@store');

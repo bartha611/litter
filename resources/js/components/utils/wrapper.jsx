@@ -21,11 +21,11 @@ const Wrapper = Component => props => {
           xs="12"
           sm="10"
           md="8"
-          lg="5"
+          lg="6"
         >
           <Component {...props} />
         </Col>
-        <Col xs="0" sm="0" md="2" lg="4">
+        <Col md="2" lg="3" className="d-none d-md-block">
           <Search />
         </Col>
       </Row>

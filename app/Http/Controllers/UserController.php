@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreateRequest;
 use App\Repository\Eloquent\UserRepository;
+use App\Http\Requests\UserUpdateRequest;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use stdClass;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
@@ -66,7 +69,7 @@ class UserController extends Controller
 
         $users = $this->user_repo->findUsersBySearch($search, $user_id);
 
-        return response()->json($users);
+        return response()->json(compact('users'));
     }
 
     /**
@@ -80,5 +83,20 @@ class UserController extends Controller
     {
         $user = User::where('name', '=', $username)->with('tweets')->get();
         return response()->json($user);
+    }
+
+    /**
+     * Updates user information 
+     * 
+     * @param User $user
+     * @param UserUpdateRequest $request
+     */
+
+    public function update(User $user, UserUpdateRequest $request)
+    {
+        $user = $this->user_repo->updateUser($user->id, $request);
+        
+        return response()->json(compact('user'));
+
     }
 }

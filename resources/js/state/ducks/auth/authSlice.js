@@ -22,6 +22,10 @@ const authSlice = createSlice({
       state.loading = false;
       state.user = action.payload;
     },
+    updateAuth(state, action) {
+      state.loading = false;
+      state.user = action.payload.user;
+    },
     logoutAuth(state) {
       state.loading = false;
       state.user = null;
@@ -37,6 +41,7 @@ export const {
   loginAuth,
   logoutAuth,
   resetAuth,
+  updateAuth,
   errorAuth
 } = authSlice.actions;
 

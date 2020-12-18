@@ -21,7 +21,7 @@ class TweetSeeder extends Seeder
         // iterate over a range of 20000 to create dates
 
         foreach (range(1, 20000) as $index) {
-            array_push($dates, $faker->dateTimeBetween('-6 months', '+4 months'));
+            array_push($dates, $faker->dateTimeBetween('-8 months', '+2 months'));
         }
 
         // sort dates

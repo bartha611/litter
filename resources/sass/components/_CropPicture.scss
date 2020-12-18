@@ -1,0 +1,36 @@
+.CropPicture {
+  padding: $box-padding;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    border-bottom: 0.1rem solid $dark-grey;
+    padding: $height-padding;
+  }
+
+  &__cancel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: $handler-height;
+    width: $handler-width;
+    border-radius: 100%;
+    margin-right: 1rem;
+
+    &:hover {
+      background: rgba($white, 0.2);
+    }
+  }
+
+  &__save {
+    margin-left: auto;
+  }
+
+  &__button {
+    background: $blue;
+    border-radius: 3rem;
+    color: $white;
+    padding: $button-padding;
+  }
+}

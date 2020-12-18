@@ -99,4 +99,33 @@ class TweetRepository implements TweetRepositoryInterface {
         return $id;
     }
 
+    /**
+     * find users who retweeted tweet
+     * 
+     * @param Number $tweet_id - Id of tweet 
+     * @param Number $user_id - Id of logged-in user
+     */
+
+    public function findUsersRetweetTweet($tweet_id, $user_id)
+    {
+        $retweet_user_ids = DB::table('tweets')
+            ->select('user_id')
+            ->where('retweet_id', $tweet_id)
+            ->pluck('user_id')
+            ->toArray();
+
+        $users = DB::table('users AS u')
+            ->select(['u.id', 'name', 'username', 'biography', 'profile_photo', 'f.id AS followed_user'])
+            ->leftJoin('followers AS f', function ($join) use ($user_id) {
+                $join->on('f.following_id', '=', 'u.id')
+                    ->where('f.user_id', '=', $user_id);
+            })
+            ->whereIn('u.id', $retweet_user_ids)
+            ->limit(30)
+            ->get();
+        
+        return $users;
+
+    }
+
 }

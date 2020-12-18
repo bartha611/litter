@@ -1,11 +1,10 @@
 .TweetParent {
-  font-size: 2rem;
   font-weight: bold;
   padding: 0.5rem 2rem;
 
   &__header {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
   }
 
   &__photo {
@@ -31,8 +30,14 @@
     padding: 2rem 0;
   }
 
+  &__tweet {
+    font-size: 2.2rem;
+  }
+
   &__dateInfo {
+    padding: 1.5rem 0;
     font-size: 1.8rem;
+    border-bottom: 0.1rem solid $dark-grey;
   }
 
   &__time {
@@ -42,5 +47,30 @@
   &__date {
     color: $dark-grey;
     margin-left: $margin-left;
+  }
+
+  &__stats {
+    color: $dark-grey;
+    padding: 1.5rem 0;
+    border-bottom: 0.1rem solid $dark-grey;
+  }
+
+  &__likes {
+    margin-left: 1.5rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__retweets {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__counts {
+    color: $white;
   }
 }

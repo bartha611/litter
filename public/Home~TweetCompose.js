@@ -8,7 +8,234 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ \"./node_modules/@babel/runtime/helpers/esm/extends.js\");\n/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ \"./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var use_latest__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! use-latest */ \"./node_modules/use-latest/dist/use-latest.esm.js\");\n/* harmony import */ var use_composed_ref__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! use-composed-ref */ \"./node_modules/use-composed-ref/dist/use-composed-ref.esm.js\");\n\n\n\n\n\n\nvar HIDDEN_TEXTAREA_STYLE = {\n  'min-height': '0',\n  'max-height': 'none',\n  height: '0',\n  visibility: 'hidden',\n  overflow: 'hidden',\n  position: 'absolute',\n  'z-index': '-1000',\n  top: '0',\n  right: '0'\n};\n\nvar forceHiddenStyles = function forceHiddenStyles(node) {\n  Object.keys(HIDDEN_TEXTAREA_STYLE).forEach(function (key) {\n    node.style.setProperty(key, HIDDEN_TEXTAREA_STYLE[key], 'important');\n  });\n};\n\n//   export type CalculatedNodeHeights = [height: number, rowHeight: number];\n// https://github.com/microsoft/TypeScript/issues/28259\n\nvar hiddenTextarea = null;\n\nvar getHeight = function getHeight(node, sizingData) {\n  var height = node.scrollHeight;\n\n  if (sizingData.sizingStyle.boxSizing === 'border-box') {\n    // border-box: add border, since height = content + padding + border\n    return height + sizingData.borderSize;\n  } // remove padding, since height = content\n\n\n  return height - sizingData.paddingSize;\n};\n\nfunction calculateNodeHeight(sizingData, value, minRows, maxRows) {\n  if (minRows === void 0) {\n    minRows = 1;\n  }\n\n  if (maxRows === void 0) {\n    maxRows = Infinity;\n  }\n\n  if (!hiddenTextarea) {\n    hiddenTextarea = document.createElement('textarea');\n    hiddenTextarea.setAttribute('tab-index', '-1');\n    hiddenTextarea.setAttribute('aria-hidden', 'true');\n    forceHiddenStyles(hiddenTextarea);\n  }\n\n  if (hiddenTextarea.parentNode === null) {\n    document.body.appendChild(hiddenTextarea);\n  }\n\n  var paddingSize = sizingData.paddingSize,\n      borderSize = sizingData.borderSize,\n      sizingStyle = sizingData.sizingStyle;\n  var boxSizing = sizingStyle.boxSizing;\n  Object.keys(sizingStyle).forEach(function (_key) {\n    var key = _key;\n    hiddenTextarea.style[key] = sizingStyle[key];\n  });\n  forceHiddenStyles(hiddenTextarea);\n  hiddenTextarea.value = value;\n  var height = getHeight(hiddenTextarea, sizingData); // measure height of a textarea with a single row\n\n  hiddenTextarea.value = 'x';\n  var rowHeight = hiddenTextarea.scrollHeight - paddingSize;\n  var minHeight = rowHeight * minRows;\n\n  if (boxSizing === 'border-box') {\n    minHeight = minHeight + paddingSize + borderSize;\n  }\n\n  height = Math.max(minHeight, height);\n  var maxHeight = rowHeight * maxRows;\n\n  if (boxSizing === 'border-box') {\n    maxHeight = maxHeight + paddingSize + borderSize;\n  }\n\n  height = Math.min(maxHeight, height);\n  return [height, rowHeight];\n}\n\nvar noop = function noop() {};\nvar pick = function pick(props, obj) {\n  return props.reduce(function (acc, prop) {\n    acc[prop] = obj[prop];\n    return acc;\n  }, {});\n};\n\nvar SIZING_STYLE = ['borderBottomWidth', 'borderLeftWidth', 'borderRightWidth', 'borderTopWidth', 'boxSizing', 'fontFamily', 'fontSize', 'fontStyle', 'fontWeight', 'letterSpacing', 'lineHeight', 'paddingBottom', 'paddingLeft', 'paddingRight', 'paddingTop', // non-standard\n'tabSize', 'textIndent', // non-standard\n'textRendering', 'textTransform', 'width'];\nvar isIE =  !!document.documentElement.currentStyle ;\n\nvar getSizingData = function getSizingData(node) {\n  var style = window.getComputedStyle(node);\n\n  if (style === null) {\n    return null;\n  }\n\n  var sizingStyle = pick(SIZING_STYLE, style);\n  var boxSizing = sizingStyle.boxSizing; // probably node is detached from DOM, can't read computed dimensions\n\n  if (boxSizing === '') {\n    return null;\n  } // IE (Edge has already correct behaviour) returns content width as computed width\n  // so we need to add manually padding and border widths\n\n\n  if (isIE && boxSizing === 'border-box') {\n    sizingStyle.width = parseFloat(sizingStyle.width) + parseFloat(sizingStyle.borderRightWidth) + parseFloat(sizingStyle.borderLeftWidth) + parseFloat(sizingStyle.paddingRight) + parseFloat(sizingStyle.paddingLeft) + 'px';\n  }\n\n  var paddingSize = parseFloat(sizingStyle.paddingBottom) + parseFloat(sizingStyle.paddingTop);\n  var borderSize = parseFloat(sizingStyle.borderBottomWidth) + parseFloat(sizingStyle.borderTopWidth);\n  return {\n    sizingStyle: sizingStyle,\n    paddingSize: paddingSize,\n    borderSize: borderSize\n  };\n};\n\nvar useWindowResizeListener = function useWindowResizeListener(listener) {\n  var latestListener = Object(use_latest__WEBPACK_IMPORTED_MODULE_3__[\"default\"])(listener);\n  Object(react__WEBPACK_IMPORTED_MODULE_2__[\"useEffect\"])(function () {\n    var handler = function handler(event) {\n      latestListener.current(event);\n    };\n\n    window.addEventListener('resize', handler);\n    return function () {\n      window.removeEventListener('resize', handler);\n    };\n  }, []);\n};\n\nvar TextareaAutosize = function TextareaAutosize(_ref, userRef) {\n  var cacheMeasurements = _ref.cacheMeasurements,\n      maxRows = _ref.maxRows,\n      minRows = _ref.minRows,\n      _ref$onChange = _ref.onChange,\n      onChange = _ref$onChange === void 0 ? noop : _ref$onChange,\n      _ref$onHeightChange = _ref.onHeightChange,\n      onHeightChange = _ref$onHeightChange === void 0 ? noop : _ref$onHeightChange,\n      props = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(_ref, [\"cacheMeasurements\", \"maxRows\", \"minRows\", \"onChange\", \"onHeightChange\"]);\n\n  if ( true && props.style) {\n    if ('maxHeight' in props.style) {\n      throw new Error('Using `style.maxHeight` for <TextareaAutosize/> is not supported. Please use `maxRows`.');\n    }\n\n    if ('minHeight' in props.style) {\n      throw new Error('Using `style.minHeight` for <TextareaAutosize/> is not supported. Please use `minRows`.');\n    }\n  }\n\n  var isControlled = props.value !== undefined;\n  var libRef = Object(react__WEBPACK_IMPORTED_MODULE_2__[\"useRef\"])(null);\n  var ref = Object(use_composed_ref__WEBPACK_IMPORTED_MODULE_4__[\"default\"])(libRef, userRef);\n  var heightRef = Object(react__WEBPACK_IMPORTED_MODULE_2__[\"useRef\"])(0);\n  var measurementsCacheRef = Object(react__WEBPACK_IMPORTED_MODULE_2__[\"useRef\"])();\n\n  var resizeTextarea = function resizeTextarea() {\n    var node = libRef.current;\n    var nodeSizingData = cacheMeasurements && measurementsCacheRef.current ? measurementsCacheRef.current : getSizingData(node);\n\n    if (!nodeSizingData) {\n      return;\n    }\n\n    measurementsCacheRef.current = nodeSizingData;\n\n    var _calculateNodeHeight = calculateNodeHeight(nodeSizingData, node.value || node.placeholder || 'x', minRows, maxRows),\n        height = _calculateNodeHeight[0],\n        rowHeight = _calculateNodeHeight[1];\n\n    if (heightRef.current !== height) {\n      heightRef.current = height;\n      node.style.setProperty('height', height + \"px\", 'important');\n      onHeightChange(height, {\n        rowHeight: rowHeight\n      });\n    }\n  };\n\n  var handleChange = function handleChange(event) {\n    if (!isControlled) {\n      resizeTextarea();\n    }\n\n    onChange(event);\n  };\n\n  {\n    Object(react__WEBPACK_IMPORTED_MODULE_2__[\"useLayoutEffect\"])(resizeTextarea);\n  }\n\n  useWindowResizeListener(resizeTextarea);\n  return (/*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_2__[\"createElement\"])(\"textarea\", Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({}, props, {\n      onChange: handleChange,\n      ref: ref\n    }))\n  );\n};\n\nvar index = /* #__PURE__ */Object(react__WEBPACK_IMPORTED_MODULE_2__[\"forwardRef\"])(TextareaAutosize);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (index);\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvcmVhY3QtdGV4dGFyZWEtYXV0b3NpemUvZGlzdC9yZWFjdC10ZXh0YXJlYS1hdXRvc2l6ZS5icm93c2VyLmVzbS5qcz9jZjhkIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQTBEO0FBQzBDO0FBQ2Q7QUFDbkQ7QUFDVzs7QUFFOUM7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQSxHQUFHO0FBQ0g7O0FBRUE7QUFDQTs7QUFFQTs7QUFFQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBLEdBQUc7OztBQUdIO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxHQUFHO0FBQ0g7QUFDQTtBQUNBLHFEQUFxRDs7QUFFckQ7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLEdBQUcsSUFBSTtBQUNQOztBQUVBO0FBQ0E7QUFDQTtBQUNBOztBQUVBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBOztBQUVBO0FBQ0Esd0NBQXdDOztBQUV4QztBQUNBO0FBQ0EsR0FBRztBQUNIOzs7QUFHQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBLHVCQUF1QiwwREFBUztBQUNoQyxFQUFFLHVEQUFTO0FBQ1g7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsR0FBRztBQUNIOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxjQUFjLHVHQUE2Qjs7QUFFM0MsTUFBTSxLQUFxQztBQUMzQztBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQSxlQUFlLG9EQUFNO0FBQ3JCLFlBQVksZ0VBQWM7QUFDMUIsa0JBQWtCLG9EQUFNO0FBQ3hCLDZCQUE2QixvREFBTTs7QUFFbkM7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTs7QUFFQTs7QUFFQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLE9BQU87QUFDUDtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBOztBQUVBO0FBQ0E7O0FBRUE7QUFDQSxJQUFJLDZEQUFlO0FBQ25COztBQUVBO0FBQ0EsdUJBQXVCLDJEQUFhLGFBQWEsa0ZBQVEsR0FBRztBQUM1RDtBQUNBO0FBQ0EsS0FBSztBQUNMO0FBQ0E7O0FBRUEsMkJBQTJCLHdEQUFVOztBQUV0QixvRUFBSyxFQUFDIiwiZmlsZSI6Ii4vbm9kZV9tb2R1bGVzL3JlYWN0LXRleHRhcmVhLWF1dG9zaXplL2Rpc3QvcmVhY3QtdGV4dGFyZWEtYXV0b3NpemUuYnJvd3Nlci5lc20uanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgX2V4dGVuZHMgZnJvbSAnQGJhYmVsL3J1bnRpbWUvaGVscGVycy9lc20vZXh0ZW5kcyc7XG5pbXBvcnQgX29iamVjdFdpdGhvdXRQcm9wZXJ0aWVzTG9vc2UgZnJvbSAnQGJhYmVsL3J1bnRpbWUvaGVscGVycy9lc20vb2JqZWN0V2l0aG91dFByb3BlcnRpZXNMb29zZSc7XG5pbXBvcnQgeyB1c2VFZmZlY3QsIGZvcndhcmRSZWYsIHVzZVJlZiwgdXNlTGF5b3V0RWZmZWN0LCBjcmVhdGVFbGVtZW50IH0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHVzZUxhdGVzdCBmcm9tICd1c2UtbGF0ZXN0JztcbmltcG9ydCB1c2VDb21wb3NlZFJlZiBmcm9tICd1c2UtY29tcG9zZWQtcmVmJztcblxudmFyIEhJRERFTl9URVhUQVJFQV9TVFlMRSA9IHtcbiAgJ21pbi1oZWlnaHQnOiAnMCcsXG4gICdtYXgtaGVpZ2h0JzogJ25vbmUnLFxuICBoZWlnaHQ6ICcwJyxcbiAgdmlzaWJpbGl0eTogJ2hpZGRlbicsXG4gIG92ZXJmbG93OiAnaGlkZGVuJyxcbiAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gICd6LWluZGV4JzogJy0xMDAwJyxcbiAgdG9wOiAnMCcsXG4gIHJpZ2h0OiAnMCdcbn07XG5cbnZhciBmb3JjZUhpZGRlblN0eWxlcyA9IGZ1bmN0aW9uIGZvcmNlSGlkZGVuU3R5bGVzKG5vZGUpIHtcbiAgT2JqZWN0LmtleXMoSElEREVOX1RFWFRBUkVBX1NUWUxFKS5mb3JFYWNoKGZ1bmN0aW9uIChrZXkpIHtcbiAgICBub2RlLnN0eWxlLnNldFByb3BlcnR5KGtleSwgSElEREVOX1RFWFRBUkVBX1NUWUxFW2tleV0sICdpbXBvcnRhbnQnKTtcbiAgfSk7XG59O1xuXG4vLyAgIGV4cG9ydCB0eXBlIENhbGN1bGF0ZWROb2RlSGVpZ2h0cyA9IFtoZWlnaHQ6IG51bWJlciwgcm93SGVpZ2h0OiBudW1iZXJdO1xuLy8gaHR0cHM6Ly9naXRodWIuY29tL21pY3Jvc29mdC9UeXBlU2NyaXB0L2lzc3Vlcy8yODI1OVxuXG52YXIgaGlkZGVuVGV4dGFyZWEgPSBudWxsO1xuXG52YXIgZ2V0SGVpZ2h0ID0gZnVuY3Rpb24gZ2V0SGVpZ2h0KG5vZGUsIHNpemluZ0RhdGEpIHtcbiAgdmFyIGhlaWdodCA9IG5vZGUuc2Nyb2xsSGVpZ2h0O1xuXG4gIGlmIChzaXppbmdEYXRhLnNpemluZ1N0eWxlLmJveFNpemluZyA9PT0gJ2JvcmRlci1ib3gnKSB7XG4gICAgLy8gYm9yZGVyLWJveDogYWRkIGJvcmRlciwgc2luY2UgaGVpZ2h0ID0gY29udGVudCArIHBhZGRpbmcgKyBib3JkZXJcbiAgICByZXR1cm4gaGVpZ2h0ICsgc2l6aW5nRGF0YS5ib3JkZXJTaXplO1xuICB9IC8vIHJlbW92ZSBwYWRkaW5nLCBzaW5jZSBoZWlnaHQgPSBjb250ZW50XG5cblxuICByZXR1cm4gaGVpZ2h0IC0gc2l6aW5nRGF0YS5wYWRkaW5nU2l6ZTtcbn07XG5cbmZ1bmN0aW9uIGNhbGN1bGF0ZU5vZGVIZWlnaHQoc2l6aW5nRGF0YSwgdmFsdWUsIG1pblJvd3MsIG1heFJvd3MpIHtcbiAgaWYgKG1pblJvd3MgPT09IHZvaWQgMCkge1xuICAgIG1pblJvd3MgPSAxO1xuICB9XG5cbiAgaWYgKG1heFJvd3MgPT09IHZvaWQgMCkge1xuICAgIG1heFJvd3MgPSBJbmZpbml0eTtcbiAgfVxuXG4gIGlmICghaGlkZGVuVGV4dGFyZWEpIHtcbiAgICBoaWRkZW5UZXh0YXJlYSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ3RleHRhcmVhJyk7XG4gICAgaGlkZGVuVGV4dGFyZWEuc2V0QXR0cmlidXRlKCd0YWItaW5kZXgnLCAnLTEnKTtcbiAgICBoaWRkZW5UZXh0YXJlYS5zZXRBdHRyaWJ1dGUoJ2FyaWEtaGlkZGVuJywgJ3RydWUnKTtcbiAgICBmb3JjZUhpZGRlblN0eWxlcyhoaWRkZW5UZXh0YXJlYSk7XG4gIH1cblxuICBpZiAoaGlkZGVuVGV4dGFyZWEucGFyZW50Tm9kZSA9PT0gbnVsbCkge1xuICAgIGRvY3VtZW50LmJvZHkuYXBwZW5kQ2hpbGQoaGlkZGVuVGV4dGFyZWEpO1xuICB9XG5cbiAgdmFyIHBhZGRpbmdTaXplID0gc2l6aW5nRGF0YS5wYWRkaW5nU2l6ZSxcbiAgICAgIGJvcmRlclNpemUgPSBzaXppbmdEYXRhLmJvcmRlclNpemUsXG4gICAgICBzaXppbmdTdHlsZSA9IHNpemluZ0RhdGEuc2l6aW5nU3R5bGU7XG4gIHZhciBib3hTaXppbmcgPSBzaXppbmdTdHlsZS5ib3hTaXppbmc7XG4gIE9iamVjdC5rZXlzKHNpemluZ1N0eWxlKS5mb3JFYWNoKGZ1bmN0aW9uIChfa2V5KSB7XG4gICAgdmFyIGtleSA9IF9rZXk7XG4gICAgaGlkZGVuVGV4dGFyZWEuc3R5bGVba2V5XSA9IHNpemluZ1N0eWxlW2tleV07XG4gIH0pO1xuICBmb3JjZUhpZGRlblN0eWxlcyhoaWRkZW5UZXh0YXJlYSk7XG4gIGhpZGRlblRleHRhcmVhLnZhbHVlID0gdmFsdWU7XG4gIHZhciBoZWlnaHQgPSBnZXRIZWlnaHQoaGlkZGVuVGV4dGFyZWEsIHNpemluZ0RhdGEpOyAvLyBtZWFzdXJlIGhlaWdodCBvZiBhIHRleHRhcmVhIHdpdGggYSBzaW5nbGUgcm93XG5cbiAgaGlkZGVuVGV4dGFyZWEudmFsdWUgPSAneCc7XG4gIHZhciByb3dIZWlnaHQgPSBoaWRkZW5UZXh0YXJlYS5zY3JvbGxIZWlnaHQgLSBwYWRkaW5nU2l6ZTtcbiAgdmFyIG1pbkhlaWdodCA9IHJvd0hlaWdodCAqIG1pblJvd3M7XG5cbiAgaWYgKGJveFNpemluZyA9PT0gJ2JvcmRlci1ib3gnKSB7XG4gICAgbWluSGVpZ2h0ID0gbWluSGVpZ2h0ICsgcGFkZGluZ1NpemUgKyBib3JkZXJTaXplO1xuICB9XG5cbiAgaGVpZ2h0ID0gTWF0aC5tYXgobWluSGVpZ2h0LCBoZWlnaHQpO1xuICB2YXIgbWF4SGVpZ2h0ID0gcm93SGVpZ2h0ICogbWF4Um93cztcblxuICBpZiAoYm94U2l6aW5nID09PSAnYm9yZGVyLWJveCcpIHtcbiAgICBtYXhIZWlnaHQgPSBtYXhIZWlnaHQgKyBwYWRkaW5nU2l6ZSArIGJvcmRlclNpemU7XG4gIH1cblxuICBoZWlnaHQgPSBNYXRoLm1pbihtYXhIZWlnaHQsIGhlaWdodCk7XG4gIHJldHVybiBbaGVpZ2h0LCByb3dIZWlnaHRdO1xufVxuXG52YXIgbm9vcCA9IGZ1bmN0aW9uIG5vb3AoKSB7fTtcbnZhciBwaWNrID0gZnVuY3Rpb24gcGljayhwcm9wcywgb2JqKSB7XG4gIHJldHVybiBwcm9wcy5yZWR1Y2UoZnVuY3Rpb24gKGFjYywgcHJvcCkge1xuICAgIGFjY1twcm9wXSA9IG9ialtwcm9wXTtcbiAgICByZXR1cm4gYWNjO1xuICB9LCB7fSk7XG59O1xuXG52YXIgU0laSU5HX1NUWUxFID0gWydib3JkZXJCb3R0b21XaWR0aCcsICdib3JkZXJMZWZ0V2lkdGgnLCAnYm9yZGVyUmlnaHRXaWR0aCcsICdib3JkZXJUb3BXaWR0aCcsICdib3hTaXppbmcnLCAnZm9udEZhbWlseScsICdmb250U2l6ZScsICdmb250U3R5bGUnLCAnZm9udFdlaWdodCcsICdsZXR0ZXJTcGFjaW5nJywgJ2xpbmVIZWlnaHQnLCAncGFkZGluZ0JvdHRvbScsICdwYWRkaW5nTGVmdCcsICdwYWRkaW5nUmlnaHQnLCAncGFkZGluZ1RvcCcsIC8vIG5vbi1zdGFuZGFyZFxuJ3RhYlNpemUnLCAndGV4dEluZGVudCcsIC8vIG5vbi1zdGFuZGFyZFxuJ3RleHRSZW5kZXJpbmcnLCAndGV4dFRyYW5zZm9ybScsICd3aWR0aCddO1xudmFyIGlzSUUgPSAgISFkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuY3VycmVudFN0eWxlIDtcblxudmFyIGdldFNpemluZ0RhdGEgPSBmdW5jdGlvbiBnZXRTaXppbmdEYXRhKG5vZGUpIHtcbiAgdmFyIHN0eWxlID0gd2luZG93LmdldENvbXB1dGVkU3R5bGUobm9kZSk7XG5cbiAgaWYgKHN0eWxlID09PSBudWxsKSB7XG4gICAgcmV0dXJuIG51bGw7XG4gIH1cblxuICB2YXIgc2l6aW5nU3R5bGUgPSBwaWNrKFNJWklOR19TVFlMRSwgc3R5bGUpO1xuICB2YXIgYm94U2l6aW5nID0gc2l6aW5nU3R5bGUuYm94U2l6aW5nOyAvLyBwcm9iYWJseSBub2RlIGlzIGRldGFjaGVkIGZyb20gRE9NLCBjYW4ndCByZWFkIGNvbXB1dGVkIGRpbWVuc2lvbnNcblxuICBpZiAoYm94U2l6aW5nID09PSAnJykge1xuICAgIHJldHVybiBudWxsO1xuICB9IC8vIElFIChFZGdlIGhhcyBhbHJlYWR5IGNvcnJlY3QgYmVoYXZpb3VyKSByZXR1cm5zIGNvbnRlbnQgd2lkdGggYXMgY29tcHV0ZWQgd2lkdGhcbiAgLy8gc28gd2UgbmVlZCB0byBhZGQgbWFudWFsbHkgcGFkZGluZyBhbmQgYm9yZGVyIHdpZHRoc1xuXG5cbiAgaWYgKGlzSUUgJiYgYm94U2l6aW5nID09PSAnYm9yZGVyLWJveCcpIHtcbiAgICBzaXppbmdTdHlsZS53aWR0aCA9IHBhcnNlRmxvYXQoc2l6aW5nU3R5bGUud2lkdGgpICsgcGFyc2VGbG9hdChzaXppbmdTdHlsZS5ib3JkZXJSaWdodFdpZHRoKSArIHBhcnNlRmxvYXQoc2l6aW5nU3R5bGUuYm9yZGVyTGVmdFdpZHRoKSArIHBhcnNlRmxvYXQoc2l6aW5nU3R5bGUucGFkZGluZ1JpZ2h0KSArIHBhcnNlRmxvYXQoc2l6aW5nU3R5bGUucGFkZGluZ0xlZnQpICsgJ3B4JztcbiAgfVxuXG4gIHZhciBwYWRkaW5nU2l6ZSA9IHBhcnNlRmxvYXQoc2l6aW5nU3R5bGUucGFkZGluZ0JvdHRvbSkgKyBwYXJzZUZsb2F0KHNpemluZ1N0eWxlLnBhZGRpbmdUb3ApO1xuICB2YXIgYm9yZGVyU2l6ZSA9IHBhcnNlRmxvYXQoc2l6aW5nU3R5bGUuYm9yZGVyQm90dG9tV2lkdGgpICsgcGFyc2VGbG9hdChzaXppbmdTdHlsZS5ib3JkZXJUb3BXaWR0aCk7XG4gIHJldHVybiB7XG4gICAgc2l6aW5nU3R5bGU6IHNpemluZ1N0eWxlLFxuICAgIHBhZGRpbmdTaXplOiBwYWRkaW5nU2l6ZSxcbiAgICBib3JkZXJTaXplOiBib3JkZXJTaXplXG4gIH07XG59O1xuXG52YXIgdXNlV2luZG93UmVzaXplTGlzdGVuZXIgPSBmdW5jdGlvbiB1c2VXaW5kb3dSZXNpemVMaXN0ZW5lcihsaXN0ZW5lcikge1xuICB2YXIgbGF0ZXN0TGlzdGVuZXIgPSB1c2VMYXRlc3QobGlzdGVuZXIpO1xuICB1c2VFZmZlY3QoZnVuY3Rpb24gKCkge1xuICAgIHZhciBoYW5kbGVyID0gZnVuY3Rpb24gaGFuZGxlcihldmVudCkge1xuICAgICAgbGF0ZXN0TGlzdGVuZXIuY3VycmVudChldmVudCk7XG4gICAgfTtcblxuICAgIHdpbmRvdy5hZGRFdmVudExpc3RlbmVyKCdyZXNpemUnLCBoYW5kbGVyKTtcbiAgICByZXR1cm4gZnVuY3Rpb24gKCkge1xuICAgICAgd2luZG93LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ3Jlc2l6ZScsIGhhbmRsZXIpO1xuICAgIH07XG4gIH0sIFtdKTtcbn07XG5cbnZhciBUZXh0YXJlYUF1dG9zaXplID0gZnVuY3Rpb24gVGV4dGFyZWFBdXRvc2l6ZShfcmVmLCB1c2VyUmVmKSB7XG4gIHZhciBjYWNoZU1lYXN1cmVtZW50cyA9IF9yZWYuY2FjaGVNZWFzdXJlbWVudHMsXG4gICAgICBtYXhSb3dzID0gX3JlZi5tYXhSb3dzLFxuICAgICAgbWluUm93cyA9IF9yZWYubWluUm93cyxcbiAgICAgIF9yZWYkb25DaGFuZ2UgPSBfcmVmLm9uQ2hhbmdlLFxuICAgICAgb25DaGFuZ2UgPSBfcmVmJG9uQ2hhbmdlID09PSB2b2lkIDAgPyBub29wIDogX3JlZiRvbkNoYW5nZSxcbiAgICAgIF9yZWYkb25IZWlnaHRDaGFuZ2UgPSBfcmVmLm9uSGVpZ2h0Q2hhbmdlLFxuICAgICAgb25IZWlnaHRDaGFuZ2UgPSBfcmVmJG9uSGVpZ2h0Q2hhbmdlID09PSB2b2lkIDAgPyBub29wIDogX3JlZiRvbkhlaWdodENoYW5nZSxcbiAgICAgIHByb3BzID0gX29iamVjdFdpdGhvdXRQcm9wZXJ0aWVzTG9vc2UoX3JlZiwgW1wiY2FjaGVNZWFzdXJlbWVudHNcIiwgXCJtYXhSb3dzXCIsIFwibWluUm93c1wiLCBcIm9uQ2hhbmdlXCIsIFwib25IZWlnaHRDaGFuZ2VcIl0pO1xuXG4gIGlmIChwcm9jZXNzLmVudi5OT0RFX0VOViAhPT0gJ3Byb2R1Y3Rpb24nICYmIHByb3BzLnN0eWxlKSB7XG4gICAgaWYgKCdtYXhIZWlnaHQnIGluIHByb3BzLnN0eWxlKSB7XG4gICAgICB0aHJvdyBuZXcgRXJyb3IoJ1VzaW5nIGBzdHlsZS5tYXhIZWlnaHRgIGZvciA8VGV4dGFyZWFBdXRvc2l6ZS8+IGlzIG5vdCBzdXBwb3J0ZWQuIFBsZWFzZSB1c2UgYG1heFJvd3NgLicpO1xuICAgIH1cblxuICAgIGlmICgnbWluSGVpZ2h0JyBpbiBwcm9wcy5zdHlsZSkge1xuICAgICAgdGhyb3cgbmV3IEVycm9yKCdVc2luZyBgc3R5bGUubWluSGVpZ2h0YCBmb3IgPFRleHRhcmVhQXV0b3NpemUvPiBpcyBub3Qgc3VwcG9ydGVkLiBQbGVhc2UgdXNlIGBtaW5Sb3dzYC4nKTtcbiAgICB9XG4gIH1cblxuICB2YXIgaXNDb250cm9sbGVkID0gcHJvcHMudmFsdWUgIT09IHVuZGVmaW5lZDtcbiAgdmFyIGxpYlJlZiA9IHVzZVJlZihudWxsKTtcbiAgdmFyIHJlZiA9IHVzZUNvbXBvc2VkUmVmKGxpYlJlZiwgdXNlclJlZik7XG4gIHZhciBoZWlnaHRSZWYgPSB1c2VSZWYoMCk7XG4gIHZhciBtZWFzdXJlbWVudHNDYWNoZVJlZiA9IHVzZVJlZigpO1xuXG4gIHZhciByZXNpemVUZXh0YXJlYSA9IGZ1bmN0aW9uIHJlc2l6ZVRleHRhcmVhKCkge1xuICAgIHZhciBub2RlID0gbGliUmVmLmN1cnJlbnQ7XG4gICAgdmFyIG5vZGVTaXppbmdEYXRhID0gY2FjaGVNZWFzdXJlbWVudHMgJiYgbWVhc3VyZW1lbnRzQ2FjaGVSZWYuY3VycmVudCA/IG1lYXN1cmVtZW50c0NhY2hlUmVmLmN1cnJlbnQgOiBnZXRTaXppbmdEYXRhKG5vZGUpO1xuXG4gICAgaWYgKCFub2RlU2l6aW5nRGF0YSkge1xuICAgICAgcmV0dXJuO1xuICAgIH1cblxuICAgIG1lYXN1cmVtZW50c0NhY2hlUmVmLmN1cnJlbnQgPSBub2RlU2l6aW5nRGF0YTtcblxuICAgIHZhciBfY2FsY3VsYXRlTm9kZUhlaWdodCA9IGNhbGN1bGF0ZU5vZGVIZWlnaHQobm9kZVNpemluZ0RhdGEsIG5vZGUudmFsdWUgfHwgbm9kZS5wbGFjZWhvbGRlciB8fCAneCcsIG1pblJvd3MsIG1heFJvd3MpLFxuICAgICAgICBoZWlnaHQgPSBfY2FsY3VsYXRlTm9kZUhlaWdodFswXSxcbiAgICAgICAgcm93SGVpZ2h0ID0gX2NhbGN1bGF0ZU5vZGVIZWlnaHRbMV07XG5cbiAgICBpZiAoaGVpZ2h0UmVmLmN1cnJlbnQgIT09IGhlaWdodCkge1xuICAgICAgaGVpZ2h0UmVmLmN1cnJlbnQgPSBoZWlnaHQ7XG4gICAgICBub2RlLnN0eWxlLnNldFByb3BlcnR5KCdoZWlnaHQnLCBoZWlnaHQgKyBcInB4XCIsICdpbXBvcnRhbnQnKTtcbiAgICAgIG9uSGVpZ2h0Q2hhbmdlKGhlaWdodCwge1xuICAgICAgICByb3dIZWlnaHQ6IHJvd0hlaWdodFxuICAgICAgfSk7XG4gICAgfVxuICB9O1xuXG4gIHZhciBoYW5kbGVDaGFuZ2UgPSBmdW5jdGlvbiBoYW5kbGVDaGFuZ2UoZXZlbnQpIHtcbiAgICBpZiAoIWlzQ29udHJvbGxlZCkge1xuICAgICAgcmVzaXplVGV4dGFyZWEoKTtcbiAgICB9XG5cbiAgICBvbkNoYW5nZShldmVudCk7XG4gIH07XG5cbiAge1xuICAgIHVzZUxheW91dEVmZmVjdChyZXNpemVUZXh0YXJlYSk7XG4gIH1cblxuICB1c2VXaW5kb3dSZXNpemVMaXN0ZW5lcihyZXNpemVUZXh0YXJlYSk7XG4gIHJldHVybiAoLyojX19QVVJFX18qL2NyZWF0ZUVsZW1lbnQoXCJ0ZXh0YXJlYVwiLCBfZXh0ZW5kcyh7fSwgcHJvcHMsIHtcbiAgICAgIG9uQ2hhbmdlOiBoYW5kbGVDaGFuZ2UsXG4gICAgICByZWY6IHJlZlxuICAgIH0pKVxuICApO1xufTtcblxudmFyIGluZGV4ID0gLyogI19fUFVSRV9fICovZm9yd2FyZFJlZihUZXh0YXJlYUF1dG9zaXplKTtcblxuZXhwb3J0IGRlZmF1bHQgaW5kZXg7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/react-textarea-autosize/dist/react-textarea-autosize.browser.esm.js\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var use_latest__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! use-latest */ "./node_modules/use-latest/dist/use-latest.esm.js");
+/* harmony import */ var use_composed_ref__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! use-composed-ref */ "./node_modules/use-composed-ref/dist/use-composed-ref.esm.js");
+
+
+
+
+
+
+var HIDDEN_TEXTAREA_STYLE = {
+  'min-height': '0',
+  'max-height': 'none',
+  height: '0',
+  visibility: 'hidden',
+  overflow: 'hidden',
+  position: 'absolute',
+  'z-index': '-1000',
+  top: '0',
+  right: '0'
+};
+
+var forceHiddenStyles = function forceHiddenStyles(node) {
+  Object.keys(HIDDEN_TEXTAREA_STYLE).forEach(function (key) {
+    node.style.setProperty(key, HIDDEN_TEXTAREA_STYLE[key], 'important');
+  });
+};
+
+//   export type CalculatedNodeHeights = [height: number, rowHeight: number];
+// https://github.com/microsoft/TypeScript/issues/28259
+
+var hiddenTextarea = null;
+
+var getHeight = function getHeight(node, sizingData) {
+  var height = node.scrollHeight;
+
+  if (sizingData.sizingStyle.boxSizing === 'border-box') {
+    // border-box: add border, since height = content + padding + border
+    return height + sizingData.borderSize;
+  } // remove padding, since height = content
+
+
+  return height - sizingData.paddingSize;
+};
+
+function calculateNodeHeight(sizingData, value, minRows, maxRows) {
+  if (minRows === void 0) {
+    minRows = 1;
+  }
+
+  if (maxRows === void 0) {
+    maxRows = Infinity;
+  }
+
+  if (!hiddenTextarea) {
+    hiddenTextarea = document.createElement('textarea');
+    hiddenTextarea.setAttribute('tab-index', '-1');
+    hiddenTextarea.setAttribute('aria-hidden', 'true');
+    forceHiddenStyles(hiddenTextarea);
+  }
+
+  if (hiddenTextarea.parentNode === null) {
+    document.body.appendChild(hiddenTextarea);
+  }
+
+  var paddingSize = sizingData.paddingSize,
+      borderSize = sizingData.borderSize,
+      sizingStyle = sizingData.sizingStyle;
+  var boxSizing = sizingStyle.boxSizing;
+  Object.keys(sizingStyle).forEach(function (_key) {
+    var key = _key;
+    hiddenTextarea.style[key] = sizingStyle[key];
+  });
+  forceHiddenStyles(hiddenTextarea);
+  hiddenTextarea.value = value;
+  var height = getHeight(hiddenTextarea, sizingData); // measure height of a textarea with a single row
+
+  hiddenTextarea.value = 'x';
+  var rowHeight = hiddenTextarea.scrollHeight - paddingSize;
+  var minHeight = rowHeight * minRows;
+
+  if (boxSizing === 'border-box') {
+    minHeight = minHeight + paddingSize + borderSize;
+  }
+
+  height = Math.max(minHeight, height);
+  var maxHeight = rowHeight * maxRows;
+
+  if (boxSizing === 'border-box') {
+    maxHeight = maxHeight + paddingSize + borderSize;
+  }
+
+  height = Math.min(maxHeight, height);
+  return [height, rowHeight];
+}
+
+var noop = function noop() {};
+var pick = function pick(props, obj) {
+  return props.reduce(function (acc, prop) {
+    acc[prop] = obj[prop];
+    return acc;
+  }, {});
+};
+
+var SIZING_STYLE = ['borderBottomWidth', 'borderLeftWidth', 'borderRightWidth', 'borderTopWidth', 'boxSizing', 'fontFamily', 'fontSize', 'fontStyle', 'fontWeight', 'letterSpacing', 'lineHeight', 'paddingBottom', 'paddingLeft', 'paddingRight', 'paddingTop', // non-standard
+'tabSize', 'textIndent', // non-standard
+'textRendering', 'textTransform', 'width'];
+var isIE =  !!document.documentElement.currentStyle ;
+
+var getSizingData = function getSizingData(node) {
+  var style = window.getComputedStyle(node);
+
+  if (style === null) {
+    return null;
+  }
+
+  var sizingStyle = pick(SIZING_STYLE, style);
+  var boxSizing = sizingStyle.boxSizing; // probably node is detached from DOM, can't read computed dimensions
+
+  if (boxSizing === '') {
+    return null;
+  } // IE (Edge has already correct behaviour) returns content width as computed width
+  // so we need to add manually padding and border widths
+
+
+  if (isIE && boxSizing === 'border-box') {
+    sizingStyle.width = parseFloat(sizingStyle.width) + parseFloat(sizingStyle.borderRightWidth) + parseFloat(sizingStyle.borderLeftWidth) + parseFloat(sizingStyle.paddingRight) + parseFloat(sizingStyle.paddingLeft) + 'px';
+  }
+
+  var paddingSize = parseFloat(sizingStyle.paddingBottom) + parseFloat(sizingStyle.paddingTop);
+  var borderSize = parseFloat(sizingStyle.borderBottomWidth) + parseFloat(sizingStyle.borderTopWidth);
+  return {
+    sizingStyle: sizingStyle,
+    paddingSize: paddingSize,
+    borderSize: borderSize
+  };
+};
+
+var useWindowResizeListener = function useWindowResizeListener(listener) {
+  var latestListener = Object(use_latest__WEBPACK_IMPORTED_MODULE_3__["default"])(listener);
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    var handler = function handler(event) {
+      latestListener.current(event);
+    };
+
+    window.addEventListener('resize', handler);
+    return function () {
+      window.removeEventListener('resize', handler);
+    };
+  }, []);
+};
+
+var TextareaAutosize = function TextareaAutosize(_ref, userRef) {
+  var cacheMeasurements = _ref.cacheMeasurements,
+      maxRows = _ref.maxRows,
+      minRows = _ref.minRows,
+      _ref$onChange = _ref.onChange,
+      onChange = _ref$onChange === void 0 ? noop : _ref$onChange,
+      _ref$onHeightChange = _ref.onHeightChange,
+      onHeightChange = _ref$onHeightChange === void 0 ? noop : _ref$onHeightChange,
+      props = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref, ["cacheMeasurements", "maxRows", "minRows", "onChange", "onHeightChange"]);
+
+  if ( true && props.style) {
+    if ('maxHeight' in props.style) {
+      throw new Error('Using `style.maxHeight` for <TextareaAutosize/> is not supported. Please use `maxRows`.');
+    }
+
+    if ('minHeight' in props.style) {
+      throw new Error('Using `style.minHeight` for <TextareaAutosize/> is not supported. Please use `minRows`.');
+    }
+  }
+
+  var isControlled = props.value !== undefined;
+  var libRef = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])(null);
+  var ref = Object(use_composed_ref__WEBPACK_IMPORTED_MODULE_4__["default"])(libRef, userRef);
+  var heightRef = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])(0);
+  var measurementsCacheRef = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])();
+
+  var resizeTextarea = function resizeTextarea() {
+    var node = libRef.current;
+    var nodeSizingData = cacheMeasurements && measurementsCacheRef.current ? measurementsCacheRef.current : getSizingData(node);
+
+    if (!nodeSizingData) {
+      return;
+    }
+
+    measurementsCacheRef.current = nodeSizingData;
+
+    var _calculateNodeHeight = calculateNodeHeight(nodeSizingData, node.value || node.placeholder || 'x', minRows, maxRows),
+        height = _calculateNodeHeight[0],
+        rowHeight = _calculateNodeHeight[1];
+
+    if (heightRef.current !== height) {
+      heightRef.current = height;
+      node.style.setProperty('height', height + "px", 'important');
+      onHeightChange(height, {
+        rowHeight: rowHeight
+      });
+    }
+  };
+
+  var handleChange = function handleChange(event) {
+    if (!isControlled) {
+      resizeTextarea();
+    }
+
+    onChange(event);
+  };
+
+  {
+    Object(react__WEBPACK_IMPORTED_MODULE_2__["useLayoutEffect"])(resizeTextarea);
+  }
+
+  useWindowResizeListener(resizeTextarea);
+  return (/*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_2__["createElement"])("textarea", Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+      onChange: handleChange,
+      ref: ref
+    }))
+  );
+};
+
+var index = /* #__PURE__ */Object(react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"])(TextareaAutosize);
+
+/* harmony default export */ __webpack_exports__["default"] = (index);
+
 
 /***/ }),
 
@@ -20,7 +247,40 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _bab
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nvar updateRef = function updateRef(ref, value) {\n  if (typeof ref === 'function') {\n    ref(value);\n    return;\n  }\n  ref.current = value;\n};\n\nvar useComposedRef = function useComposedRef(libRef, userRef) {\n  var prevUserRef = Object(react__WEBPACK_IMPORTED_MODULE_0__[\"useRef\"])();\n  return Object(react__WEBPACK_IMPORTED_MODULE_0__[\"useCallback\"])(function (instance) {\n    libRef.current = instance;\n\n    if (prevUserRef.current) {\n      updateRef(prevUserRef.current, null);\n    }\n\n    prevUserRef.current = userRef;\n\n    if (!userRef) {\n      return;\n    }\n\n    updateRef(userRef, instance);\n  }, [userRef]);\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (useComposedRef);\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvdXNlLWNvbXBvc2VkLXJlZi9kaXN0L3VzZS1jb21wb3NlZC1yZWYuZXNtLmpzPzVhMmYiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQTRDOztBQUU1QztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBLG9CQUFvQixvREFBTTtBQUMxQixTQUFTLHlEQUFXO0FBQ3BCOztBQUVBO0FBQ0E7QUFDQTs7QUFFQTs7QUFFQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQSxHQUFHO0FBQ0g7O0FBRWUsNkVBQWMsRUFBQyIsImZpbGUiOiIuL25vZGVfbW9kdWxlcy91c2UtY29tcG9zZWQtcmVmL2Rpc3QvdXNlLWNvbXBvc2VkLXJlZi5lc20uanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyB1c2VSZWYsIHVzZUNhbGxiYWNrIH0gZnJvbSAncmVhY3QnO1xuXG52YXIgdXBkYXRlUmVmID0gZnVuY3Rpb24gdXBkYXRlUmVmKHJlZiwgdmFsdWUpIHtcbiAgaWYgKHR5cGVvZiByZWYgPT09ICdmdW5jdGlvbicpIHtcbiAgICByZWYodmFsdWUpO1xuICAgIHJldHVybjtcbiAgfVxuICByZWYuY3VycmVudCA9IHZhbHVlO1xufTtcblxudmFyIHVzZUNvbXBvc2VkUmVmID0gZnVuY3Rpb24gdXNlQ29tcG9zZWRSZWYobGliUmVmLCB1c2VyUmVmKSB7XG4gIHZhciBwcmV2VXNlclJlZiA9IHVzZVJlZigpO1xuICByZXR1cm4gdXNlQ2FsbGJhY2soZnVuY3Rpb24gKGluc3RhbmNlKSB7XG4gICAgbGliUmVmLmN1cnJlbnQgPSBpbnN0YW5jZTtcblxuICAgIGlmIChwcmV2VXNlclJlZi5jdXJyZW50KSB7XG4gICAgICB1cGRhdGVSZWYocHJldlVzZXJSZWYuY3VycmVudCwgbnVsbCk7XG4gICAgfVxuXG4gICAgcHJldlVzZXJSZWYuY3VycmVudCA9IHVzZXJSZWY7XG5cbiAgICBpZiAoIXVzZXJSZWYpIHtcbiAgICAgIHJldHVybjtcbiAgICB9XG5cbiAgICB1cGRhdGVSZWYodXNlclJlZiwgaW5zdGFuY2UpO1xuICB9LCBbdXNlclJlZl0pO1xufTtcblxuZXhwb3J0IGRlZmF1bHQgdXNlQ29tcG9zZWRSZWY7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/use-composed-ref/dist/use-composed-ref.esm.js\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var updateRef = function updateRef(ref, value) {
+  if (typeof ref === 'function') {
+    ref(value);
+    return;
+  }
+  ref.current = value;
+};
+
+var useComposedRef = function useComposedRef(libRef, userRef) {
+  var prevUserRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  return Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(function (instance) {
+    libRef.current = instance;
+
+    if (prevUserRef.current) {
+      updateRef(prevUserRef.current, null);
+    }
+
+    prevUserRef.current = userRef;
+
+    if (!userRef) {
+      return;
+    }
+
+    updateRef(userRef, instance);
+  }, [userRef]);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (useComposedRef);
+
 
 /***/ }),
 
@@ -32,7 +292,15 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nvar index =  react__WEBPACK_IMPORTED_MODULE_0__[\"useLayoutEffect\"] ;\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (index);\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvdXNlLWlzb21vcnBoaWMtbGF5b3V0LWVmZmVjdC9kaXN0L3VzZS1pc29tb3JwaGljLWxheW91dC1lZmZlY3QuYnJvd3Nlci5lc20uanM/Y2JiZSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBd0M7O0FBRXhDLGFBQWEscURBQWU7O0FBRWIsb0VBQUssRUFBQyIsImZpbGUiOiIuL25vZGVfbW9kdWxlcy91c2UtaXNvbW9ycGhpYy1sYXlvdXQtZWZmZWN0L2Rpc3QvdXNlLWlzb21vcnBoaWMtbGF5b3V0LWVmZmVjdC5icm93c2VyLmVzbS5qcy5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHVzZUxheW91dEVmZmVjdCB9IGZyb20gJ3JlYWN0JztcblxudmFyIGluZGV4ID0gIHVzZUxheW91dEVmZmVjdCA7XG5cbmV4cG9ydCBkZWZhdWx0IGluZGV4O1xuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./node_modules/use-isomorphic-layout-effect/dist/use-isomorphic-layout-effect.browser.esm.js\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var index =  react__WEBPACK_IMPORTED_MODULE_0__["useLayoutEffect"] ;
+
+/* harmony default export */ __webpack_exports__["default"] = (index);
+
 
 /***/ }),
 
@@ -44,7 +312,23 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var use_isomorphic_layout_effect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! use-isomorphic-layout-effect */ \"./node_modules/use-isomorphic-layout-effect/dist/use-isomorphic-layout-effect.browser.esm.js\");\n\n\n\nvar useLatest = function useLatest(value) {\n  var ref = Object(react__WEBPACK_IMPORTED_MODULE_0__[\"useRef\"])(value);\n  Object(use_isomorphic_layout_effect__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(function () {\n    ref.current = value;\n  });\n  return ref;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (useLatest);\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvdXNlLWxhdGVzdC9kaXN0L3VzZS1sYXRlc3QuZXNtLmpzP2Q5OTEiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQUE7QUFBK0I7QUFDc0M7O0FBRXJFO0FBQ0EsWUFBWSxvREFBTTtBQUNsQixFQUFFLDRFQUF5QjtBQUMzQjtBQUNBLEdBQUc7QUFDSDtBQUNBOztBQUVlLHdFQUFTLEVBQUMiLCJmaWxlIjoiLi9ub2RlX21vZHVsZXMvdXNlLWxhdGVzdC9kaXN0L3VzZS1sYXRlc3QuZXNtLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgdXNlUmVmIH0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHVzZUlzb21vcnBoaWNMYXlvdXRFZmZlY3QgZnJvbSAndXNlLWlzb21vcnBoaWMtbGF5b3V0LWVmZmVjdCc7XG5cbnZhciB1c2VMYXRlc3QgPSBmdW5jdGlvbiB1c2VMYXRlc3QodmFsdWUpIHtcbiAgdmFyIHJlZiA9IHVzZVJlZih2YWx1ZSk7XG4gIHVzZUlzb21vcnBoaWNMYXlvdXRFZmZlY3QoZnVuY3Rpb24gKCkge1xuICAgIHJlZi5jdXJyZW50ID0gdmFsdWU7XG4gIH0pO1xuICByZXR1cm4gcmVmO1xufTtcblxuZXhwb3J0IGRlZmF1bHQgdXNlTGF0ZXN0O1xuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./node_modules/use-latest/dist/use-latest.esm.js\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var use_isomorphic_layout_effect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! use-isomorphic-layout-effect */ "./node_modules/use-isomorphic-layout-effect/dist/use-isomorphic-layout-effect.browser.esm.js");
+
+
+
+var useLatest = function useLatest(value) {
+  var ref = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(value);
+  Object(use_isomorphic_layout_effect__WEBPACK_IMPORTED_MODULE_1__["default"])(function () {
+    ref.current = value;
+  });
+  return ref;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (useLatest);
+
 
 /***/ }),
 
@@ -56,7 +340,111 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_textarea_autosize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-textarea-autosize */ \"./node_modules/react-textarea-autosize/dist/react-textarea-autosize.browser.esm.js\");\n/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ \"./node_modules/prop-types/index.js\");\n/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _state_ducks_tweets__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../state/ducks/tweets */ \"./resources/js/state/ducks/tweets/index.js\");\n/* harmony import */ var _state_ducks_replies__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../state/ducks/replies */ \"./resources/js/state/ducks/replies/index.js\");\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/esm/react-router-dom.js\");\nfunction _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }\n\nfunction _nonIterableRest() { throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); }\n\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\n\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\nfunction _iterableToArrayLimit(arr, i) { if (typeof Symbol === \"undefined\" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i[\"return\"] != null) _i[\"return\"](); } finally { if (_d) throw _e; } } return _arr; }\n\nfunction _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }\n\n\n\n\n\n\n\n\n\nvar TweetButton = function TweetButton(_ref) {\n  var _ref$tweetId = _ref.tweetId,\n      tweetId = _ref$tweetId === void 0 ? null : _ref$tweetId;\n  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_6__[\"useHistory\"])();\n  var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_6__[\"useLocation\"])();\n\n  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__[\"useState\"])(''),\n      _useState2 = _slicedToArray(_useState, 2),\n      tweet = _useState2[0],\n      setTweet = _useState2[1];\n\n  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__[\"useDispatch\"])();\n  var user = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__[\"useSelector\"])(function (state) {\n    return state.auth.user;\n  });\n\n  var submit = function submit() {\n    if (tweetId) {\n      dispatch(Object(_state_ducks_replies__WEBPACK_IMPORTED_MODULE_5__[\"fetchReplies\"])(\"/api/tweet/\".concat(tweetId, \"/reply\"), 'POST', 'CREATE', {\n        tweet: tweet\n      }, history, location));\n    } else {\n      dispatch(Object(_state_ducks_tweets__WEBPACK_IMPORTED_MODULE_4__[\"fetchTweets\"])('/api/tweet', 'POST', 'CREATE', {\n        tweet: tweet\n      }));\n    }\n\n    setTweet('');\n  };\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"tweetButton\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"tweetButton__info\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"img\", {\n    className: \"tweetButton__image\",\n    src: user.profile_photo,\n    alt: \"User profile photo\"\n  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"tweetButton__body\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_textarea_autosize__WEBPACK_IMPORTED_MODULE_1__[\"default\"], {\n    placeholder: \"What is on your mind?\",\n    className: \"tweetButton__message\",\n    value: tweet,\n    onChange: function onChange(e) {\n      return setTweet(e.target.value);\n    }\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"tweetButton__helpers\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"button\", {\n    className: \"tweetButton__submit\",\n    disabled: tweet.length > 0 ? false : true,\n    onClick: function onClick() {\n      return submit();\n    }\n  }, \"Tweet\"))));\n};\n\nTweetButton.propTypes = {\n  tweetId: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.number\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (TweetButton);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9Ud2VldC9Ud2VldEJ1dHRvbi5qc3g/YjUxMiJdLCJuYW1lcyI6WyJUd2VldEJ1dHRvbiIsInR3ZWV0SWQiLCJoaXN0b3J5IiwidXNlSGlzdG9yeSIsImxvY2F0aW9uIiwidXNlTG9jYXRpb24iLCJ1c2VTdGF0ZSIsInR3ZWV0Iiwic2V0VHdlZXQiLCJkaXNwYXRjaCIsInVzZURpc3BhdGNoIiwidXNlciIsInVzZVNlbGVjdG9yIiwic3RhdGUiLCJhdXRoIiwic3VibWl0IiwiZmV0Y2hSZXBsaWVzIiwiZmV0Y2hUd2VldHMiLCJwcm9maWxlX3Bob3RvIiwiZSIsInRhcmdldCIsInZhbHVlIiwibGVuZ3RoIiwicHJvcFR5cGVzIiwiUHJvcFR5cGVzIiwibnVtYmVyIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUEsSUFBTUEsV0FBVyxHQUFHLFNBQWRBLFdBQWMsT0FBd0I7QUFBQSwwQkFBckJDLE9BQXFCO0FBQUEsTUFBckJBLE9BQXFCLDZCQUFYLElBQVc7QUFDMUMsTUFBTUMsT0FBTyxHQUFHQyxtRUFBVSxFQUExQjtBQUNBLE1BQU1DLFFBQVEsR0FBR0Msb0VBQVcsRUFBNUI7O0FBRjBDLGtCQUdoQkMsc0RBQVEsQ0FBQyxFQUFELENBSFE7QUFBQTtBQUFBLE1BR25DQyxLQUhtQztBQUFBLE1BRzVCQyxRQUg0Qjs7QUFJMUMsTUFBTUMsUUFBUSxHQUFHQywrREFBVyxFQUE1QjtBQUNBLE1BQU1DLElBQUksR0FBR0MsK0RBQVcsQ0FBQyxVQUFBQyxLQUFLO0FBQUEsV0FBSUEsS0FBSyxDQUFDQyxJQUFOLENBQVdILElBQWY7QUFBQSxHQUFOLENBQXhCOztBQUVBLE1BQU1JLE1BQU0sR0FBRyxTQUFUQSxNQUFTLEdBQU07QUFDbkIsUUFBSWQsT0FBSixFQUFhO0FBQ1hRLGNBQVEsQ0FDTk8seUVBQVksc0JBQ0lmLE9BREosYUFFVixNQUZVLEVBR1YsUUFIVSxFQUlWO0FBQUVNLGFBQUssRUFBTEE7QUFBRixPQUpVLEVBS1ZMLE9BTFUsRUFNVkUsUUFOVSxDQUROLENBQVI7QUFVRCxLQVhELE1BV087QUFDTEssY0FBUSxDQUFDUSx1RUFBVyxDQUFDLFlBQUQsRUFBZSxNQUFmLEVBQXVCLFFBQXZCLEVBQWlDO0FBQUVWLGFBQUssRUFBTEE7QUFBRixPQUFqQyxDQUFaLENBQVI7QUFDRDs7QUFDREMsWUFBUSxDQUFDLEVBQUQsQ0FBUjtBQUNELEdBaEJEOztBQWtCQSxzQkFDRTtBQUFLLGFBQVMsRUFBQztBQUFmLGtCQUNFO0FBQUssYUFBUyxFQUFDO0FBQWYsa0JBQ0U7QUFDRSxhQUFTLEVBQUMsb0JBRFo7QUFFRSxPQUFHLEVBQUVHLElBQUksQ0FBQ08sYUFGWjtBQUdFLE9BQUcsRUFBQztBQUhOLElBREYsQ0FERixlQVFFO0FBQUssYUFBUyxFQUFDO0FBQWYsa0JBQ0UsMkRBQUMsK0RBQUQ7QUFDRSxlQUFXLEVBQUMsdUJBRGQ7QUFFRSxhQUFTLEVBQUMsc0JBRlo7QUFHRSxTQUFLLEVBQUVYLEtBSFQ7QUFJRSxZQUFRLEVBQUUsa0JBQUFZLENBQUM7QUFBQSxhQUFJWCxRQUFRLENBQUNXLENBQUMsQ0FBQ0MsTUFBRixDQUFTQyxLQUFWLENBQVo7QUFBQTtBQUpiLElBREYsZUFPRTtBQUFLLGFBQVMsRUFBQztBQUFmLGtCQUNFO0FBQ0UsYUFBUyxFQUFDLHFCQURaO0FBRUUsWUFBUSxFQUFFZCxLQUFLLENBQUNlLE1BQU4sR0FBZSxDQUFmLEdBQW1CLEtBQW5CLEdBQTJCLElBRnZDO0FBR0UsV0FBTyxFQUFFO0FBQUEsYUFBTVAsTUFBTSxFQUFaO0FBQUE7QUFIWCxhQURGLENBUEYsQ0FSRixDQURGO0FBNEJELENBckREOztBQXVEQWYsV0FBVyxDQUFDdUIsU0FBWixHQUF3QjtBQUN0QnRCLFNBQU8sRUFBRXVCLGlEQUFTLENBQUNDO0FBREcsQ0FBeEI7QUFJZXpCLDBFQUFmIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2pzL2NvbXBvbmVudHMvVHdlZXQvVHdlZXRCdXR0b24uanN4LmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlIH0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IFRleHRhcmVhQXV0b3NpemUgZnJvbSAncmVhY3QtdGV4dGFyZWEtYXV0b3NpemUnO1xuaW1wb3J0IFByb3BUeXBlcyBmcm9tICdwcm9wLXR5cGVzJztcbmltcG9ydCB7IHVzZURpc3BhdGNoLCB1c2VTZWxlY3RvciB9IGZyb20gJ3JlYWN0LXJlZHV4JztcbmltcG9ydCB7IGZldGNoVHdlZXRzIH0gZnJvbSAnLi4vLi4vc3RhdGUvZHVja3MvdHdlZXRzJztcbmltcG9ydCB7IGZldGNoUmVwbGllcyB9IGZyb20gJy4uLy4uL3N0YXRlL2R1Y2tzL3JlcGxpZXMnO1xuaW1wb3J0IHsgdXNlSGlzdG9yeSwgdXNlTG9jYXRpb24gfSBmcm9tICdyZWFjdC1yb3V0ZXItZG9tJztcblxuY29uc3QgVHdlZXRCdXR0b24gPSAoeyB0d2VldElkID0gbnVsbCB9KSA9PiB7XG4gIGNvbnN0IGhpc3RvcnkgPSB1c2VIaXN0b3J5KCk7XG4gIGNvbnN0IGxvY2F0aW9uID0gdXNlTG9jYXRpb24oKTtcbiAgY29uc3QgW3R3ZWV0LCBzZXRUd2VldF0gPSB1c2VTdGF0ZSgnJyk7XG4gIGNvbnN0IGRpc3BhdGNoID0gdXNlRGlzcGF0Y2goKTtcbiAgY29uc3QgdXNlciA9IHVzZVNlbGVjdG9yKHN0YXRlID0+IHN0YXRlLmF1dGgudXNlcik7XG5cbiAgY29uc3Qgc3VibWl0ID0gKCkgPT4ge1xuICAgIGlmICh0d2VldElkKSB7XG4gICAgICBkaXNwYXRjaChcbiAgICAgICAgZmV0Y2hSZXBsaWVzKFxuICAgICAgICAgIGAvYXBpL3R3ZWV0LyR7dHdlZXRJZH0vcmVwbHlgLFxuICAgICAgICAgICdQT1NUJyxcbiAgICAgICAgICAnQ1JFQVRFJyxcbiAgICAgICAgICB7IHR3ZWV0IH0sXG4gICAgICAgICAgaGlzdG9yeSxcbiAgICAgICAgICBsb2NhdGlvblxuICAgICAgICApXG4gICAgICApO1xuICAgIH0gZWxzZSB7XG4gICAgICBkaXNwYXRjaChmZXRjaFR3ZWV0cygnL2FwaS90d2VldCcsICdQT1NUJywgJ0NSRUFURScsIHsgdHdlZXQgfSkpO1xuICAgIH1cbiAgICBzZXRUd2VldCgnJyk7XG4gIH07XG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2IGNsYXNzTmFtZT1cInR3ZWV0QnV0dG9uXCI+XG4gICAgICA8ZGl2IGNsYXNzTmFtZT1cInR3ZWV0QnV0dG9uX19pbmZvXCI+XG4gICAgICAgIDxpbWdcbiAgICAgICAgICBjbGFzc05hbWU9XCJ0d2VldEJ1dHRvbl9faW1hZ2VcIlxuICAgICAgICAgIHNyYz17dXNlci5wcm9maWxlX3Bob3RvfVxuICAgICAgICAgIGFsdD1cIlVzZXIgcHJvZmlsZSBwaG90b1wiXG4gICAgICAgIC8+XG4gICAgICA8L2Rpdj5cbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwidHdlZXRCdXR0b25fX2JvZHlcIj5cbiAgICAgICAgPFRleHRhcmVhQXV0b3NpemVcbiAgICAgICAgICBwbGFjZWhvbGRlcj1cIldoYXQgaXMgb24geW91ciBtaW5kP1wiXG4gICAgICAgICAgY2xhc3NOYW1lPVwidHdlZXRCdXR0b25fX21lc3NhZ2VcIlxuICAgICAgICAgIHZhbHVlPXt0d2VldH1cbiAgICAgICAgICBvbkNoYW5nZT17ZSA9PiBzZXRUd2VldChlLnRhcmdldC52YWx1ZSl9XG4gICAgICAgID48L1RleHRhcmVhQXV0b3NpemU+XG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwidHdlZXRCdXR0b25fX2hlbHBlcnNcIj5cbiAgICAgICAgICA8YnV0dG9uXG4gICAgICAgICAgICBjbGFzc05hbWU9XCJ0d2VldEJ1dHRvbl9fc3VibWl0XCJcbiAgICAgICAgICAgIGRpc2FibGVkPXt0d2VldC5sZW5ndGggPiAwID8gZmFsc2UgOiB0cnVlfVxuICAgICAgICAgICAgb25DbGljaz17KCkgPT4gc3VibWl0KCl9XG4gICAgICAgICAgPlxuICAgICAgICAgICAgVHdlZXRcbiAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2Rpdj5cbiAgICA8L2Rpdj5cbiAgKTtcbn07XG5cblR3ZWV0QnV0dG9uLnByb3BUeXBlcyA9IHtcbiAgdHdlZXRJZDogUHJvcFR5cGVzLm51bWJlclxufTtcblxuZXhwb3J0IGRlZmF1bHQgVHdlZXRCdXR0b247XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/components/Tweet/TweetButton.jsx\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_textarea_autosize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-textarea-autosize */ "./node_modules/react-textarea-autosize/dist/react-textarea-autosize.browser.esm.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _state_ducks_tweets__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../state/ducks/tweets */ "./resources/js/state/ducks/tweets/index.js");
+/* harmony import */ var _state_ducks_replies__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../state/ducks/replies */ "./resources/js/state/ducks/replies/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+/**
+ * Component that allows user to write a tweet reply
+ *
+ * @param {string} tweetId - Id of tweet being replied to
+ * @param {func} back - Boolean that helps determine whether to go back on submit
+ */
+
+var TweetButton = function TweetButton(_ref) {
+  var _ref$tweetId = _ref.tweetId,
+      tweetId = _ref$tweetId === void 0 ? null : _ref$tweetId,
+      _ref$setCancel = _ref.setCancel,
+      setCancel = _ref$setCancel === void 0 ? null : _ref$setCancel;
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["useHistory"])();
+  var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["useLocation"])();
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      tweet = _useState2[0],
+      setTweet = _useState2[1];
+
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])();
+  var user = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
+    return state.auth.user;
+  });
+
+  var submit = function submit() {
+    if (tweetId) {
+      dispatch(Object(_state_ducks_replies__WEBPACK_IMPORTED_MODULE_5__["fetchReplies"])("/api/tweet/".concat(tweetId, "/reply"), 'POST', 'CREATE', {
+        tweet: tweet
+      }, history, location));
+    } else {
+      dispatch(Object(_state_ducks_tweets__WEBPACK_IMPORTED_MODULE_4__["fetchTweets"])('/api/tweet', 'POST', 'CREATE', {
+        tweet: tweet
+      }));
+    }
+
+    setTweet('');
+
+    if (setCancel !== null) {
+      setCancel(true);
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "tweetButton"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "tweetButton__info"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "tweetButton__image",
+    src: user.profile_photo,
+    alt: "User profile photo"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "tweetButton__body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_textarea_autosize__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    placeholder: "What is on your mind?",
+    className: "tweetButton__message",
+    value: tweet,
+    onChange: function onChange(e) {
+      return setTweet(e.target.value);
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "tweetButton__helpers"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "tweetButton__submit",
+    disabled: tweet.length > 0 ? false : true,
+    onClick: function onClick() {
+      return submit();
+    }
+  }, "Tweet"))));
+};
+
+TweetButton.propTypes = {
+  tweetId: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.number,
+  setCancel: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (TweetButton);
 
 /***/ })
 

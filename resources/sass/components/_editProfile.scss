@@ -1,0 +1,108 @@
+.editProfile {
+  position: relative;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    border-bottom: 0.1rem solid $dark-grey;
+    padding: $box-padding;
+  }
+
+  &__save {
+    padding: $button-padding;
+    background: $blue;
+    border-radius: 3rem;
+    color: $white;
+    margin-left: auto;
+  }
+
+  &__cancel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: $handler-width;
+    height: $handler-height;
+    border-radius: 100%;
+    margin-right: 1rem;
+
+    &:hover {
+      background: rgba($white, 0.2);
+    }
+  }
+
+  &__background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 33.33%;
+    position: relative;
+  }
+
+  &__box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__centering {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba($white, 0.15);
+    }
+
+    &--picture {
+      position: absolute;
+      top: 4.5rem;
+      left: 4rem;
+    }
+  }
+
+  &__imageFile {
+    display: none;
+  }
+
+  &__picture {
+    height: $profile-image-height;
+    width: $profile-image-width;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 100%;
+    border: 2px solid $black;
+    position: absolute;
+    top: 17rem;
+    left: 6rem;
+  }
+
+  &__profilePhoto {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    opacity: 0.5;
+  }
+
+  &__name {
+    padding: $box-padding;
+    margin-top: 5rem;
+  }
+
+  &__biography {
+    padding: $box-padding;
+    margin-top: 1rem;
+  }
+}

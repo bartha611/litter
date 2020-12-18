@@ -8,7 +8,79 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ \"./node_modules/@fortawesome/react-fontawesome/index.es.js\");\n/* harmony import */ var _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons */ \"./node_modules/@fortawesome/free-regular-svg-icons/index.es.js\");\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/esm/react-router-dom.js\");\n\n\n\n\n\n\nvar About = function About() {\n  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__[\"useSelector\"])(function (state) {\n    return state.tweets;\n  }),\n      user = _useSelector.user;\n\n  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__[\"useHistory\"])();\n\n  var formatDate = function formatDate(date) {\n    var options = {\n      month: 'long',\n      year: 'numeric'\n    };\n    return \" Joined \".concat(new Date(date).toLocaleDateString(undefined, options));\n  };\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"about\"\n  }, user && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"about__info\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"about__name text-bold\"\n  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"about__username text-muted\"\n  }, \"@\", user.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"about__joinedDate text-muted\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__[\"FontAwesomeIcon\"], {\n    icon: _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_3__[\"faCalendar\"]\n  }), formatDate(user.created_at)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"about__following\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    onClick: function onClick() {\n      return history.push(\"\".concat(user.username, \"/following\"));\n    },\n    className: \"about__following\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"b\", null, user.followers_count, \" \"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"span\", {\n    className: \"text-muted\"\n  }, \"Followers\")))));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (About);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9Qcm9maWxlL0Jpb2dyYXBoeS5qc3g/MWE4OCJdLCJuYW1lcyI6WyJBYm91dCIsInVzZVNlbGVjdG9yIiwic3RhdGUiLCJ0d2VldHMiLCJ1c2VyIiwiaGlzdG9yeSIsInVzZUhpc3RvcnkiLCJmb3JtYXREYXRlIiwiZGF0ZSIsIm9wdGlvbnMiLCJtb250aCIsInllYXIiLCJEYXRlIiwidG9Mb2NhbGVEYXRlU3RyaW5nIiwidW5kZWZpbmVkIiwibmFtZSIsInVzZXJuYW1lIiwiZmFDYWxlbmRhciIsImNyZWF0ZWRfYXQiLCJwdXNoIiwiZm9sbG93ZXJzX2NvdW50Il0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUEsSUFBTUEsS0FBSyxHQUFHLFNBQVJBLEtBQVEsR0FBTTtBQUFBLHFCQUNEQywrREFBVyxDQUFDLFVBQUFDLEtBQUs7QUFBQSxXQUFJQSxLQUFLLENBQUNDLE1BQVY7QUFBQSxHQUFOLENBRFY7QUFBQSxNQUNWQyxJQURVLGdCQUNWQSxJQURVOztBQUVsQixNQUFNQyxPQUFPLEdBQUdDLG1FQUFVLEVBQTFCOztBQUNBLE1BQU1DLFVBQVUsR0FBRyxTQUFiQSxVQUFhLENBQUFDLElBQUksRUFBSTtBQUN6QixRQUFNQyxPQUFPLEdBQUc7QUFBRUMsV0FBSyxFQUFFLE1BQVQ7QUFBaUJDLFVBQUksRUFBRTtBQUF2QixLQUFoQjtBQUNBLDZCQUFrQixJQUFJQyxJQUFKLENBQVNKLElBQVQsRUFBZUssa0JBQWYsQ0FBa0NDLFNBQWxDLEVBQTZDTCxPQUE3QyxDQUFsQjtBQUNELEdBSEQ7O0FBS0Esc0JBQ0U7QUFBSyxhQUFTLEVBQUM7QUFBZixLQUNHTCxJQUFJLGlCQUNIO0FBQUssYUFBUyxFQUFDO0FBQWYsa0JBQ0U7QUFBSyxhQUFTLEVBQUM7QUFBZixLQUF3Q0EsSUFBSSxDQUFDVyxJQUE3QyxDQURGLGVBRUU7QUFBSyxhQUFTLEVBQUM7QUFBZixVQUE4Q1gsSUFBSSxDQUFDWSxRQUFuRCxDQUZGLGVBR0U7QUFBSyxhQUFTLEVBQUM7QUFBZixrQkFDRSwyREFBQyw4RUFBRDtBQUFpQixRQUFJLEVBQUVDLDhFQUFVQTtBQUFqQyxJQURGLEVBRUdWLFVBQVUsQ0FBQ0gsSUFBSSxDQUFDYyxVQUFOLENBRmIsQ0FIRixlQU9FO0FBQUssYUFBUyxFQUFDO0FBQWYsa0JBQ0U7QUFDRSxXQUFPLEVBQUU7QUFBQSxhQUFNYixPQUFPLENBQUNjLElBQVIsV0FBZ0JmLElBQUksQ0FBQ1ksUUFBckIsZ0JBQU47QUFBQSxLQURYO0FBRUUsYUFBUyxFQUFDO0FBRlosa0JBSUUsc0VBQUlaLElBQUksQ0FBQ2dCLGVBQVQsTUFKRixlQUtFO0FBQU0sYUFBUyxFQUFDO0FBQWhCLGlCQUxGLENBREYsQ0FQRixDQUZKLENBREY7QUF1QkQsQ0EvQkQ7O0FBaUNlcEIsb0VBQWYiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9Qcm9maWxlL0Jpb2dyYXBoeS5qc3guanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsgdXNlU2VsZWN0b3IgfSBmcm9tICdyZWFjdC1yZWR1eCc7XG5pbXBvcnQgeyBGb250QXdlc29tZUljb24gfSBmcm9tICdAZm9ydGF3ZXNvbWUvcmVhY3QtZm9udGF3ZXNvbWUnO1xuaW1wb3J0IHsgZmFDYWxlbmRhciB9IGZyb20gJ0Bmb3J0YXdlc29tZS9mcmVlLXJlZ3VsYXItc3ZnLWljb25zJztcbmltcG9ydCB7IHVzZUhpc3RvcnkgfSBmcm9tICdyZWFjdC1yb3V0ZXItZG9tJztcblxuY29uc3QgQWJvdXQgPSAoKSA9PiB7XG4gIGNvbnN0IHsgdXNlciB9ID0gdXNlU2VsZWN0b3Ioc3RhdGUgPT4gc3RhdGUudHdlZXRzKTtcbiAgY29uc3QgaGlzdG9yeSA9IHVzZUhpc3RvcnkoKTtcbiAgY29uc3QgZm9ybWF0RGF0ZSA9IGRhdGUgPT4ge1xuICAgIGNvbnN0IG9wdGlvbnMgPSB7IG1vbnRoOiAnbG9uZycsIHllYXI6ICdudW1lcmljJyB9O1xuICAgIHJldHVybiBgIEpvaW5lZCAke25ldyBEYXRlKGRhdGUpLnRvTG9jYWxlRGF0ZVN0cmluZyh1bmRlZmluZWQsIG9wdGlvbnMpfWA7XG4gIH07XG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2IGNsYXNzTmFtZT1cImFib3V0XCI+XG4gICAgICB7dXNlciAmJiAoXG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiYWJvdXRfX2luZm9cIj5cbiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImFib3V0X19uYW1lIHRleHQtYm9sZFwiPnt1c2VyLm5hbWV9PC9kaXY+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJhYm91dF9fdXNlcm5hbWUgdGV4dC1tdXRlZFwiPkB7dXNlci51c2VybmFtZX08L2Rpdj5cbiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImFib3V0X19qb2luZWREYXRlIHRleHQtbXV0ZWRcIj5cbiAgICAgICAgICAgIDxGb250QXdlc29tZUljb24gaWNvbj17ZmFDYWxlbmRhcn0gLz5cbiAgICAgICAgICAgIHtmb3JtYXREYXRlKHVzZXIuY3JlYXRlZF9hdCl9XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJhYm91dF9fZm9sbG93aW5nXCI+XG4gICAgICAgICAgICA8ZGl2XG4gICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IGhpc3RvcnkucHVzaChgJHt1c2VyLnVzZXJuYW1lfS9mb2xsb3dpbmdgKX1cbiAgICAgICAgICAgICAgY2xhc3NOYW1lPVwiYWJvdXRfX2ZvbGxvd2luZ1wiXG4gICAgICAgICAgICA+XG4gICAgICAgICAgICAgIDxiPnt1c2VyLmZvbGxvd2Vyc19jb3VudH0gPC9iPlxuICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJ0ZXh0LW11dGVkXCI+Rm9sbG93ZXJzPC9zcGFuPlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuICAgICAgKX1cbiAgICA8L2Rpdj5cbiAgKTtcbn07XG5cbmV4cG9ydCBkZWZhdWx0IEFib3V0O1xuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/js/components/Profile/Biography.jsx\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons */ "./node_modules/@fortawesome/free-regular-svg-icons/index.es.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+
+
+
+var About = function About() {
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.tweets;
+  }),
+      user = _useSelector.user;
+
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["useHistory"])();
+
+  var formatDate = function formatDate(date) {
+    var options = {
+      month: 'long',
+      year: 'numeric'
+    };
+    return " Joined ".concat(new Date(date).toLocaleDateString(undefined, options));
+  };
+
+  var formatCounts = function formatCounts(count) {
+    if (count < 1000) {
+      return count;
+    } else if (count < 1000000) {
+      return "".concat(_.round(count / 1000, 1), "K ");
+    } else {
+      return "".concat(_.round(count / 1000000), "M ");
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "about"
+  }, user && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "about__info"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "about__name"
+  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "about__username"
+  }, "@", user.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "about__biography"
+  }, user.biography), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "about__joinedDate text-muted"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
+    icon: _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faCalendar"]
+  }), formatDate(user.created_at)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "about__followerCounts"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    onClick: function onClick() {
+      return history.push("".concat(user.username, "/following"));
+    },
+    className: "about__following"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "about__counts"
+  }, formatCounts(user.following_count), ' '), "Following"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "about__followers",
+    onClick: function onClick() {
+      return history.push("".concat(user.username, "/followers"));
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "about__counts"
+  }, formatCounts(user.followers_count), ' '), "Followers"))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (About);
 
 /***/ }),
 
@@ -20,7 +92,35 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ \"./node_modules/prop-types/index.js\");\n/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\nvar Header = function Header(_ref) {\n  var user = _ref.user;\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(\"div\", {\n    className: \"header\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(\"div\", {\n    className: \"header__name\"\n  }, user.name), user.tweets_count ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(\"div\", {\n    className: \"header__tweets_count text-muted\"\n  }, user.tweets_count, \" Tweets\") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(\"div\", {\n    className: \"header__username text-muted\"\n  }, \"@\", user.name));\n};\n\nHeader.propTypes = {\n  user: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.shape({\n    id: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number.isRequired,\n    name: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string.isRequired,\n    tweets_count: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number\n  })\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (Header);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9Qcm9maWxlL0hlYWRlci5qc3g/YjJjMyJdLCJuYW1lcyI6WyJIZWFkZXIiLCJ1c2VyIiwibmFtZSIsInR3ZWV0c19jb3VudCIsInByb3BUeXBlcyIsIlByb3BUeXBlcyIsInNoYXBlIiwiaWQiLCJudW1iZXIiLCJpc1JlcXVpcmVkIiwic3RyaW5nIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTs7QUFFQSxJQUFNQSxNQUFNLEdBQUcsU0FBVEEsTUFBUyxPQUFjO0FBQUEsTUFBWEMsSUFBVyxRQUFYQSxJQUFXO0FBQzNCLHNCQUNFO0FBQUssYUFBUyxFQUFDO0FBQWYsa0JBQ0U7QUFBSyxhQUFTLEVBQUM7QUFBZixLQUErQkEsSUFBSSxDQUFDQyxJQUFwQyxDQURGLEVBRUdELElBQUksQ0FBQ0UsWUFBTCxnQkFDQztBQUFLLGFBQVMsRUFBQztBQUFmLEtBQ0dGLElBQUksQ0FBQ0UsWUFEUixZQURELGdCQUtDO0FBQUssYUFBUyxFQUFDO0FBQWYsVUFBK0NGLElBQUksQ0FBQ0MsSUFBcEQsQ0FQSixDQURGO0FBWUQsQ0FiRDs7QUFlQUYsTUFBTSxDQUFDSSxTQUFQLEdBQW1CO0FBQ2pCSCxNQUFJLEVBQUVJLGlEQUFTLENBQUNDLEtBQVYsQ0FBZ0I7QUFDcEJDLE1BQUUsRUFBRUYsaURBQVMsQ0FBQ0csTUFBVixDQUFpQkMsVUFERDtBQUVwQlAsUUFBSSxFQUFFRyxpREFBUyxDQUFDSyxNQUFWLENBQWlCRCxVQUZIO0FBR3BCTixnQkFBWSxFQUFFRSxpREFBUyxDQUFDRztBQUhKLEdBQWhCO0FBRFcsQ0FBbkI7QUFRZVIscUVBQWYiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9Qcm9maWxlL0hlYWRlci5qc3guanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUHJvcFR5cGVzIGZyb20gJ3Byb3AtdHlwZXMnO1xuaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JztcblxuY29uc3QgSGVhZGVyID0gKHsgdXNlciB9KSA9PiB7XG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9XCJoZWFkZXJcIj5cbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwiaGVhZGVyX19uYW1lXCI+e3VzZXIubmFtZX08L2Rpdj5cbiAgICAgIHt1c2VyLnR3ZWV0c19jb3VudCA/IChcbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJoZWFkZXJfX3R3ZWV0c19jb3VudCB0ZXh0LW11dGVkXCI+XG4gICAgICAgICAge3VzZXIudHdlZXRzX2NvdW50fSBUd2VldHNcbiAgICAgICAgPC9kaXY+XG4gICAgICApIDogKFxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImhlYWRlcl9fdXNlcm5hbWUgdGV4dC1tdXRlZFwiPkB7dXNlci5uYW1lfTwvZGl2PlxuICAgICAgKX1cbiAgICA8L2Rpdj5cbiAgKTtcbn07XG5cbkhlYWRlci5wcm9wVHlwZXMgPSB7XG4gIHVzZXI6IFByb3BUeXBlcy5zaGFwZSh7XG4gICAgaWQ6IFByb3BUeXBlcy5udW1iZXIuaXNSZXF1aXJlZCxcbiAgICBuYW1lOiBQcm9wVHlwZXMuc3RyaW5nLmlzUmVxdWlyZWQsXG4gICAgdHdlZXRzX2NvdW50OiBQcm9wVHlwZXMubnVtYmVyXG4gIH0pXG59O1xuXG5leHBvcnQgZGVmYXVsdCBIZWFkZXI7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/components/Profile/Header.jsx\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var Header = function Header(_ref) {
+  var user = _ref.user;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "header"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "header__name"
+  }, user.name), user.tweets_count ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "header__tweets_count text-muted"
+  }, user.tweets_count, " Tweets") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "header__username text-muted"
+  }, "@", user.name));
+};
+
+Header.propTypes = {
+  user: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.shape({
+    id: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number.isRequired,
+    name: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string.isRequired,
+    tweets_count: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number
+  })
+};
+/* harmony default export */ __webpack_exports__["default"] = (Header);
 
 /***/ }),
 
@@ -32,7 +132,59 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var prop
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Header */ \"./resources/js/components/Profile/Header.jsx\");\n\n\n\n\nvar Background = function Background() {\n  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__[\"useSelector\"])(function (state) {\n    return state.tweets;\n  }),\n      user = _useSelector.user;\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"profile\"\n  }, user && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header__WEBPACK_IMPORTED_MODULE_2__[\"default\"], {\n    user: user\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"profile__background\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"profile__backgroundImage\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"img\", {\n    className: \"profile__image\",\n    src: user.profile_photo,\n    alt: \"User profile photo\"\n  }))));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Background);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9Qcm9maWxlL1Byb2ZpbGVCYWNrZ3JvdW5kLmpzeD9lMGQzIl0sIm5hbWVzIjpbIkJhY2tncm91bmQiLCJ1c2VTZWxlY3RvciIsInN0YXRlIiwidHdlZXRzIiwidXNlciIsInByb2ZpbGVfcGhvdG8iXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7O0FBRUEsSUFBTUEsVUFBVSxHQUFHLFNBQWJBLFVBQWEsR0FBTTtBQUFBLHFCQUNOQywrREFBVyxDQUFDLFVBQUFDLEtBQUs7QUFBQSxXQUFJQSxLQUFLLENBQUNDLE1BQVY7QUFBQSxHQUFOLENBREw7QUFBQSxNQUNmQyxJQURlLGdCQUNmQSxJQURlOztBQUV2QixzQkFDRTtBQUFLLGFBQVMsRUFBQztBQUFmLEtBQ0dBLElBQUksaUJBQ0gscUZBQ0UsMkRBQUMsK0NBQUQ7QUFBUSxRQUFJLEVBQUVBO0FBQWQsSUFERixlQUVFO0FBQUssYUFBUyxFQUFDO0FBQWYsa0JBQ0U7QUFBSyxhQUFTLEVBQUM7QUFBZixJQURGLGVBRUU7QUFDRSxhQUFTLEVBQUMsZ0JBRFo7QUFFRSxPQUFHLEVBQUVBLElBQUksQ0FBQ0MsYUFGWjtBQUdFLE9BQUcsRUFBQztBQUhOLElBRkYsQ0FGRixDQUZKLENBREY7QUFpQkQsQ0FuQkQ7O0FBcUJlTCx5RUFBZiIsImZpbGUiOiIuL3Jlc291cmNlcy9qcy9jb21wb25lbnRzL1Byb2ZpbGUvUHJvZmlsZUJhY2tncm91bmQuanN4LmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7IHVzZVNlbGVjdG9yIH0gZnJvbSAncmVhY3QtcmVkdXgnO1xuaW1wb3J0IEhlYWRlciBmcm9tICcuL0hlYWRlcic7XG5cbmNvbnN0IEJhY2tncm91bmQgPSAoKSA9PiB7XG4gIGNvbnN0IHsgdXNlciB9ID0gdXNlU2VsZWN0b3Ioc3RhdGUgPT4gc3RhdGUudHdlZXRzKTtcbiAgcmV0dXJuIChcbiAgICA8ZGl2IGNsYXNzTmFtZT1cInByb2ZpbGVcIj5cbiAgICAgIHt1c2VyICYmIChcbiAgICAgICAgPGRpdj5cbiAgICAgICAgICA8SGVhZGVyIHVzZXI9e3VzZXJ9IC8+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJwcm9maWxlX19iYWNrZ3JvdW5kXCI+XG4gICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInByb2ZpbGVfX2JhY2tncm91bmRJbWFnZVwiPjwvZGl2PlxuICAgICAgICAgICAgPGltZ1xuICAgICAgICAgICAgICBjbGFzc05hbWU9XCJwcm9maWxlX19pbWFnZVwiXG4gICAgICAgICAgICAgIHNyYz17dXNlci5wcm9maWxlX3Bob3RvfVxuICAgICAgICAgICAgICBhbHQ9XCJVc2VyIHByb2ZpbGUgcGhvdG9cIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgPC9kaXY+XG4gICAgICApfVxuICAgIDwvZGl2PlxuICApO1xufTtcblxuZXhwb3J0IGRlZmF1bHQgQmFja2dyb3VuZDtcbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/js/components/Profile/ProfileBackground.jsx\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Header */ "./resources/js/components/Profile/Header.jsx");
+
+
+
+
+
+var Background = function Background() {
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useHistory"])();
+  var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useLocation"])();
+
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.tweets;
+  }),
+      user = _useSelector.user;
+
+  var _useSelector2 = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.auth;
+  }),
+      authUser = _useSelector2.user;
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "profile"
+  }, user && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    user: user
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "profile__background"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "profile__backgroundImage",
+    style: {
+      backgroundImage: "url('".concat(authUser.background_image, "')")
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "profile__image",
+    src: user.profile_photo,
+    alt: "User profile photo"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "profile__edit"
+  }, authUser.id === user.id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "profile__button",
+    onClick: function onClick() {
+      return history.push("/settings/profile", {
+        background: location
+      });
+    }
+  }, "Edit Profile"))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Background);
 
 /***/ }),
 
@@ -44,7 +196,37 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"TweetList\", function() { return TweetList; });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _Tweet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Tweet */ \"./resources/js/components/Tweet/Tweet.jsx\");\n\n\n\n/**\n * Component that displays list of tweets\n */\n\nvar TweetList = function TweetList() {\n  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__[\"useSelector\"])(function (state) {\n    return state.tweets;\n  }),\n      tweets = _useSelector.tweets;\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"tweetList\"\n  }, tweets.map(function (tweet) {\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Tweet__WEBPACK_IMPORTED_MODULE_2__[\"default\"], {\n      key: tweet.id,\n      tweet: tweet,\n      line: false,\n      disabled: false\n    });\n  }));\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (TweetList);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9Ud2VldC9Ud2VldExpc3QuanN4PzU0ZDMiXSwibmFtZXMiOlsiVHdlZXRMaXN0IiwidXNlU2VsZWN0b3IiLCJzdGF0ZSIsInR3ZWV0cyIsIm1hcCIsInR3ZWV0IiwiaWQiXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUVBOzs7O0FBSU8sSUFBTUEsU0FBUyxHQUFHLFNBQVpBLFNBQVksR0FBTTtBQUFBLHFCQUNWQywrREFBVyxDQUFDLFVBQUFDLEtBQUs7QUFBQSxXQUFJQSxLQUFLLENBQUNDLE1BQVY7QUFBQSxHQUFOLENBREQ7QUFBQSxNQUNyQkEsTUFEcUIsZ0JBQ3JCQSxNQURxQjs7QUFFN0Isc0JBQ0U7QUFBSyxhQUFTLEVBQUM7QUFBZixLQUNHQSxNQUFNLENBQUNDLEdBQVAsQ0FBVyxVQUFBQyxLQUFLLEVBQUk7QUFDbkIsd0JBQ0UsMkRBQUMsOENBQUQ7QUFBTyxTQUFHLEVBQUVBLEtBQUssQ0FBQ0MsRUFBbEI7QUFBc0IsV0FBSyxFQUFFRCxLQUE3QjtBQUFvQyxVQUFJLEVBQUUsS0FBMUM7QUFBaUQsY0FBUSxFQUFFO0FBQTNELE1BREY7QUFHRCxHQUpBLENBREgsQ0FERjtBQVNELENBWE07QUFhUUwsd0VBQWYiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9Ud2VldC9Ud2VldExpc3QuanN4LmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7IHVzZVNlbGVjdG9yIH0gZnJvbSAncmVhY3QtcmVkdXgnO1xuaW1wb3J0IFR3ZWV0IGZyb20gJy4vVHdlZXQnO1xuXG4vKipcbiAqIENvbXBvbmVudCB0aGF0IGRpc3BsYXlzIGxpc3Qgb2YgdHdlZXRzXG4gKi9cblxuZXhwb3J0IGNvbnN0IFR3ZWV0TGlzdCA9ICgpID0+IHtcbiAgY29uc3QgeyB0d2VldHMgfSA9IHVzZVNlbGVjdG9yKHN0YXRlID0+IHN0YXRlLnR3ZWV0cyk7XG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9XCJ0d2VldExpc3RcIj5cbiAgICAgIHt0d2VldHMubWFwKHR3ZWV0ID0+IHtcbiAgICAgICAgcmV0dXJuIChcbiAgICAgICAgICA8VHdlZXQga2V5PXt0d2VldC5pZH0gdHdlZXQ9e3R3ZWV0fSBsaW5lPXtmYWxzZX0gZGlzYWJsZWQ9e2ZhbHNlfSAvPlxuICAgICAgICApO1xuICAgICAgfSl9XG4gICAgPC9kaXY+XG4gICk7XG59O1xuXG5leHBvcnQgZGVmYXVsdCBUd2VldExpc3Q7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/components/Tweet/TweetList.jsx\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TweetList", function() { return TweetList; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Tweet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Tweet */ "./resources/js/components/Tweet/Tweet.jsx");
+
+
+
+/**
+ * Component that displays list of tweets
+ */
+
+var TweetList = function TweetList() {
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.tweets;
+  }),
+      tweets = _useSelector.tweets;
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "tweetList"
+  }, tweets.map(function (tweet) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Tweet__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      key: tweet.id,
+      tweet: tweet,
+      line: false,
+      disabled: false
+    });
+  }));
+};
+/* harmony default export */ __webpack_exports__["default"] = (TweetList);
 
 /***/ }),
 
@@ -56,7 +238,34 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"useFetchTweets\", function() { return useFetchTweets; });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _state_ducks_tweets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../state/ducks/tweets */ \"./resources/js/state/ducks/tweets/index.js\");\n\n\n\nvar useFetchTweets = function useFetchTweets() {\n  var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;\n  var tweet = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__[\"useSelector\"])(function (state) {\n    return state.tweets;\n  });\n  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__[\"useDispatch\"])();\n  var url = name ? '/api/tweet' : \"/api/user/\".concat(name, \"/tweet\");\n  Object(react__WEBPACK_IMPORTED_MODULE_0__[\"useEffect\"])(function () {\n    var handleScroll = function handleScroll() {\n      if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight || !tweet.cursor || tweet.loading) return;\n      dispatch(Object(_state_ducks_tweets__WEBPACK_IMPORTED_MODULE_2__[\"fetchTweets\"])(\"\".concat(url, \"?cursor=\").concat(tweet.cursor), 'GET', 'PAGINATE'));\n    };\n\n    window.addEventListener('scroll', handleScroll);\n    return function () {\n      return window.removeEventListener('scroll', handleScroll);\n    };\n  });\n};//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvdXRpbHMvdXNlRmV0Y2hUd2VldC5qc3g/NjAyNSJdLCJuYW1lcyI6WyJ1c2VGZXRjaFR3ZWV0cyIsIm5hbWUiLCJ0d2VldCIsInVzZVNlbGVjdG9yIiwic3RhdGUiLCJ0d2VldHMiLCJkaXNwYXRjaCIsInVzZURpc3BhdGNoIiwidXJsIiwidXNlRWZmZWN0IiwiaGFuZGxlU2Nyb2xsIiwid2luZG93IiwiaW5uZXJIZWlnaHQiLCJkb2N1bWVudCIsImRvY3VtZW50RWxlbWVudCIsInNjcm9sbFRvcCIsIm9mZnNldEhlaWdodCIsImN1cnNvciIsImxvYWRpbmciLCJmZXRjaFR3ZWV0cyIsImFkZEV2ZW50TGlzdGVuZXIiLCJyZW1vdmVFdmVudExpc3RlbmVyIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFFTyxJQUFNQSxjQUFjLEdBQUcsU0FBakJBLGNBQWlCLEdBQWlCO0FBQUEsTUFBaEJDLElBQWdCLHVFQUFULElBQVM7QUFDN0MsTUFBTUMsS0FBSyxHQUFHQywrREFBVyxDQUFDLFVBQUFDLEtBQUs7QUFBQSxXQUFJQSxLQUFLLENBQUNDLE1BQVY7QUFBQSxHQUFOLENBQXpCO0FBQ0EsTUFBTUMsUUFBUSxHQUFHQywrREFBVyxFQUE1QjtBQUNBLE1BQU1DLEdBQUcsR0FBR1AsSUFBSSxHQUFHLFlBQUgsdUJBQStCQSxJQUEvQixXQUFoQjtBQUVBUSx5REFBUyxDQUFDLFlBQU07QUFDZCxRQUFNQyxZQUFZLEdBQUcsU0FBZkEsWUFBZSxHQUFNO0FBQ3pCLFVBQ0VDLE1BQU0sQ0FBQ0MsV0FBUCxHQUFxQkMsUUFBUSxDQUFDQyxlQUFULENBQXlCQyxTQUE5QyxHQUNFRixRQUFRLENBQUNDLGVBQVQsQ0FBeUJFLFlBRDNCLElBRUEsQ0FBQ2QsS0FBSyxDQUFDZSxNQUZQLElBR0FmLEtBQUssQ0FBQ2dCLE9BSlIsRUFNRTtBQUNGWixjQUFRLENBQUNhLHVFQUFXLFdBQUlYLEdBQUoscUJBQWtCTixLQUFLLENBQUNlLE1BQXhCLEdBQWtDLEtBQWxDLEVBQXlDLFVBQXpDLENBQVosQ0FBUjtBQUNELEtBVEQ7O0FBVUFOLFVBQU0sQ0FBQ1MsZ0JBQVAsQ0FBd0IsUUFBeEIsRUFBa0NWLFlBQWxDO0FBQ0EsV0FBTztBQUFBLGFBQU1DLE1BQU0sQ0FBQ1UsbUJBQVAsQ0FBMkIsUUFBM0IsRUFBcUNYLFlBQXJDLENBQU47QUFBQSxLQUFQO0FBQ0QsR0FiUSxDQUFUO0FBY0QsQ0FuQk0iLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvdXRpbHMvdXNlRmV0Y2hUd2VldC5qc3guanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyB1c2VFZmZlY3QgfSBmcm9tICdyZWFjdCc7XG5pbXBvcnQgeyB1c2VEaXNwYXRjaCwgdXNlU2VsZWN0b3IgfSBmcm9tICdyZWFjdC1yZWR1eCc7XG5pbXBvcnQgeyBmZXRjaFR3ZWV0cyB9IGZyb20gJy4uL3N0YXRlL2R1Y2tzL3R3ZWV0cyc7XG5cbmV4cG9ydCBjb25zdCB1c2VGZXRjaFR3ZWV0cyA9IChuYW1lID0gbnVsbCkgPT4ge1xuICBjb25zdCB0d2VldCA9IHVzZVNlbGVjdG9yKHN0YXRlID0+IHN0YXRlLnR3ZWV0cyk7XG4gIGNvbnN0IGRpc3BhdGNoID0gdXNlRGlzcGF0Y2goKTtcbiAgY29uc3QgdXJsID0gbmFtZSA/ICcvYXBpL3R3ZWV0JyA6IGAvYXBpL3VzZXIvJHtuYW1lfS90d2VldGA7XG5cbiAgdXNlRWZmZWN0KCgpID0+IHtcbiAgICBjb25zdCBoYW5kbGVTY3JvbGwgPSAoKSA9PiB7XG4gICAgICBpZiAoXG4gICAgICAgIHdpbmRvdy5pbm5lckhlaWdodCArIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5zY3JvbGxUb3AgPFxuICAgICAgICAgIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5vZmZzZXRIZWlnaHQgfHxcbiAgICAgICAgIXR3ZWV0LmN1cnNvciB8fFxuICAgICAgICB0d2VldC5sb2FkaW5nXG4gICAgICApXG4gICAgICAgIHJldHVybjtcbiAgICAgIGRpc3BhdGNoKGZldGNoVHdlZXRzKGAke3VybH0/Y3Vyc29yPSR7dHdlZXQuY3Vyc29yfWAsICdHRVQnLCAnUEFHSU5BVEUnKSk7XG4gICAgfTtcbiAgICB3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcignc2Nyb2xsJywgaGFuZGxlU2Nyb2xsKTtcbiAgICByZXR1cm4gKCkgPT4gd2luZG93LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ3Njcm9sbCcsIGhhbmRsZVNjcm9sbCk7XG4gIH0pO1xufTtcbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/js/utils/useFetchTweet.jsx\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useFetchTweets", function() { return useFetchTweets; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _state_ducks_tweets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../state/ducks/tweets */ "./resources/js/state/ducks/tweets/index.js");
+
+
+
+var useFetchTweets = function useFetchTweets() {
+  var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var tweet = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.tweets;
+  });
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
+  var url = !name ? '/api/tweet' : "/api/user/".concat(name, "/tweet");
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    var handleScroll = function handleScroll() {
+      if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight || !tweet.cursor || tweet.loading) return;
+      dispatch(Object(_state_ducks_tweets__WEBPACK_IMPORTED_MODULE_2__["fetchTweets"])("".concat(url, "?cursor=").concat(tweet.cursor), 'GET', 'PAGINATE'));
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return function () {
+      return window.removeEventListener('scroll', handleScroll);
+    };
+  });
+};
 
 /***/ }),
 
@@ -68,7 +277,50 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _state_ducks_tweets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../state/ducks/tweets */ \"./resources/js/state/ducks/tweets/index.js\");\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/esm/react-router-dom.js\");\n/* harmony import */ var _components_Tweet_TweetList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Tweet/TweetList */ \"./resources/js/components/Tweet/TweetList.jsx\");\n/* harmony import */ var _components_Profile_ProfileBackground__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Profile/ProfileBackground */ \"./resources/js/components/Profile/ProfileBackground.jsx\");\n/* harmony import */ var _components_Profile_Biography__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Profile/Biography */ \"./resources/js/components/Profile/Biography.jsx\");\n/* harmony import */ var _utils_useFetchTweet__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/useFetchTweet */ \"./resources/js/utils/useFetchTweet.jsx\");\n\n\n\n\n\n\n\n\n\nvar Profile = function Profile(_ref) {\n  var background = _ref.background;\n  var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__[\"useLocation\"])();\n  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__[\"useDispatch\"])();\n\n  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__[\"useSelector\"])(function (state) {\n    return state.tweets;\n  }),\n      tweets = _useSelector.tweets;\n\n  var _useParams = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__[\"useParams\"])(),\n      name = _useParams.name;\n\n  var from = location.state && location.state.from;\n  Object(react__WEBPACK_IMPORTED_MODULE_0__[\"useEffect\"])(function () {\n    if (!background && (from !== '/compose/tweet' || tweets.length === 0)) {\n      dispatch(Object(_state_ducks_tweets__WEBPACK_IMPORTED_MODULE_2__[\"fetchTweets\"])(\"/api/user/\".concat(name, \"/tweet\"), 'GET', 'READ'));\n    }\n  }, []);\n  Object(_utils_useFetchTweet__WEBPACK_IMPORTED_MODULE_7__[\"useFetchTweets\"])(name);\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Profile_ProfileBackground__WEBPACK_IMPORTED_MODULE_5__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Profile_Biography__WEBPACK_IMPORTED_MODULE_6__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Tweet_TweetList__WEBPACK_IMPORTED_MODULE_4__[\"default\"], null));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Profile);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvdmlld3MvUHJvZmlsZS5qc3g/M2VmNyJdLCJuYW1lcyI6WyJQcm9maWxlIiwiYmFja2dyb3VuZCIsImxvY2F0aW9uIiwidXNlTG9jYXRpb24iLCJkaXNwYXRjaCIsInVzZURpc3BhdGNoIiwidXNlU2VsZWN0b3IiLCJzdGF0ZSIsInR3ZWV0cyIsInVzZVBhcmFtcyIsIm5hbWUiLCJmcm9tIiwidXNlRWZmZWN0IiwibGVuZ3RoIiwiZmV0Y2hUd2VldHMiLCJ1c2VGZXRjaFR3ZWV0cyJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUVBOztBQUVBLElBQU1BLE9BQU8sR0FBRyxTQUFWQSxPQUFVLE9BQW9CO0FBQUEsTUFBakJDLFVBQWlCLFFBQWpCQSxVQUFpQjtBQUNsQyxNQUFNQyxRQUFRLEdBQUdDLG9FQUFXLEVBQTVCO0FBQ0EsTUFBTUMsUUFBUSxHQUFHQywrREFBVyxFQUE1Qjs7QUFGa0MscUJBR2ZDLCtEQUFXLENBQUMsVUFBQUMsS0FBSztBQUFBLFdBQUlBLEtBQUssQ0FBQ0MsTUFBVjtBQUFBLEdBQU4sQ0FISTtBQUFBLE1BRzFCQSxNQUgwQixnQkFHMUJBLE1BSDBCOztBQUFBLG1CQUluQkMsa0VBQVMsRUFKVTtBQUFBLE1BSTVCQyxJQUo0QixjQUk1QkEsSUFKNEI7O0FBS2xDLE1BQUlDLElBQUksR0FBR1QsUUFBUSxDQUFDSyxLQUFULElBQWtCTCxRQUFRLENBQUNLLEtBQVQsQ0FBZUksSUFBNUM7QUFFQUMseURBQVMsQ0FBQyxZQUFNO0FBQ2QsUUFBSSxDQUFDWCxVQUFELEtBQWdCVSxJQUFJLEtBQUssZ0JBQVQsSUFBNkJILE1BQU0sQ0FBQ0ssTUFBUCxLQUFrQixDQUEvRCxDQUFKLEVBQXVFO0FBQ3JFVCxjQUFRLENBQUNVLHVFQUFXLHFCQUFjSixJQUFkLGFBQTRCLEtBQTVCLEVBQW1DLE1BQW5DLENBQVosQ0FBUjtBQUNEO0FBQ0YsR0FKUSxFQUlOLEVBSk0sQ0FBVDtBQU1BSyw2RUFBYyxDQUFDTCxJQUFELENBQWQ7QUFFQSxzQkFDRSxxRkFDRSwyREFBQyw2RUFBRCxPQURGLGVBRUUsMkRBQUMscUVBQUQsT0FGRixlQUdFLDJEQUFDLG1FQUFELE9BSEYsQ0FERjtBQU9ELENBdEJEOztBQXdCZVYsc0VBQWYiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvdmlld3MvUHJvZmlsZS5qc3guanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QsIHsgdXNlRWZmZWN0LCBsYXp5IH0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsgdXNlRGlzcGF0Y2gsIHVzZVNlbGVjdG9yIH0gZnJvbSAncmVhY3QtcmVkdXgnO1xuaW1wb3J0IHsgZmV0Y2hUd2VldHMgfSBmcm9tICcuLi9zdGF0ZS9kdWNrcy90d2VldHMnO1xuaW1wb3J0IHsgdXNlUGFyYW1zLCB1c2VMb2NhdGlvbiB9IGZyb20gJ3JlYWN0LXJvdXRlci1kb20nO1xuaW1wb3J0IFR3ZWV0TGlzdCBmcm9tICcuLi9jb21wb25lbnRzL1R3ZWV0L1R3ZWV0TGlzdCc7XG5pbXBvcnQgQmFja2dyb3VuZCBmcm9tICcuLi9jb21wb25lbnRzL1Byb2ZpbGUvUHJvZmlsZUJhY2tncm91bmQnO1xuaW1wb3J0IEFib3V0IGZyb20gJy4uL2NvbXBvbmVudHMvUHJvZmlsZS9CaW9ncmFwaHknO1xuXG5pbXBvcnQgeyB1c2VGZXRjaFR3ZWV0cyB9IGZyb20gJy4uL3V0aWxzL3VzZUZldGNoVHdlZXQnO1xuXG5jb25zdCBQcm9maWxlID0gKHsgYmFja2dyb3VuZCB9KSA9PiB7XG4gIGNvbnN0IGxvY2F0aW9uID0gdXNlTG9jYXRpb24oKTtcbiAgY29uc3QgZGlzcGF0Y2ggPSB1c2VEaXNwYXRjaCgpO1xuICBjb25zdCB7IHR3ZWV0cyB9ID0gdXNlU2VsZWN0b3Ioc3RhdGUgPT4gc3RhdGUudHdlZXRzKTtcbiAgbGV0IHsgbmFtZSB9ID0gdXNlUGFyYW1zKCk7XG4gIGxldCBmcm9tID0gbG9jYXRpb24uc3RhdGUgJiYgbG9jYXRpb24uc3RhdGUuZnJvbTtcblxuICB1c2VFZmZlY3QoKCkgPT4ge1xuICAgIGlmICghYmFja2dyb3VuZCAmJiAoZnJvbSAhPT0gJy9jb21wb3NlL3R3ZWV0JyB8fCB0d2VldHMubGVuZ3RoID09PSAwKSkge1xuICAgICAgZGlzcGF0Y2goZmV0Y2hUd2VldHMoYC9hcGkvdXNlci8ke25hbWV9L3R3ZWV0YCwgJ0dFVCcsICdSRUFEJykpO1xuICAgIH1cbiAgfSwgW10pO1xuXG4gIHVzZUZldGNoVHdlZXRzKG5hbWUpO1xuXG4gIHJldHVybiAoXG4gICAgPGRpdj5cbiAgICAgIDxCYWNrZ3JvdW5kIC8+XG4gICAgICA8QWJvdXQgLz5cbiAgICAgIDxUd2VldExpc3QgLz5cbiAgICA8L2Rpdj5cbiAgKTtcbn07XG5cbmV4cG9ydCBkZWZhdWx0IFByb2ZpbGU7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/views/Profile.jsx\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _state_ducks_tweets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../state/ducks/tweets */ "./resources/js/state/ducks/tweets/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _components_Tweet_TweetList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Tweet/TweetList */ "./resources/js/components/Tweet/TweetList.jsx");
+/* harmony import */ var _components_Profile_ProfileBackground__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Profile/ProfileBackground */ "./resources/js/components/Profile/ProfileBackground.jsx");
+/* harmony import */ var _components_Profile_Biography__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Profile/Biography */ "./resources/js/components/Profile/Biography.jsx");
+/* harmony import */ var _utils_useFetchTweet__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/useFetchTweet */ "./resources/js/utils/useFetchTweet.jsx");
+
+
+
+
+
+
+
+
+
+var Profile = function Profile(_ref) {
+  var background = _ref.background;
+  var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["useLocation"])();
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
+
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.tweets;
+  }),
+      tweets = _useSelector.tweets;
+
+  var _useParams = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["useParams"])(),
+      name = _useParams.name;
+
+  var from = location.state && location.state.from;
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (!background && (from !== '/compose/tweet' || tweets.length === 0)) {
+      dispatch(Object(_state_ducks_tweets__WEBPACK_IMPORTED_MODULE_2__["fetchTweets"])("/api/user/".concat(name, "/tweet"), 'GET', 'READ'));
+      window.scrollTo(0, 0);
+    }
+  }, []);
+  Object(_utils_useFetchTweet__WEBPACK_IMPORTED_MODULE_7__["useFetchTweets"])(name);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Profile_ProfileBackground__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Profile_Biography__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Tweet_TweetList__WEBPACK_IMPORTED_MODULE_4__["default"], null));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Profile);
 
 /***/ })
 

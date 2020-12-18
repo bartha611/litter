@@ -5,6 +5,8 @@ import PrivateRoute from '../utils/privateRoute';
 import { WaitComponent } from './WaitComponent';
 import Wrapper from '../components/utils/wrapper';
 import Tweet from '../components/Tweet/Tweet';
+import ModalWrapper from '../utils/ModalWrapper';
+import CropPicture from '../components/Profile/CropPicture';
 
 const Home = lazy(() => import(/*webpackChunkName: 'Home' */ '../views/Home'));
 
@@ -26,10 +28,19 @@ const TweetCompose = lazy(() =>
   )
 );
 
+const TweetUserView = lazy(() =>
+  import(/* webpackChunkName: 'TweetUserView' */ '../views/TweetUserView')
+);
+
+const EditProfile = lazy(() =>
+  import(/* webpachunkName: 'EditProfile' */ '../views/EditProfile')
+);
+
 const ModalSwitch = () => {
   const location = useLocation();
   let background = location.state && location.state.background;
   let tweet = location.state && location.state.tweet;
+  console.log(background);
 
   return (
     <div>
@@ -48,10 +59,8 @@ const ModalSwitch = () => {
             component={Wrapper(Profile)}
           />
           <PrivateRoute
-            path="/:name/following"
-            component={Wrapper(FollowerView)}
-          />
-          <PrivateRoute
+            exact
+            background={background}
             path="/:name/status/:tweet"
             component={Wrapper(Comment)}
           />
@@ -62,11 +71,31 @@ const ModalSwitch = () => {
           />
         </Switch>
         {background && (
-          <PrivateRoute
-            path="/compose/tweet"
-            tweet={tweet}
-            component={WaitComponent(TweetCompose)}
-          />
+          <Switch>
+            <PrivateRoute
+              path="/compose/tweet"
+              title="Compose Tweet"
+              tweet={tweet}
+              component={ModalWrapper(TweetCompose)}
+            />
+            <PrivateRoute
+              path="/settings/profile"
+              title="Edit Profile"
+              component={ModalWrapper(EditProfile)}
+            />
+            <PrivateRoute
+              path="/:name/status/:tweet/likes"
+              title="Liked By"
+              type="likes"
+              component={ModalWrapper(TweetUserView)}
+            />
+            <PrivateRoute
+              path="/:name/status/:tweet/retweets"
+              title="Retweeted By"
+              type="retweets"
+              component={ModalWrapper(TweetUserView)}
+            />
+          </Switch>
         )}
       </Container>
     </div>

@@ -5,7 +5,7 @@ import { fetchTweets } from '../state/ducks/tweets';
 export const useFetchTweets = (name = null) => {
   const tweet = useSelector(state => state.tweets);
   const dispatch = useDispatch();
-  const url = name ? '/api/tweet' : `/api/user/${name}/tweet`;
+  const url = !name ? '/api/tweet' : `/api/user/${name}/tweet`;
 
   useEffect(() => {
     const handleScroll = () => {

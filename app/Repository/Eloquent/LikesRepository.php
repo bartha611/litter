@@ -65,4 +65,24 @@ class LikesRepository implements LikesRepositoryInterface {
         return $liked_tweets;
     }
 
+    public function findUsersLikedTweet($tweet, $user_id) {
+        $like_user_ids = DB::table('likes')
+            ->select('user_id')
+            ->where('tweet_id', $tweet)
+            ->pluck('user_id')
+            ->toArray();
+
+        $users = DB::table('users AS u')
+            ->select(['u.id', 'name', 'username', 'biography', 'profile_photo', 'f.id AS followed_user'])
+            ->leftJoin('followers AS f', function ($join) use ($user_id) {
+                $join->on('f.following_id', '=', 'u.id')
+                    ->where('f.user_id', $user_id);
+            })
+            ->whereIn('u.id', $like_user_ids)
+            ->limit(30)
+            ->get();
+        
+        return $users;
+    }
+
 }

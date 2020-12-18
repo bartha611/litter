@@ -79,4 +79,18 @@ class LikesController extends Controller
         $this->likes_repo->delete($object->id);
         return response()->json($object);
     }
+
+    /**
+     * Finds users who have liked tweet
+     * 
+     * @param Request $request
+     * @param \App\Tweet $tweet
+     */
+
+    public function getUsers(Request $request, Tweet $tweet)
+    {
+        $users = $this->likes_repo->findUsersLikedTweet($tweet->id, $this->user_id);
+        
+        return response()->json(compact('users'));
+    }
 }

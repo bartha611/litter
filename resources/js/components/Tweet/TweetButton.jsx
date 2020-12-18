@@ -6,7 +6,14 @@ import { fetchTweets } from '../../state/ducks/tweets';
 import { fetchReplies } from '../../state/ducks/replies';
 import { useHistory, useLocation } from 'react-router-dom';
 
-const TweetButton = ({ tweetId = null }) => {
+/**
+ * Component that allows user to write a tweet reply
+ *
+ * @param {string} tweetId - Id of tweet being replied to
+ * @param {func} back - Boolean that helps determine whether to go back on submit
+ */
+
+const TweetButton = ({ tweetId = null, setCancel = null }) => {
   const history = useHistory();
   const location = useLocation();
   const [tweet, setTweet] = useState('');
@@ -29,6 +36,9 @@ const TweetButton = ({ tweetId = null }) => {
       dispatch(fetchTweets('/api/tweet', 'POST', 'CREATE', { tweet }));
     }
     setTweet('');
+    if (setCancel !== null) {
+      setCancel(true);
+    }
   };
 
   return (
@@ -62,7 +72,8 @@ const TweetButton = ({ tweetId = null }) => {
 };
 
 TweetButton.propTypes = {
-  tweetId: PropTypes.number
+  tweetId: PropTypes.number,
+  setCancel: PropTypes.func.isRequired
 };
 
 export default TweetButton;

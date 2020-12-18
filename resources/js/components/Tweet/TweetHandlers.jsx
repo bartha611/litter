@@ -26,10 +26,11 @@ import { fetchTweets } from '../../state/ducks/tweets';
  * @param {string} props.tweet.user.username - The username of user who wrote the tweet
  * @param {string} props.tweet.user.name - The name of the user who wrote the tweet
  * @param {string} props.tweet.user.profile_photo - The profile photo of user who wrote the tweet
+ * @param {boolean} props.counts - Boolean that determines whether counts should be shown
  *
  */
 
-const TweetHandler = ({ tweet }) => {
+const TweetHandler = ({ tweet, counts }) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -41,7 +42,7 @@ const TweetHandler = ({ tweet }) => {
 
   return (
     <ul className="handlers">
-      <li className="handlers__button handlers__button--comment">
+      <li className="handlers__handler">
         <Link
           to={{
             pathname: '/compose/tweet',
@@ -52,34 +53,49 @@ const TweetHandler = ({ tweet }) => {
             }
           }}
         >
-          <FontAwesomeIcon
-            icon={faComment}
-            className="handlers__icon handlers__icon--comment"
-          />
+          <div className="handlers__button handlers__button--comment">
+            <FontAwesomeIcon
+              icon={faComment}
+              className="handlers__icon handlers__icon--comment"
+            />
+          </div>
+          {counts && (
+            <span className="handlers__count">{tweet.replies_count}</span>
+          )}
         </Link>
       </li>
-      <li className="handlers__button handlers__button--retweet">
-        <FontAwesomeIcon icon={faRetweet} />
+      <li className="handlers__handler">
+        <div className="handlers__button handlers__button--retweet">
+          <FontAwesomeIcon icon={faRetweet} />
+        </div>
+        {counts && (
+          <span className="handlers__count">{tweet.retweets_count}</span>
+        )}
       </li>
-      <li
-        className="handlers__button handlers__button--likes"
-        onClick={() => likeTweet(tweet)}
-      >
-        <FontAwesomeIcon
-          color={tweet.liked_tweet === 1 ? 'red' : 'inherit'}
-          icon={tweet.liked_tweet === 1 ? faHeartFull : faHeart}
-        />
+      <li className="handlers__handler" onClick={() => likeTweet(tweet)}>
+        <div
+          className="handlers__button handlers__button--likes"
+          onClick={() => likeTweet(tweet)}
+        >
+          <FontAwesomeIcon
+            color={tweet.liked_tweet === 1 ? 'red' : 'inherit'}
+            icon={tweet.liked_tweet === 1 ? faHeartFull : faHeart}
+          />
+        </div>
+        {counts && <span className="handlers__count">{tweet.likes_count}</span>}
       </li>
     </ul>
   );
 };
 
 TweetHandler.propTypes = {
+  counts: PropTypes.bool.isRequired,
   tweet: PropTypes.shape({
     id: PropTypes.number.isRequired,
     replies_count: PropTypes.number.isRequired,
     tweet: PropTypes.string.isRequired,
     likes_count: PropTypes.number.isRequired,
+    retweets_count: PropTypes.number.isRequired,
     liked_tweet: PropTypes.number.isRequired,
     user: PropTypes.shape({
       name: PropTypes.string.isRequired,

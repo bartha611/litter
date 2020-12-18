@@ -17,10 +17,12 @@ const Home = ({ background }) => {
   useEffect(() => {
     if (!background && (from !== '/compose/tweet' || tweets.length === 0)) {
       dispatch(fetchTweets('/api/tweet', 'GET', 'READ'));
+      window.scrollTo(0, 0);
     }
   }, []);
 
   useFetchTweets();
+
   return (
     <div>
       <TweetButton />

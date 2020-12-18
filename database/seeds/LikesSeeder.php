@@ -36,6 +36,6 @@ class LikesSeeder extends Seeder
                 ]);
                 $count += 1;
             }
-        } while ($count < 40000);
+        } while ($count < 100000);
     }
 }

@@ -32,12 +32,22 @@ $margin_left: 0.5rem;
 $margin_right: 0.5rem;
 
 // fonts
-$handler-width: 3.5rem;
+$handler-width: 4rem;
+$handler-height: 4rem;
 $parent_tweet_font: 2rem;
-$image-height: 4rem;
-$image-width: 4rem;
+$image-height: 6rem;
+$image-width: 6rem;
 $parent-image-width: 6rem;
 $parent-image-height: 6rem;
+$profile-image-height: 12.5rem;
+$profile-image-width: 12.5rem;
 
 // button info
-$button-padding: 0.5rem 1rem;
+$button-padding: 0.5rem 1.5rem;
+$box-padding: 1rem 1.5rem;
+$flex-padding: 0rem 0.5rem;
+$height-padding: 0.5rem 0;
+
+// font sizes
+$large-font: 2.4rem;
+$normal-font: 2rem;

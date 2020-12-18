@@ -30,12 +30,11 @@ class PhotoController extends Controller
      * @param ImageRequest $request
      * @return JsonResponse
      */
-    public function create(ImageRequest $request): JsonResponse
+    public function create(Request $request): JsonResponse
     {
         $user_id = JWTAuth::parseToken()->toUser()->id;
         $file = $request->file('image');
         $name = time() . $file->getClientOriginalName();
-        $filepath = 'insta611.s3.us-east-1.amazonaws.com/images/' . $name;
         Storage::disk('s3')->put($filepath, file_get_contents($file));
         $photo = Photo::create([
             'user_id' => $user_id,

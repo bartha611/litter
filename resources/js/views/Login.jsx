@@ -9,7 +9,8 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Button
+  Button,
+  Col
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -45,47 +46,55 @@ const Login = () => {
   };
 
   return (
-    <Container className="mt-3 col-md-6 col-lg-4">
-      <h1 className="title text-center">Login to Bitter</h1>
-      <br />
-      <InputGroup>
-        <InputGroupAddon addonType="prepend">
-          <InputGroupText>
-            <FontAwesomeIcon icon={faUser} />
-          </InputGroupText>
-        </InputGroupAddon>
-        <Input
-          placeholder="Username"
-          type="text"
-          onChange={e => setUsername(e.target.value)}
-        />
-      </InputGroup>
-      <br />
-      <InputGroup>
-        <InputGroupAddon addonType="prepend">
-          <InputGroupText>
-            <FontAwesomeIcon icon={faKey} />
-          </InputGroupText>
-        </InputGroupAddon>
-        <Input
-          placeholder="Password"
-          type="password"
-          onChange={e => setPassword(e.target.value)}
-        />
-      </InputGroup>
-      <br />
-      <Button color="primary" className="w-100" onClick={() => submit()}>
-        Submit
-      </Button>
-      <br />
-      <div className="signup text-center p-2">
-        New member? <a href="/signup">Sign Up</a>
-      </div>
-      {user.error && (
-        <Alert color="danger" className="p-2">
-          Error in Logging in. Incorrect userusername and/or password provided
-        </Alert>
-      )}
+    <Container className="login">
+      <Col md={{ size: '8', offset: '2' }} lg={{ size: '6', offset: '3' }}>
+        <h1 className="title text-center">Login to Bitter</h1>
+        <br />
+        <InputGroup size="lg">
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>
+              <FontAwesomeIcon icon={faUser} size="2x" />
+            </InputGroupText>
+          </InputGroupAddon>
+          <Input
+            placeholder="Username"
+            type="text"
+            className="login__input"
+            onChange={e => setUsername(e.target.value)}
+          />
+        </InputGroup>
+        <br />
+        <InputGroup size="lg">
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>
+              <FontAwesomeIcon icon={faKey} size="2x" />
+            </InputGroupText>
+          </InputGroupAddon>
+          <Input
+            placeholder="Password"
+            type="password"
+            className="login__input"
+            onChange={e => setPassword(e.target.value)}
+          />
+        </InputGroup>
+        <br />
+        <Button
+          color="primary"
+          className="login__button"
+          onClick={() => submit()}
+        >
+          Submit
+        </Button>
+        <br />
+        <div className="signup text-center p-2">
+          New member? <a href="/signup">Sign Up</a>
+        </div>
+        {user.error && (
+          <Alert color="danger" className="p-2">
+            Error in Logging in. Incorrect username and/or password provided
+          </Alert>
+        )}
+      </Col>
     </Container>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 /**
  * @param {object} props Component props
@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
  * @param {string} props.tweet.id - Id of the tweet
  * @param {string} props.tweet.tweet - The content of the tweet
  * @param {number} props.tweet.likes_count - The total likes of the tweet
- * @param {number} props.tweet.retweet_count - The total retweets of tweet
+ * @param {number} props.tweet.retweets_count - The total retweets of tweet
  * @param {number} props.tweet.replies_count - The total replies of the tweet
  * @param {string} props.tweet.updated_at - The time when tweet was last updated
  * @param {Object} props.tweet.user - The user who wrote the tweet
@@ -19,6 +19,8 @@ import { Link } from 'react-router-dom';
  */
 
 const TweetParent = ({ tweet }) => {
+  const location = useLocation();
+
   const getTime = ({ updated_at }) => {
     const date = new Date(updated_at);
     let hours = date.getHours();
@@ -27,6 +29,16 @@ const TweetParent = ({ tweet }) => {
     hours = hours % 12 === 0 ? 12 : hours % 12;
 
     return `${hours}:${minutes} ${meridian}`;
+  };
+
+  const formatCounts = count => {
+    if (count < 1000) {
+      return `${count} `;
+    } else if (count < 10000000) {
+      return `${_.round(count / 1000, 1)}K `;
+    } else {
+      return `${_.round(count / 1000000)}M `;
+    }
   };
 
   const sanitizeDate = ({ updated_at }) => {
@@ -62,6 +74,36 @@ const TweetParent = ({ tweet }) => {
           <span className="TweetParent__time">{getTime(tweet)} </span>
           <span className="TweetParent__date">{sanitizeDate(tweet)}</span>
         </div>
+        <div className="TweetParent__stats">
+          <span className="TweetParent__retweets">
+            <Link
+              to={{
+                pathname: `${location.pathname}/retweets`,
+                state: { background: location }
+              }}
+            >
+              <span className="TweetParent__counts">
+                {formatCounts(tweet.retweets_count)}
+              </span>
+              Retweets
+            </Link>
+          </span>
+          <span className="TweetParent__likes">
+            <Link
+              to={{
+                pathname: `${location.pathname}/likes`,
+                state: {
+                  background: location
+                }
+              }}
+            >
+              <span className="TweetParent__counts">
+                {formatCounts(tweet.likes_count)}
+              </span>
+              Likes
+            </Link>
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -73,6 +115,7 @@ TweetParent.propTypes = {
     replies_count: PropTypes.number.isRequired,
     likes_count: PropTypes.number.isRequired,
     liked_tweet: PropTypes.number.isRequired,
+    retweets_count: PropTypes.number.isRequired,
     tweet: PropTypes.string.isRequired,
     updated_at: PropTypes.string.isRequired,
     user: PropTypes.shape({

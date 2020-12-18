@@ -1,0 +1,58 @@
+.modalCustom {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba($white, 0.4);
+
+  &__title {
+    width: calc(100% - 7rem);
+    display: inline-block;
+    font-size: 2.2rem;
+    font-weight: bolder;
+    padding: $flex-padding;
+  }
+
+  &__component {
+    border: 0.1rem solid $dark-grey;
+    background: $black;
+    width: 60rem;
+    z-index: 1000;
+    margin: 0 auto;
+    color: $white;
+    margin-top: 15rem;
+  }
+
+  &__header {
+    border-bottom: 0.1rem solid $dark-grey;
+    padding: $box-padding;
+  }
+
+  &__image {
+    display: inline-block;
+    text-align: center;
+    width: 7rem;
+    padding: $flex-padding;
+  }
+
+  &__icon {
+    border-radius: 100%;
+    padding-top: 0.2rem;
+    display: inline-block;
+    height: $handler-width;
+    width: $handler-width;
+
+    &:hover {
+      background: rgba($white, 0.2);
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .modalCustom__component {
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+  }
+}

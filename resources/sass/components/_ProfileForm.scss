@@ -1,0 +1,32 @@
+.ProfileForm {
+  padding: 0.3rem 0.5rem;
+  outline: 0.1rem solid rgba($dark-grey, 0.5);
+
+  &:focus-within {
+    outline: 0.2rem solid $blue;
+
+    .ProfileForm__title {
+      color: $blue;
+    }
+  }
+
+  &__header {
+    display: flex;
+    font-size: 1.5rem;
+    justify-content: space-between;
+  }
+
+  &__input {
+    width: 100%;
+    color: white;
+    vertical-align: top;
+    outline: none;
+    resize: none;
+    background: transparent;
+    border: none;
+  }
+
+  &__count {
+    color: rgba($dark-grey, 0.7);
+  }
+}

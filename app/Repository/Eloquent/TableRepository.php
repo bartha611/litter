@@ -12,11 +12,11 @@ class TableRepository implements TableRepositoryInterface {
      * 
      */
 
-    public function followerTempTable() 
+    public function followerTempTable($type) 
     {
         $result = DB::table('followers')
-            ->select(['user_id', DB::raw('COUNT(*) AS followers_count')])
-            ->groupBy('user_id');
+            ->select([$type, DB::raw('COUNT(*) AS followers_count')])
+            ->groupBy($type);
         
         return $result;
 

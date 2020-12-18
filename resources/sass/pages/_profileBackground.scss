@@ -8,8 +8,9 @@
   }
 
   &__backgroundImage {
-    background: gray;
-    height: 200px;
+    padding-top: 33.33%;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
   &__image {
@@ -20,6 +21,19 @@
     height: 125px;
     border: 2px solid black;
     border-radius: 100%;
-    z-index: 2;
+  }
+
+  &__edit {
+    display: flex;
+    height: 6rem;
+    justify-content: flex-end;
+    align-items: center;
+    padding: $box-padding;
+  }
+
+  &__button {
+    @include btn($black, $blue);
+    border-radius: 2rem;
+    border: 0.2rem solid $blue;
   }
 }

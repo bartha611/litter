@@ -4,7 +4,7 @@ namespace App\Repository;
 
 interface TableRepositoryInterface {
 
-    public function followerTempTable();
+    public function followerTempTable($type);
 
     public function replyTempTable();
 

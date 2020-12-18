@@ -19,7 +19,9 @@ class UserSeeder extends Seeder
                 'name' => $faker->name,
                 'email' => $faker->email,
                 'password' => bcrypt('secret'),
+                'background_image' => $faker->imageUrl($width = 600, $height = 200),
                 'profile_photo' => $faker->imageUrl($width = 400, $height = 400),
+                'biography' => $faker->text()
             ]);
         }
         DB::table('users')->insert([
@@ -27,7 +29,9 @@ class UserSeeder extends Seeder
             'name' => 'adam',
             'email' => 'adambarth611@gmail.com',
             'password' => bcrypt('a'),
-            'profile_photo' => $faker->imageUrl($width = 400, $height = 400)
+            'background_image' => $faker->imageUrl($width = 600, $height = 200),
+            'profile_photo' => $faker->imageUrl($width = 400, $height = 400),
+            'biography' => $faker->text()
         ]);
     }
 }

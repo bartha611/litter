@@ -33,7 +33,12 @@ const Tweet = ({ tweet, disabled, line }) => {
   };
 
   const toggle = e => {
-    if (e.target.className !== 'tweet__author') {
+    console.log(e.target.className);
+    if (
+      e.target.className !== 'tweet__author' &&
+      e.target.className !== 'handlers__button' &&
+      typeof e.target.className !== 'object'
+    ) {
       history.push(`/${tweet.user.username}/status/${tweet.id}`);
     }
   };
@@ -74,7 +79,7 @@ const Tweet = ({ tweet, disabled, line }) => {
           <span className="tweet__date">{sanitizeDate(tweet.updated_at)}</span>
         </div>
         <div className="tweet__tweet">{tweet.tweet}</div>
-        <TweetHandler tweet={tweet} />
+        <TweetHandler tweet={tweet} counts={true} />
       </div>
     </div>
   );

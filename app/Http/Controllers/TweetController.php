@@ -125,10 +125,23 @@ class TweetController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy(TweetUpdateDestroyRequest $tweet)
+    public function destroy(TweetUpdateDestroyRequest $request, Tweet $tweet)
     {
         $response = $this->tweet_repo->delete($tweet->id);
         return response()->json($response);
+    }
+
+    /**
+     * Get users who have retweeted id
+     * @param Request $request
+     * @param \App\Tweet $tweet
+     */
+
+    public function findUsersRetweet(Request $request, Tweet $tweet)
+    {
+        $users = $this->tweet_repo->findUsersRetweetTweet($tweet->id, $this->user_id);
+
+        return response()->json(compact('users'));
     }
 
 }

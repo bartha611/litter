@@ -3,6 +3,8 @@
 namespace App\Repository\Eloquent;
 
 use Illuminate\Support\Facades\DB;
+use App\User;
+use Illuminate\Support\Facades\Storage;
 use App\Repository\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface {
@@ -31,13 +33,18 @@ class UserRepository implements UserRepositoryInterface {
 
         $answer = DB::table('users AS u')
             ->select([
-                'u.id', 'u.name', 'u.username', 'u.profile_photo',
+                'u.id', 'u.name', 'u.username', 'u.profile_photo','u.created_at','u.biography',
+                'u.background_image',
                 DB::raw('COALESCE(lt.followers_count, 0) AS followers_count'),
+                DB::raw('COALESCE(ltu.followers_count, 0) AS following_count'),
                 DB::raw('COALESCE(tu.tweets_count, 0) AS tweets_count'),
                 DB::raw('CASE WHEN u.id IN (' . implode(",", $user_followers) . ') THEN 1 ELSE 0 END AS followed_user')
             ]) 
-            ->leftJoinSub($this->table_repo->followerTempTable(), 'lt', function ($join) {
+            ->leftJoinSub($this->table_repo->followerTempTable('user_id'), 'lt', function ($join) {
                 $join->on('lt.user_id', '=', 'u.id');
+            })
+            ->leftJoinSub($this->table_repo->followerTempTable('following_id'), 'ltu', function ($join) {
+                $join->on('ltu.following_id', '=', 'u.id');
             })
             ->leftJoinSub($this->table_repo->tweetUserTable(), 'tu', function ($join) {
                 $join->on('tu.user_id', '=', 'u.id');
@@ -78,6 +85,30 @@ class UserRepository implements UserRepositoryInterface {
             ->get();
 
         return $answer;
+    }
+
+    public function updateUser($user_id, $request)
+    {
+        $profile_photo = $request->file('profile_photo');
+        $background_image = $request->file('background_image');
+        $data = [];
+        if ($profile_photo) {
+            $profile_name = 'images/' . $profile_photo->getClientOriginalName();
+            Storage::disk('s3')->put($profile_name, file_get_contents($profile_photo));
+            $data += ['profile_photo' => Storage::disk('s3')->url($profile_name)];
+        }
+        if ($background_image) {
+            $background_name = 'images/' . $background_image->getClientOriginalName();
+            Storage::disk('s3')->put($background_name, file_get_contents($background_image));
+            $data +=['background_image' =>  Storage::disk('s3')->url($background_name)];
+        }
+        $data += ['name' => $request->input('name')];
+        $data += ['biography' => $request->input('biography')];
+
+        DB::table('users')->where('id', $user_id)->update($data);
+        $user = User::where('id', $user_id)->first();
+
+        return response()->json(compact('user'));
     }
 
 }

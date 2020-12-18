@@ -8,5 +8,7 @@ interface UserRepositoryInterface {
 
     public function findUserWithCounts($name, $id);
 
+    public function updateUser($user_id, $request);
+
 
 }

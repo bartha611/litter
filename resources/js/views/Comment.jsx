@@ -1,23 +1,27 @@
 import React, { useEffect } from 'react';
 import { fetchReplies } from '../state/ducks/replies';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import { useFetchComments } from '../utils/useFetchComment';
 
 import CommentList from '../components/Comment/CommentList';
 import CommentHeader from '../components/Comment/CommentHeader';
 
-const Comment = () => {
+const Comment = ({ background }) => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { tweet } = useParams();
+  const { parent_tweets } = useSelector(state => state.replies);
+  const { tweet, name } = useParams();
+  let from = location.state && location.state.from;
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    dispatch(fetchReplies(`/api/tweet/${tweet}/reply`, 'GET', 'READ'));
+    if (
+      !background &&
+      (from !== `/${name}/status/${tweet}/likes` || parent_tweets.length === 0)
+    ) {
+      dispatch(fetchReplies(`/api/tweet/${tweet}/reply`, 'GET', 'READ'));
+      window.scrollTo(0, 0);
+    }
   }, [location]);
 
   useFetchComments(`/api/tweet/${tweet}/comment`);
