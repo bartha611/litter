@@ -1,22 +1,22 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchFollowers } from '../state/ducks/followers/';
+import { fetchUsers } from '../state/ducks/user/userThunk';
 
-export const useFetchFollowers = name => {
-  const followers = useSelector(state => state.followers);
+export const useFetchFollowers = (name, type) => {
+  const { cursor } = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const url = `/api/user/${name}/following`;
+  const url = `/api/user/${name}/${type}`;
 
   useEffect(() => {
     const handleScroll = () => {
       if (
         window.innerHeight + document.documentElement.scrollTop !==
           document.documentElement.offsetHeight ||
-        !followers.cursor
+        !cursor
       )
         return;
       dispatch(
-        fetchFollowers(`${url}?cursor=${followers.cursor}`, 'GET', 'PAGINATE')
+        fetchUsers(`${url}?cursor=${followers.cursor}`, 'GET', 'PAGINATE')
       );
     };
     window.addEventListener('scroll', handleScroll);

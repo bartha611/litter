@@ -15,46 +15,40 @@ const Sidebar = () => {
   return (
     <div>
       <ul className="sidebar__nav">
-        <li className="sidebar__item">
-          <button className="sidebar__button" onClick={() => history.push('/')}>
+        <li className="sidebar__item" onClick={() => history.push('/')}>
+          <div className="sidebar__button">
             <FontAwesomeIcon color="white" icon={faHouseUser} />
-          </button>
+          </div>
           <span className="sidebar__title">Home</span>
         </li>
-        <li className="sidebar__item">
-          <button
-            className="sidebar__button"
-            onClick={() => history.push('/search')}
-          >
+        <li className="sidebar__item" onClick={() => history.push('/search')}>
+          <div className="sidebar__button">
             <FontAwesomeIcon color="white" icon={faSearch} />
-          </button>
+          </div>
           <span className="sidebar__title">Search</span>
         </li>
-        <li className="sidebar__item">
-          <button
-            className="sidebar__button"
-            onClick={() => history.push('/notifications')}
-          >
+        <li
+          className="sidebar__item"
+          onClick={() => history.push('/notifications')}
+        >
+          <div className="sidebar__button">
             <FontAwesomeIcon color="white" icon={faBell} />
-          </button>
+          </div>
           <span className="sidebar__title">Notifications</span>
         </li>
-        <li className="sidebar__item">
-          <button
-            className="sidebar__button"
-            onClick={() => history.push('/messages')}
-          >
+        <li className="sidebar__item" onClick={() => history.push('/messages')}>
+          <div className="sidebar__button">
             <FontAwesomeIcon color="white" icon={faEnvelope} />
-          </button>
+          </div>
           <span className="sidebar__title">Messages</span>
         </li>
-        <li className="sidebar__item">
-          <button
-            className="sidebar__button"
-            onClick={() => history.push(`/${user.username}`)}
-          >
+        <li
+          className="sidebar__item"
+          onClick={() => history.push(`/${user.username}`)}
+        >
+          <div className="sidebar__button">
             <FontAwesomeIcon color="white" icon={faUser} />
-          </button>
+          </div>
           <span className="sidebar__title">Profile</span>
         </li>
       </ul>

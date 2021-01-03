@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import TweetHandler from './TweetHandlers';
+import { getDate } from '../../helpers';
 
 /**
  * @param {object} props Component props
@@ -16,24 +17,14 @@ import TweetHandler from './TweetHandlers';
  * @param {string} props.tweet.user.username - The username of user who wrote the tweet
  * @param {string} props.tweet.user.name - The name of the user who wrote the tweet
  * @param {string} props.tweet.user.profile_photo - The profile photo of user who wrote the tweet
- * @param {boolean} props.disabled - Boolean that determines whether links are disabled
  * @param {boolean} props.line - Boolean that determines whether there is a line from image to next tweet
  *
  */
 
-const Tweet = ({ tweet, disabled, line }) => {
+const Tweet = ({ tweet, line }) => {
   const history = useHistory();
 
-  const sanitizeDate = date => {
-    const newDate = new Date(date).toDateString();
-    return newDate
-      .split(' ')
-      .slice(1, 3)
-      .join(' ');
-  };
-
   const toggle = e => {
-    console.log(e.target.className);
     if (
       e.target.className !== 'tweet__author' &&
       e.target.className !== 'handlers__button' &&
@@ -43,19 +34,8 @@ const Tweet = ({ tweet, disabled, line }) => {
     }
   };
 
-  const _onClick = e => {
-    if (disabled) {
-      e.preventDefault();
-      console.log('hello there');
-    }
-  };
-
   return (
-    <div
-      key={tweet.id}
-      className={`tweet ${disabled ? 'tweet--disabled' : 'tweet--enabled'}`}
-      onClick={toggle}
-    >
+    <div key={tweet.id} className="tweet" onClick={toggle}>
       <div className="tweet__image">
         <img
           src={tweet.user.profile_photo}
@@ -66,17 +46,11 @@ const Tweet = ({ tweet, disabled, line }) => {
       </div>
       <div className="tweet__body">
         <div className="tweet__info">
-          <Link
-            className={`${
-              disabled ? 'tweet__author--disabled' : 'tweet__author--enabled'
-            }`}
-            to={`/${encodeURIComponent(tweet.user.username)}`}
-            onClick={e => _onClick(e)}
-          >
+          <Link to={`/${encodeURIComponent(tweet.user.username)}`}>
             <span className="tweet__author">{tweet.user.name}</span>
           </Link>
           <span className="tweet__username">@{tweet.user.username}</span>
-          <span className="tweet__date">{sanitizeDate(tweet.updated_at)}</span>
+          <span className="tweet__date">{getDate(tweet.updated_at)}</span>
         </div>
         <div className="tweet__tweet">{tweet.tweet}</div>
         <TweetHandler tweet={tweet} counts={true} />
@@ -86,9 +60,6 @@ const Tweet = ({ tweet, disabled, line }) => {
 };
 
 Tweet.propTypes = {
-  options: PropTypes.bool.isRequired,
-  parent: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool.isRequired,
   line: PropTypes.bool.isRequired,
   tweet: PropTypes.shape({
     id: PropTypes.number.isRequired,

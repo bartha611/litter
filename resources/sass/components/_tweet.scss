@@ -4,19 +4,10 @@
   display: flex;
   position: relative;
   border-bottom: 0.1rem solid $dark-grey;
+  cursor: pointer;
 
-  &--disabled {
-    cursor: auto;
-    &:hover {
-      background: none;
-    }
-  }
-
-  &--enabled {
-    cursor: pointer;
-    &:hover {
-      background: rgba($dark-grey, 0.15);
-    }
+  &:hover {
+    background: rgba($dark-grey, 0.15);
   }
 
   &__body {

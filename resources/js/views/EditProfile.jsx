@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import CropPicture from '../components/Profile/CropPicture';
 import ProfileForm from '../components/Profile/ProfileForm';
 import { fetchAuth } from '../state/ducks/auth/authThunk';
+import { useHistory } from 'react-router-dom';
 
 const EditProfile = ({ setCancel }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
-  const { user } = useSelector(state => state.auth);
+  const { user, loading } = useSelector(state => state.auth);
   const [crop, setCrop] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState('');
   const [profileImage, setProfileImage] = useState('');
@@ -60,7 +62,9 @@ const EditProfile = ({ setCancel }) => {
     }
     formData.append('name', name);
     formData.append('biography', biography);
-    dispatch(fetchAuth(`/api/user/${user.username}`, 'UPDATE', null, formData));
+    dispatch(
+      fetchAuth(`/api/user/${user.username}`, 'UPDATE', history, formData)
+    );
   };
 
   return (
@@ -79,7 +83,11 @@ const EditProfile = ({ setCancel }) => {
               />
             </div>
             <div className="editProfile__title">Edit Profile</div>
-            <button className="editProfile__save" onClick={handleSubmit}>
+            <button
+              className="editProfile__save"
+              disabled={loading}
+              onClick={handleSubmit}
+            >
               Save
             </button>
           </div>

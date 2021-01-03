@@ -11,9 +11,9 @@ const CommentHeader = () => {
       {parent_tweets &&
         parent_tweets.map((tweet, index) => {
           return index !== parent_tweets.length - 1 ? (
-            <Tweet tweet={tweet} key={tweet.id} disabled={false} />
+            <Tweet tweet={tweet} key={tweet.id} disabled={false} line={true} />
           ) : (
-            <TweetParent tweet={tweet} />
+            <TweetParent key={tweet.id} tweet={tweet} />
           );
         })}
     </div>

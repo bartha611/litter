@@ -38,10 +38,9 @@ class FollowerController extends Controller
         $following = $this->follower_repo->getFollowing($user->id, $this->user_id, $cursor);
 
         $cursor = count($following) > 20 ? $following[20]->id : null;
-        $following = $following->slice(0, 20);
-        $following = FollowerCollection::collection($following);
+        $users = $following->slice(0, 20);
 
-        return response()->json(compact('following', 'cursor'));
+        return response()->json(compact('users', 'cursor'));
     }
 
     /**
@@ -58,10 +57,9 @@ class FollowerController extends Controller
         $followers = $this->follower_repo->getFollowers($user->id, $this->user_id, $cursor);
 
         $cursor = count($followers) > 20 ? $followers[20]->id : null;
-        $followers = $followers->slice(0, 40);
-        $followers = FollowerCollection::collection($followers);
+        $users = $followers->slice(0, 40);
 
-        return response()->json(compact('followers', 'cursor'));
+        return response()->json(compact('users', 'cursor'));
     }
 
     /**

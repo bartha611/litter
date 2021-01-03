@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
+import { formatCounts, getDate, getTime } from '../../helpers';
 
 /**
  * @param {object} props Component props
@@ -20,34 +21,6 @@ import { Link, useLocation } from 'react-router-dom';
 
 const TweetParent = ({ tweet }) => {
   const location = useLocation();
-
-  const getTime = ({ updated_at }) => {
-    const date = new Date(updated_at);
-    let hours = date.getHours();
-    const minutes = date.getMinutes();
-    const meridian = hours > 12 ? 'PM' : 'AM';
-    hours = hours % 12 === 0 ? 12 : hours % 12;
-
-    return `${hours}:${minutes} ${meridian}`;
-  };
-
-  const formatCounts = count => {
-    if (count < 1000) {
-      return `${count} `;
-    } else if (count < 10000000) {
-      return `${_.round(count / 1000, 1)}K `;
-    } else {
-      return `${_.round(count / 1000000)}M `;
-    }
-  };
-
-  const sanitizeDate = ({ updated_at }) => {
-    const newDate = new Date(updated_at).toDateString();
-    return newDate
-      .split(' ')
-      .slice(1, 4)
-      .join(' ');
-  };
 
   return (
     <div className="TweetParent">
@@ -71,8 +44,8 @@ const TweetParent = ({ tweet }) => {
       <div className="TweetParent__body">
         <div className="TweetParent__tweet">{tweet.tweet}</div>
         <div className="TweetParent__dateInfo">
-          <span className="TweetParent__time">{getTime(tweet)} </span>
-          <span className="TweetParent__date">{sanitizeDate(tweet)}</span>
+          <span className="TweetParent__time">{getTime(tweet)}</span>
+          <span className="TweetParent__date">{getDate(tweet)}</span>
         </div>
         <div className="TweetParent__stats">
           <span className="TweetParent__retweets">

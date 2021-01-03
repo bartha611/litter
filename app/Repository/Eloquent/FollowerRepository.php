@@ -65,8 +65,7 @@ class FollowerRepository implements FollowerRepositoryInterface {
     {
         $followers = DB::table('followers AS f')
             ->select([
-                'f.id', 'f.user_id AS follower_id', 'u.username', 'u.name', 'u.profile_photo','u.biography',
-                'fu.id AS followed_user'
+                'u.id', 'u.username', 'u.name', 'u.profile_photo','u.biography', 'fu.id AS followed_user'
             ])
             ->join('users AS u', 'u.id', '=', 'f.user_id')
             ->leftJoin('followers AS fu', function ($join) use ($user_id) {
@@ -83,7 +82,6 @@ class FollowerRepository implements FollowerRepositoryInterface {
             ->orderBy('f.id', 'desc')
             ->limit(21)
             ->get();
-
         return $followers;
     }
 

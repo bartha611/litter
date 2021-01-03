@@ -5,6 +5,7 @@ const populateResults = results => {
   return {
     READ: actions.readUser(results),
     PAGINATE: actions.paginateUsers(results),
+    SEARCH: actions.searchUsers(results),
     CREATE_FOLLOWER: actions.createFollower(results),
     DELETE_FOLLOWER: actions.deleteFollower(results)
   };

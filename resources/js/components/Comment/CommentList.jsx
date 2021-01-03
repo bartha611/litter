@@ -10,10 +10,9 @@ const CommentList = () => {
         return (
           <Tweet
             key={comment.id}
+            disabled={false}
             tweet={comment}
-            options={true}
-            main={false}
-            parent={false}
+            line={false}
           />
         );
       })}

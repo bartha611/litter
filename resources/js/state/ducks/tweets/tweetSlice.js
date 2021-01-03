@@ -1,5 +1,6 @@
 const { createSlice } = require('@reduxjs/toolkit');
 import { createReply } from '../replies/replySlice';
+import { updateAuth } from '../auth/authSlice';
 
 const initialState = {
   loading: false,
@@ -73,6 +74,10 @@ const tweetSlice = createSlice({
             ? tweet.replies_count + 1
             : tweet.replies_count;
       });
+    },
+    [updateAuth]: (state, action) => {
+      state.user = state.user.id === action.payload.user.id ? '' : state.user;
+      state.user = state.user === '' ? action.payload : state.user;
     }
   }
 });

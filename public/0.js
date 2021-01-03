@@ -76,6 +76,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Profile_CropPicture__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Profile/CropPicture */ "./resources/js/components/Profile/CropPicture.jsx");
 /* harmony import */ var _components_Profile_ProfileForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Profile/ProfileForm */ "./resources/js/components/Profile/ProfileForm.jsx");
 /* harmony import */ var _state_ducks_auth_authThunk__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../state/ducks/auth/authThunk */ "./resources/js/state/ducks/auth/authThunk.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -96,14 +97,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var EditProfile = function EditProfile(_ref) {
   var setCancel = _ref.setCancel;
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["useHistory"])();
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])();
 
   var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
     return state.auth;
   }),
-      user = _useSelector.user;
+      user = _useSelector.user,
+      loading = _useSelector.loading;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState2 = _slicedToArray(_useState, 2),
@@ -174,7 +178,7 @@ var EditProfile = function EditProfile(_ref) {
 
     formData.append('name', name);
     formData.append('biography', biography);
-    dispatch(Object(_state_ducks_auth_authThunk__WEBPACK_IMPORTED_MODULE_6__["fetchAuth"])("/api/user/".concat(user.username), 'UPDATE', null, formData));
+    dispatch(Object(_state_ducks_auth_authThunk__WEBPACK_IMPORTED_MODULE_6__["fetchAuth"])("/api/user/".concat(user.username), 'UPDATE', history, formData));
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, _.isEmpty(crop) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -194,6 +198,7 @@ var EditProfile = function EditProfile(_ref) {
     className: "editProfile__title"
   }, "Edit Profile"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "editProfile__save",
+    disabled: loading,
     onClick: handleSubmit
   }, "Save")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "editProfile__form"

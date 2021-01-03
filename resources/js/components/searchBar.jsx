@@ -3,26 +3,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../state/ducks/user';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const SearchBar = () => {
-  const location = useLocation();
   const history = useHistory();
+  const [search, setSearch] = useState('');
+  const dispatch = useDispatch();
+  const { search: users } = useSelector(state => state.user);
 
   useEffect(() => {
     setSearch('');
   }, []);
 
-  const [search, setSearch] = useState('');
-  const dispatch = useDispatch();
-  const { users } = useSelector(state => state.user);
-
   const submit = event => {
     setSearch(event.target.value);
     if (event.target.value.length > 0) {
-      dispatch(fetchUsers(`/api/user?search=${event.target.value}`));
+      dispatch(
+        fetchUsers(`/api/user?search=${event.target.value}`, 'GET', 'SEARCH')
+      );
     }
   };
+
   const isFollower = user => {
     if (user.follower_user === '1') {
       return <span className="search__check">&#10004;</span>;

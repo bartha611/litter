@@ -73,7 +73,7 @@ var About = function About() {
   }, formatCounts(user.following_count), ' '), "Following"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "about__followers",
     onClick: function onClick() {
-      return history.push("".concat(user.username, "/followers"));
+      return history.push("".concat(user.username, "/follower"));
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "about__counts"
@@ -164,11 +164,13 @@ var Background = function Background() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "profile__background"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    key: Date.now(),
     className: "profile__backgroundImage",
     style: {
-      backgroundImage: "url('".concat(authUser.background_image, "')")
+      backgroundImage: "url('".concat(user.background_image, "')")
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    key: user.profile_photo,
     className: "profile__image",
     src: user.profile_photo,
     alt: "User profile photo"
@@ -221,8 +223,7 @@ var TweetList = function TweetList() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Tweet__WEBPACK_IMPORTED_MODULE_2__["default"], {
       key: tweet.id,
       tweet: tweet,
-      line: false,
-      disabled: false
+      line: false
     });
   }));
 };

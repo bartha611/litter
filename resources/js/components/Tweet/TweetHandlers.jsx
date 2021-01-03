@@ -9,6 +9,7 @@ import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { fetchTweets } from '../../state/ducks/tweets';
+import { formatCounts } from '../../helpers';
 
 /**
  * component that renders the tweet options of commenting, retweeting, and liking tweets
@@ -48,8 +49,7 @@ const TweetHandler = ({ tweet, counts }) => {
             pathname: '/compose/tweet',
             state: {
               background: location,
-              tweet,
-              scrollY: document.body.style.top
+              tweet
             }
           }}
         >
@@ -60,7 +60,9 @@ const TweetHandler = ({ tweet, counts }) => {
             />
           </div>
           {counts && (
-            <span className="handlers__count">{tweet.replies_count}</span>
+            <span className="handlers__count">
+              {formatCounts(tweet.replies_count)}
+            </span>
           )}
         </Link>
       </li>
@@ -69,20 +71,23 @@ const TweetHandler = ({ tweet, counts }) => {
           <FontAwesomeIcon icon={faRetweet} />
         </div>
         {counts && (
-          <span className="handlers__count">{tweet.retweets_count}</span>
+          <span className="handlers__count">
+            {formatCounts(tweet.retweets_count)}
+          </span>
         )}
       </li>
       <li className="handlers__handler" onClick={() => likeTweet(tweet)}>
-        <div
-          className="handlers__button handlers__button--likes"
-          onClick={() => likeTweet(tweet)}
-        >
+        <div className="handlers__button handlers__button--likes">
           <FontAwesomeIcon
-            color={tweet.liked_tweet === 1 ? 'red' : 'inherit'}
-            icon={tweet.liked_tweet === 1 ? faHeartFull : faHeart}
+            color={tweet.liked_tweet == 1 ? 'red' : 'inherit'}
+            icon={tweet.liked_tweet == 1 ? faHeartFull : faHeart}
           />
         </div>
-        {counts && <span className="handlers__count">{tweet.likes_count}</span>}
+        {counts && (
+          <span className="handlers__count">
+            {formatCounts(tweet.likes_count)}
+          </span>
+        )}
       </li>
     </ul>
   );

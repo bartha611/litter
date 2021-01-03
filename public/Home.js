@@ -33,8 +33,7 @@ var TweetList = function TweetList() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Tweet__WEBPACK_IMPORTED_MODULE_2__["default"], {
       key: tweet.id,
       tweet: tweet,
-      line: false,
-      disabled: false
+      line: false
     });
   }));
 };

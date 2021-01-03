@@ -40,6 +40,7 @@ export const fetchAuth = (
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       dispatch(populateResults(data)[operation]);
+      history.goBack();
     }
   } catch (err) {
     dispatch(actions.errorAuth());

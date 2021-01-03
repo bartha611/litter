@@ -3,6 +3,7 @@ const { createSlice } = require('@reduxjs/toolkit');
 const initialState = {
   loading: false,
   users: [],
+  search: [],
   cursor: null,
   error: false
 };
@@ -24,6 +25,10 @@ const userSlice = createSlice({
       state.loading = false;
       state.cursor = action.payload.cursor;
       state.users = state.users.concat(action.payload.users);
+    },
+    searchUsers(state, action) {
+      state.loading = false;
+      state.search = action.payload.users;
     },
     createFollower(state, action) {
       state.loading = false;
@@ -50,6 +55,7 @@ const userSlice = createSlice({
 export const {
   loadUser,
   readUser,
+  searchUsers,
   paginateUsers,
   errorUser,
   createFollower,

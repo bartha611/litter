@@ -45,7 +45,7 @@ const About = () => {
             </div>
             <div
               className="about__followers"
-              onClick={() => history.push(`${user.username}/followers`)}
+              onClick={() => history.push(`${user.username}/follower`)}
             >
               <span className="about__counts">
                 {formatCounts(user.followers_count)}{' '}

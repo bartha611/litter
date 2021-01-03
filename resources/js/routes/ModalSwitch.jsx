@@ -60,6 +60,16 @@ const ModalSwitch = () => {
           />
           <PrivateRoute
             exact
+            path="/:name/following"
+            component={Wrapper(FollowerView)}
+          />
+          <PrivateRoute
+            exact
+            path="/:name/follower"
+            component={Wrapper(FollowerView)}
+          />
+          <PrivateRoute
+            exact
             background={background}
             path="/:name/status/:tweet"
             component={Wrapper(Comment)}

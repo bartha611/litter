@@ -33,7 +33,6 @@ class UserController extends Controller
     {
         $user = User::firstOrCreate($request->all());
         $token = auth()->login($user);
-        $user->profile_photo = "https://insta611.s3.amazonaws.com/images/1591320571download.png";
         return response()->json(compact('user', 'token'));
     }
 
@@ -46,8 +45,8 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $creds = $request->only(['username', 'password']);
-        if (!$token = auth()->attempt($creds)) {
+        $credentials = $request->only(['username', 'password']);
+        if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'unauthorized'], 401);
         }
         $user = JWTAuth::user();

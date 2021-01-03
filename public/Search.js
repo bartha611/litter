@@ -36,11 +36,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var SearchBar = function SearchBar() {
-  var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["useLocation"])();
   var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["useHistory"])();
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    setSearch('');
-  }, []);
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -52,13 +48,17 @@ var SearchBar = function SearchBar() {
   var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
     return state.user;
   }),
-      users = _useSelector.users;
+      users = _useSelector.search;
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    setSearch('');
+  }, []);
 
   var submit = function submit(event) {
     setSearch(event.target.value);
 
     if (event.target.value.length > 0) {
-      dispatch(Object(_state_ducks_user__WEBPACK_IMPORTED_MODULE_4__["fetchUsers"])("/api/user?search=".concat(event.target.value)));
+      dispatch(Object(_state_ducks_user__WEBPACK_IMPORTED_MODULE_4__["fetchUsers"])("/api/user?search=".concat(event.target.value), 'GET', 'SEARCH'));
     }
   };
 

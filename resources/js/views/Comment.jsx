@@ -3,7 +3,6 @@ import { fetchReplies } from '../state/ducks/replies';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import { useFetchComments } from '../utils/useFetchComment';
-
 import CommentList from '../components/Comment/CommentList';
 import CommentHeader from '../components/Comment/CommentHeader';
 

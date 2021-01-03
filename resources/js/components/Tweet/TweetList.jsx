@@ -11,9 +11,7 @@ export const TweetList = () => {
   return (
     <div className="tweetList">
       {tweets.map(tweet => {
-        return (
-          <Tweet key={tweet.id} tweet={tweet} line={false} disabled={false} />
-        );
+        return <Tweet key={tweet.id} tweet={tweet} line={false} />;
       })}
     </div>
   );

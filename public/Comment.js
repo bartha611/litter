@@ -29,8 +29,10 @@ var CommentHeader = function CommentHeader() {
     return index !== parent_tweets.length - 1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Tweet_Tweet__WEBPACK_IMPORTED_MODULE_2__["default"], {
       tweet: tweet,
       key: tweet.id,
-      disabled: false
+      disabled: false,
+      line: true
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Tweet_TweetParent__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      key: tweet.id,
       tweet: tweet
     });
   }));
@@ -66,10 +68,9 @@ var CommentList = function CommentList() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, reply_tweets.map(function (comment) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Tweet_Tweet__WEBPACK_IMPORTED_MODULE_2__["default"], {
       key: comment.id,
+      disabled: false,
       tweet: comment,
-      options: true,
-      main: false,
-      parent: false
+      line: false
     });
   }));
 };
@@ -92,6 +93,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../helpers */ "./resources/js/helpers/index.js");
+
 
 
 
@@ -114,33 +117,6 @@ __webpack_require__.r(__webpack_exports__);
 var TweetParent = function TweetParent(_ref) {
   var tweet = _ref.tweet;
   var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useLocation"])();
-
-  var getTime = function getTime(_ref2) {
-    var updated_at = _ref2.updated_at;
-    var date = new Date(updated_at);
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var meridian = hours > 12 ? 'PM' : 'AM';
-    hours = hours % 12 === 0 ? 12 : hours % 12;
-    return "".concat(hours, ":").concat(minutes, " ").concat(meridian);
-  };
-
-  var formatCounts = function formatCounts(count) {
-    if (count < 1000) {
-      return "".concat(count, " ");
-    } else if (count < 10000000) {
-      return "".concat(_.round(count / 1000, 1), "K ");
-    } else {
-      return "".concat(_.round(count / 1000000), "M ");
-    }
-  };
-
-  var sanitizeDate = function sanitizeDate(_ref3) {
-    var updated_at = _ref3.updated_at;
-    var newDate = new Date(updated_at).toDateString();
-    return newDate.split(' ').slice(1, 4).join(' ');
-  };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "TweetParent"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -167,9 +143,9 @@ var TweetParent = function TweetParent(_ref) {
     className: "TweetParent__dateInfo"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "TweetParent__time"
-  }, getTime(tweet), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["getTime"])(tweet)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "TweetParent__date"
-  }, sanitizeDate(tweet))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["getDate"])(tweet))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "TweetParent__stats"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "TweetParent__retweets"
@@ -182,7 +158,7 @@ var TweetParent = function TweetParent(_ref) {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "TweetParent__counts"
-  }, formatCounts(tweet.retweets_count)), "Retweets")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["formatCounts"])(tweet.retweets_count)), "Retweets")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "TweetParent__likes"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
     to: {
@@ -193,7 +169,7 @@ var TweetParent = function TweetParent(_ref) {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "TweetParent__counts"
-  }, formatCounts(tweet.likes_count)), "Likes")))));
+  }, Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["formatCounts"])(tweet.likes_count)), "Likes")))));
 };
 
 TweetParent.propTypes = {

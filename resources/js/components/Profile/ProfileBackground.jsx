@@ -16,10 +16,12 @@ const Background = () => {
           <Header user={user} />
           <div className="profile__background">
             <div
+              key={Date.now()}
               className="profile__backgroundImage"
-              style={{ backgroundImage: `url('${authUser.background_image}')` }}
+              style={{ backgroundImage: `url('${user.background_image}')` }}
             ></div>
             <img
+              key={user.profile_photo}
               className="profile__image"
               src={user.profile_photo}
               alt="User profile photo"
