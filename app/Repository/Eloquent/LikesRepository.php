@@ -73,7 +73,10 @@ class LikesRepository implements LikesRepositoryInterface {
             ->toArray();
 
         $users = DB::table('users AS u')
-            ->select(['u.id', 'name', 'username', 'biography', 'profile_photo', 'f.id AS followed_user'])
+            ->select([
+                'u.id AS user_id', 'u.name', 'u.username', 'u.biography', 
+                'u.profile_photo', 'f.id AS followed_user'
+            ])
             ->leftJoin('followers AS f', function ($join) use ($user_id) {
                 $join->on('f.following_id', '=', 'u.id')
                     ->where('f.user_id', $user_id);

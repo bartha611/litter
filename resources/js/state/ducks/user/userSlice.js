@@ -34,7 +34,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.users.map(user => {
         user.followed_user =
-          user.id === action.payload.following_id
+          user.user_id === action.payload.following_id
             ? action.payload.id
             : user.followed_user;
       });

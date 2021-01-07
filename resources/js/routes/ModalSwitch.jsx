@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import PrivateRoute from '../utils/privateRoute';
 import { WaitComponent } from './WaitComponent';
@@ -9,6 +9,14 @@ import ModalWrapper from '../utils/ModalWrapper';
 import CropPicture from '../components/Profile/CropPicture';
 
 const Home = lazy(() => import(/*webpackChunkName: 'Home' */ '../views/Home'));
+
+const Login = lazy(() =>
+  import(/* webpackChunkName: "Login" */ '../views/Login')
+);
+
+const Signup = lazy(() =>
+  import(/* webpackChunkName: "Signup" */ '../components/auth/Signup')
+);
 
 const Profile = lazy(() =>
   import(/* webpackChunkName: 'Profile' */ '../views/Profile')
@@ -33,19 +41,21 @@ const TweetUserView = lazy(() =>
 );
 
 const EditProfile = lazy(() =>
-  import(/* webpachunkName: 'EditProfile' */ '../views/EditProfile')
+  import(/* webpackChunkName: 'EditProfile' */ '../views/EditProfile')
 );
 
 const ModalSwitch = () => {
   const location = useLocation();
   let background = location.state && location.state.background;
   let tweet = location.state && location.state.tweet;
-  console.log(background);
 
   return (
     <div>
       <Container>
         <Switch location={background || location}>
+          <Route exact path="/signup" component={WaitComponent(Signup)} />
+          <Route exact path="/login" component={WaitComponent(Login)} />
+          <Route path="/settings/crop" component={WaitComponent(CropPicture)} />
           <PrivateRoute
             background={background}
             exact

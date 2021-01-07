@@ -98,6 +98,8 @@ class TableRepository implements TableRepositoryInterface {
             ->where('user_id', $user_id)
             ->pluck('tweet_id')
             ->toArray();
+        
+        array_push($liked_tweets, -1);
 
         $tweets = DB::table('tweets AS t')
             ->select([

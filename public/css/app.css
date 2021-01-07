@@ -11330,14 +11330,23 @@ a.text-dark:focus {
 
 .login {
   margin-top: 2rem;
-  font-size: 2rem;
 }
 
 .login__input {
   height: inherit !important;
+  font-size: 2rem !important;
 }
 
 .login__button {
+  font-size: 2.2rem;
+  width: 100%;
+}
+
+.signup__input {
+  font-size: 2rem !important;
+}
+
+.signup__button {
   font-size: 2.2rem;
   width: 100%;
 }

@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/Comment.js": "/Comment.js",
+    "/EditProfile.js": "/EditProfile.js",
     "/Follower.js": "/Follower.js",
     "/Home.js": "/Home.js",
     "/Home~TweetCompose.js": "/Home~TweetCompose.js",

@@ -4,6 +4,7 @@ import * as jwt from 'jsonwebtoken';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
+  console.log('hello there');
   if (!token) {
     return false;
   }

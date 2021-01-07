@@ -14,9 +14,7 @@ export const fetchReplies = (
   url,
   method,
   operation,
-  data = null,
-  history,
-  location
+  data = null
 ) => async dispatch => {
   dispatch(actions.loadReply());
   try {
@@ -26,12 +24,6 @@ export const fetchReplies = (
       data
     });
     dispatch(populateData(response.data)[operation]);
-    history.push({
-      pathname: '/',
-      state: {
-        from: location.pathname
-      }
-    });
   } catch (err) {
     dispatch(actions.errorReply());
   }

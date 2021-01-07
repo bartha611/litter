@@ -8,36 +8,12 @@ import { history } from '../utils/history';
 import { WaitComponent } from '../routes/WaitComponent';
 import ModalSwitch from '../routes/ModalSwitch';
 
-const Login = lazy(() =>
-  import(/* webpackChunkName: "Login" */ '../views/Login')
-);
-
-const Signup = lazy(() =>
-  import(/* webpackChunkName: "Signup" */ './auth/Signup')
-);
-
-const CropPicture = lazy(() =>
-  import(/* webpackChunkName: "crop" */ '../components/Profile/CropPicture')
-);
-
 const Index = () => {
   return (
     <div>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Router history={history}>
-            <Switch>
-              <Route exact path="/login">
-                {WaitComponent(Login)}
-              </Route>
-              <Route exact path="/signup">
-                {WaitComponent(Signup)}
-              </Route>
-              <Route
-                path="/settings/crop"
-                component={WaitComponent(CropPicture)}
-              />
-            </Switch>
             <ModalSwitch />
           </Router>
         </PersistGate>

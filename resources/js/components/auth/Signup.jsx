@@ -37,70 +37,80 @@ const SignUp = () => {
   };
 
   return (
-    <Container>
+    <Container className="signup">
       <Col xs="12" lg="6" className="m-auto pt-5">
-        <h1 className="text-center">Sign Up for Bitter</h1>
+        <h1 className="text-center signup__title">Sign Up for Bitter</h1>
         <br />
         <Form>
-          <InputGroup>
+          <InputGroup size="lg">
             <InputGroupAddon addonType="prepend">
               <InputGroupText>
-                <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon icon={faUser} size="2x" />
               </InputGroupText>
             </InputGroupAddon>
             <Input
               type="text"
+              className="signup__input"
               name="username"
               placeholder="Username"
               onChange={e => setUsername(e.target.value)}
             />
           </InputGroup>
           <br />
-          <InputGroup>
+          <InputGroup size="lg">
             <InputGroupAddon addonType="prepend">
               <InputGroupText>
-                <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon icon={faUser} size="2x" />
               </InputGroupText>
             </InputGroupAddon>
-            <Input type="text" name="name" placeholder="name" onChange={e => setName(e.target.value)} />
+            <Input
+              type="text"
+              className="signup__input"
+              name="name"
+              placeholder="name"
+              onChange={e => setName(e.target.value)}
+            />
           </InputGroup>
           <br />
-          <InputGroup>
+          <InputGroup size="lg">
             <InputGroupAddon addonType="prepend">
               <InputGroupText>
-                <FontAwesomeIcon icon={faEnvelope} />
+                <FontAwesomeIcon icon={faEnvelope} size="2x" />
               </InputGroupText>
             </InputGroupAddon>
             <Input
               type="email"
+              className="signup__input"
               name="email"
               placeholder="example@gmail.com"
               onChange={e => setEmail(e.target.value)}
             />
           </InputGroup>
           <br />
-          <InputGroup>
+          <InputGroup size="lg">
             <InputGroupAddon addonType="prepend">
               <InputGroupText>
-                <FontAwesomeIcon icon={faKey} />
+                <FontAwesomeIcon icon={faKey} size="2x" />
               </InputGroupText>
             </InputGroupAddon>
             <Input
               type="password"
+              className="signup__input"
               name="password"
               placeholder="password"
               onChange={e => setPassword(e.target.value)}
             />
           </InputGroup>
           <br />
-          <InputGroup>
+          <InputGroup size="lg">
             <InputGroupAddon addonType="prepend">
               <InputGroupText>
-                <FontAwesomeIcon icon={faKey} />
+                <FontAwesomeIcon icon={faKey} size="2x" />
               </InputGroupText>
             </InputGroupAddon>
             <Input
               type="password"
+              className="signup__input"
               name="confirmPassword"
               placeholder="confirm password"
               onChange={e => setConfirmPassword(e.target.value)}
@@ -112,7 +122,7 @@ const SignUp = () => {
           color="primary"
           disabled={confirmPassword !== password || password.length === 0}
           onClick={() => submit()}
-          className="w-100"
+          className="signup__button"
         >
           Submit
         </Button>

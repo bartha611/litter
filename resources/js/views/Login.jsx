@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAuth, resetAuth } from '../state/ducks/auth/';
+import { resetAuth } from '../state/ducks/auth/authSlice';
+import { fetchAuth } from '../state/ducks/auth/authThunk';
 import { useHistory } from 'react-router-dom';
 import {
   Alert,
@@ -60,6 +61,7 @@ const Login = () => {
             placeholder="Username"
             type="text"
             className="login__input"
+            value={username}
             onChange={e => setUsername(e.target.value)}
           />
         </InputGroup>
@@ -74,6 +76,7 @@ const Login = () => {
             placeholder="Password"
             type="password"
             className="login__input"
+            value={password}
             onChange={e => setPassword(e.target.value)}
           />
         </InputGroup>

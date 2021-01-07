@@ -65,7 +65,8 @@ class FollowerRepository implements FollowerRepositoryInterface {
     {
         $followers = DB::table('followers AS f')
             ->select([
-                'u.id', 'u.username', 'u.name', 'u.profile_photo','u.biography', 'fu.id AS followed_user'
+                'u.id AS user_id', 'u.username', 'u.name', 
+                'u.profile_photo','u.biography', 'fu.id AS followed_user'
             ])
             ->join('users AS u', 'u.id', '=', 'f.user_id')
             ->leftJoin('followers AS fu', function ($join) use ($user_id) {
@@ -93,11 +94,10 @@ class FollowerRepository implements FollowerRepositoryInterface {
 
     public function getFollowing($id, $user_id, $cursor)
     {
-
         $following = DB::table('followers AS f')
             ->select([
-                'f.id', 'f.following_id AS following_id', 'u.username', 'u.name', 'u.profile_photo', 'u.biography',
-                'fu.id AS followed_user'
+                'f.id', 'u.id AS user_id', 'u.username', 'u.name',
+                'u.profile_photo', 'u.biography', 'fu.id AS followed_user'
             ])
             ->join('users AS u', 'u.id', '=', 'f.following_id')
             ->leftJoin('followers AS fu', function ($join) use ($user_id) {
