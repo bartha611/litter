@@ -95,6 +95,7 @@ var SignUp = function SignUp() {
     className: "signup__input",
     name: "username",
     placeholder: "Username",
+    value: username,
     onChange: function onChange(e) {
       return setUsername(e.target.value);
     }
@@ -110,6 +111,7 @@ var SignUp = function SignUp() {
     className: "signup__input",
     name: "name",
     placeholder: "name",
+    value: name,
     onChange: function onChange(e) {
       return setName(e.target.value);
     }
@@ -125,6 +127,7 @@ var SignUp = function SignUp() {
     className: "signup__input",
     name: "email",
     placeholder: "example@gmail.com",
+    value: email,
     onChange: function onChange(e) {
       return setEmail(e.target.value);
     }
@@ -140,6 +143,7 @@ var SignUp = function SignUp() {
     className: "signup__input",
     name: "password",
     placeholder: "password",
+    value: password,
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     }
@@ -155,6 +159,7 @@ var SignUp = function SignUp() {
     className: "signup__input",
     name: "confirmPassword",
     placeholder: "confirm password",
+    value: confirmPassword,
     onChange: function onChange(e) {
       return setConfirmPassword(e.target.value);
     }

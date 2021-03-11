@@ -1,8 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * Component that renders a modal wrapper

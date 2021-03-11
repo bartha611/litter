@@ -19,8 +19,6 @@ class UserSeeder extends Seeder
                 'name' => $faker->name,
                 'email' => $faker->email,
                 'password' => bcrypt('secret'),
-                'background_image' => $faker->imageUrl($width = 600, $height = 200),
-                'profile_photo' => $faker->imageUrl($width = 400, $height = 400),
                 'biography' => $faker->text()
             ]);
         }
@@ -29,8 +27,6 @@ class UserSeeder extends Seeder
             'name' => 'adam',
             'email' => 'adambarth611@gmail.com',
             'password' => bcrypt('a'),
-            'background_image' => $faker->imageUrl($width = 600, $height = 200),
-            'profile_photo' => $faker->imageUrl($width = 400, $height = 400),
             'biography' => $faker->text()
         ]);
     }

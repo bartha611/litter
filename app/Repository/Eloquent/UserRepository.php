@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use App\Repository\UserRepositoryInterface;
+use Carbon\Carbon;
 
 class UserRepository implements UserRepositoryInterface {
 
@@ -95,16 +96,20 @@ class UserRepository implements UserRepositoryInterface {
 
         if ($profile_photo) {
             $arr = explode('/', $user->profile_photo);
-            Storage::disk('s3')->delete('images/' . end($arr));
-            $profile_name = 'images/' . $profile_photo->getClientOriginalName() . time();  
+            if ($user->profile_photo !== "https://insta611.s3.amazonaws.com/images/ironThrone.jpg") {
+                Storage::disk('s3')->delete('images/' . end($arr));
+            }
+            $profile_name = 'images/' . $profile_photo->getClientOriginalName() . Carbon::now()->timestamp;  
             Storage::disk('s3')->put($profile_name, file_get_contents($profile_photo));
             $data += ['profile_photo' => Storage::disk('s3')->url($profile_name)];
         }
 
         if ($background_image) {
             $arr = explode('/', $user->background_image);
-            Storage::disk('s3')->delete('images/' . end($arr));
-            $background_name = 'images/' . $background_image->getClientOriginalName() . time();
+            if ($user->background_image !== "https://insta611.s3.amazonaws.com/images/nightsky.jpg") {
+                Storage::disk('s3')->delete('images/' . end($arr));
+            }
+            $background_name = 'images/' . $background_image->getClientOriginalName() . Carbon::now()->timestamp;
             Storage::disk('s3')->put($background_name, file_get_contents($background_image));
             $data +=['background_image' =>  Storage::disk('s3')->url($background_name)];
         }

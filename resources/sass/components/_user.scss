@@ -1,7 +1,8 @@
 .user {
   display: flex;
-  padding: $box-padding;
-  border-bottom: 0.1rem solid $dark-grey;
+  padding: 1rem 0;
+  border-bottom: 0.1rem solid rgba($dark-grey, 0.7);
+  cursor: pointer;
 
   &__image {
     padding: $flex-padding;

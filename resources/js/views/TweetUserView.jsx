@@ -11,7 +11,8 @@ import { useDispatch } from 'react-redux';
  * @param {string} type - Type
  */
 
-const TweetUserView = ({ type }) => {
+const TweetUserView = ({ type, title }) => {
+  console.log(`title is ${title}`);
   const dispatch = useDispatch();
   const { tweet } = useParams();
 
@@ -23,11 +24,19 @@ const TweetUserView = ({ type }) => {
     }
   }, []);
 
-  return <UserList />;
+  return (
+    <div>
+      <div className="modalCustom__title">{title}</div>
+      <div className="modalCustom__list">
+        <UserList />
+      </div>
+    </div>
+  );
 };
 
 TweetUserView.propTypes = {
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default TweetUserView;

@@ -16,7 +16,5 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Signup component', () => {
-  it('mounts', () => {
-    mount(<SignUp />);
-  });
+  it('should change input values upon change', () => {});
 });

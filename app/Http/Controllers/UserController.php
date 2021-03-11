@@ -31,8 +31,10 @@ class UserController extends Controller
 
     public function register(UserCreateRequest $request): JsonResponse
     {
-        $user = User::firstOrCreate($request->all());
+        $id = User::firstOrCreate($request->all());
+        $user = User::where('id', $id->id)->first();
         $token = auth()->login($user);
+        echo $user;
         return response()->json(compact('user', 'token'));
     }
 
@@ -98,4 +100,5 @@ class UserController extends Controller
         return response()->json(compact('user'));
 
     }
+
 }

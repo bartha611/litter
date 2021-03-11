@@ -53,6 +53,7 @@ const SignUp = () => {
               className="signup__input"
               name="username"
               placeholder="Username"
+              value={username}
               onChange={e => setUsername(e.target.value)}
             />
           </InputGroup>
@@ -68,6 +69,7 @@ const SignUp = () => {
               className="signup__input"
               name="name"
               placeholder="name"
+              value={name}
               onChange={e => setName(e.target.value)}
             />
           </InputGroup>
@@ -83,6 +85,7 @@ const SignUp = () => {
               className="signup__input"
               name="email"
               placeholder="example@gmail.com"
+              value={email}
               onChange={e => setEmail(e.target.value)}
             />
           </InputGroup>
@@ -98,6 +101,7 @@ const SignUp = () => {
               className="signup__input"
               name="password"
               placeholder="password"
+              value={password}
               onChange={e => setPassword(e.target.value)}
             />
           </InputGroup>
@@ -113,6 +117,7 @@ const SignUp = () => {
               className="signup__input"
               name="confirmPassword"
               placeholder="confirm password"
+              value={confirmPassword}
               onChange={e => setConfirmPassword(e.target.value)}
             />
           </InputGroup>

@@ -29,7 +29,7 @@ class UserUpdateRequest extends FormRequest
         return [
             'name' => 'max:50',
             'biography' => 'max:160',
-            'profile_photo' => 'file',
+            'profile' => 'file',
             'background' => 'file'
         ];
     }

@@ -178,7 +178,9 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 var TweetUserView = function TweetUserView(_ref) {
-  var type = _ref.type;
+  var type = _ref.type,
+      title = _ref.title;
+  console.log("title is ".concat(title));
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["useDispatch"])();
 
   var _useParams = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useParams"])(),
@@ -191,11 +193,16 @@ var TweetUserView = function TweetUserView(_ref) {
       dispatch(Object(_state_ducks_user__WEBPACK_IMPORTED_MODULE_3__["fetchUsers"])("/api/tweet/".concat(tweet, "/retweets"), 'GET', 'READ'));
     }
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_User_UserList__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "modalCustom__title"
+  }, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "modalCustom__list"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_User_UserList__WEBPACK_IMPORTED_MODULE_4__["default"], null)));
 };
 
 TweetUserView.propTypes = {
-  type: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired
+  type: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
+  title: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired
 };
 /* harmony default export */ __webpack_exports__["default"] = (TweetUserView);
 

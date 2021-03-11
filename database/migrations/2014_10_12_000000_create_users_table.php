@@ -17,8 +17,8 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('username')->unique()->index();
             $table->string('name');
-            $table->string('profile_photo')->default('https://insta611.s3.amazonaws.com/images/1591320571download.png');
-            $table->string('background_image')->default('/home/adam/Downloads/nightsky.jpg');
+            $table->string('profile_photo')->default('https://insta611.s3.amazonaws.com/images/ironThrone.jpg');
+            $table->string('background_image')->default('https://insta611.s3.amazonaws.com/images/nightsky.jpg');
             $table->string('email')->unique();
             $table->text('biography')->nullable();
             $table->timestamp('email_verified_at')->nullable();

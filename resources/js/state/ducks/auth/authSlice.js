@@ -31,7 +31,7 @@ const authSlice = createSlice({
       state.user = null;
     },
     errorAuth(state) {
-      state.error = false;
+      state.error = true;
     }
   }
 });

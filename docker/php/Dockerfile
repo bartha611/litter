@@ -21,17 +21,17 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \ 
     libonig-dev \ 
-    sqlite3
+    sqlite3 
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo_mysql mysqli
 
-
-
 #install node
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
-RUN apt-get -y install nodejs npm
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
+RUN apt-get install -y nodejs
+
+RUN npm install -g npm
 
 
 # Install composer
@@ -51,11 +51,12 @@ COPY --chown=www:www . /var/www
 USER www
 
 RUN composer install --no-interaction
+RUN npm install && npm run dev
 
 RUN php artisan jwt:secret
 RUN php artisan key:generate
+RUN php artisan optimize:clear
 
-RUN npm install && npm run dev
 
 EXPOSE 9000
 CMD ["php-fpm"]

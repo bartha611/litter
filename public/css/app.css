@@ -11029,7 +11029,7 @@ a.text-dark:focus {
 }
 
 .tweetButton__info {
-  padding: 0rem 0.5rem;
+  margin-right: 1rem;
 }
 
 .tweetButton__image {
@@ -11353,8 +11353,9 @@ a.text-dark:focus {
 
 .user {
   display: flex;
-  padding: 1rem 1.5rem;
-  border-bottom: 0.1rem solid #808080;
+  padding: 1rem 0;
+  border-bottom: 0.1rem solid rgba(128, 128, 128, 0.7);
+  cursor: pointer;
 }
 
 .user__image {
@@ -11397,14 +11398,6 @@ a.text-dark:focus {
   background: rgba(255, 255, 255, 0.4);
 }
 
-.modalCustom__title {
-  width: calc(100% - 7rem);
-  display: inline-block;
-  font-size: 2.2rem;
-  font-weight: bolder;
-  padding: 0rem 0.5rem;
-}
-
 .modalCustom__component {
   border: 0.1rem solid #808080;
   background: #000;
@@ -11412,7 +11405,20 @@ a.text-dark:focus {
   z-index: 1000;
   margin: 0 auto;
   color: #fff;
-  margin-top: 15rem;
+  margin-top: 5rem;
+  padding: 1rem 1.5rem;
+}
+
+.modalCustom__title {
+  padding: 1rem 0rem 1rem 7.5rem;
+  font-size: 2.2rem;
+  font-weight: bolder;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.7);
+}
+
+.modalCustom__list {
+  overflow-y: auto;
+  max-height: 50rem;
 }
 
 .modalCustom__header {
@@ -11657,7 +11663,6 @@ a.text-dark:focus {
 .sidebar__button {
   display: inline-block;
   border-radius: 2rem;
-  margin-right: 2rem;
   background: transparent;
   border: none;
 }
@@ -11870,7 +11875,7 @@ html {
 }
 
 body {
-  font-size: 2rem;
+  font-size: 1.6rem;
   background: #000;
   color: #fff;
 }

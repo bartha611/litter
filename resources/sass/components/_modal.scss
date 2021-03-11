@@ -6,14 +6,6 @@
   left: 0;
   background: rgba($white, 0.4);
 
-  &__title {
-    width: calc(100% - 7rem);
-    display: inline-block;
-    font-size: 2.2rem;
-    font-weight: bolder;
-    padding: $flex-padding;
-  }
-
   &__component {
     border: 0.1rem solid $dark-grey;
     background: $black;
@@ -21,7 +13,20 @@
     z-index: 1000;
     margin: 0 auto;
     color: $white;
-    margin-top: 15rem;
+    margin-top: 5rem;
+    padding: $box-padding;
+  }
+
+  &__title {
+    padding: 1rem 0rem 1rem 7.5rem;
+    font-size: 2.2rem;
+    font-weight: bolder;
+    border-bottom: 1px solid rgba($dark-grey, 0.7);
+  }
+
+  &__list {
+    overflow-y: auto;
+    max-height: 50rem;
   }
 
   &__header {
