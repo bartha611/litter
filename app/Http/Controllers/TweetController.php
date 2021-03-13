@@ -27,13 +27,13 @@ class TweetController extends Controller
     public function __construct(TweetRepository $tweet_repo, UserRepository $user_repo)
     {
         $this->tweet_repo = $tweet_repo;
-        $this->user_repo = $user_repo;
+        $this->user_repo  = $user_repo;
 
         $this->middleware(function ($request, $next) {
             $this->user_id = JWTAuth::parseToken()->toUser()->id;
             return $next($request);
         });
-        
+
     }
 
     /**
@@ -50,18 +50,18 @@ class TweetController extends Controller
         $cursor = $request->input('cursor');
 
         $tweets = $this->tweet_repo->read($this->user_id, $cursor, true);
-      
+
         $cursor = count($tweets) > 40 ? $tweets[40]->id : null;
         $tweets = $tweets->slice(0, 40);
         $tweets = TweetCollection::collection($tweets);
-        
+
         return response()->json(compact('tweets', 'cursor'));
     }
 
     /**
      * returns a list of tweets for user
      * @param Request $request
-     * @param User $user - User 
+     * @param User $user - User
      * @return JsonResponse
      */
 
@@ -96,9 +96,9 @@ class TweetController extends Controller
 
     public function store(TweetRequest $request)
     {
-        $data = $request->all();
+        $data            = $request->all();
         $data['user_id'] = $this->user_id;
-        $tweet = $this->tweet_repo->create($data);
+        $tweet           = $this->tweet_repo->create($data);
 
         return response()->json($tweet);
     }

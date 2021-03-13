@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Storage;
 use App\User;
-use Illuminate\Support\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -20,17 +20,16 @@ class UserControllerTest extends TestCase
 
     use RefreshDatabase;
 
-    protected function setUp():void
+    protected function setUp(): void
     {
         parent::setUp();
         $userData = ['username' => 'example', 'password' => 'puddles', 'email' => 'faker@gmail.com'];
-        factory(User::class)->create($userData); 
+        factory(User::class)->create($userData);
     }
-    
 
     public function testValidUserCreation()
     {
-        $response = $this->postJson('/api/user/register', 
+        $response = $this->postJson('/api/user/register',
             ['name' => 'faker', 'username' => 'fakeUsername', 'email' => 'faker1@gmail.com', 'password' => 'a']);
 
         $response->assertStatus(200);
@@ -43,9 +42,9 @@ class UserControllerTest extends TestCase
                 'background_image',
                 'biography',
                 'created_at',
-                'email'
+                'email',
             ],
-            "token"
+            "token",
         ]);
         $this->assertNotEmpty($response['token']);
         $this->assertNotEmpty($response['user']);
@@ -54,7 +53,7 @@ class UserControllerTest extends TestCase
 
     /**
      * Testing Login
-     * 
+     *
      * @return void
      */
 
@@ -74,9 +73,9 @@ class UserControllerTest extends TestCase
                     'background_image',
                     'biography',
                     'created_at',
-                    'email'
+                    'email',
                 ],
-                "token"
+                "token",
             ]);
 
         $this->assertAuthenticated();
@@ -84,7 +83,7 @@ class UserControllerTest extends TestCase
 
     /**
      * Testing invalid login.  Ensure 401 response
-     * 
+     *
      * @return void
      */
 
@@ -99,13 +98,13 @@ class UserControllerTest extends TestCase
 
     /**
      * Testing invalid register with non-unique username
-     * 
+     *
      * @return void
      */
 
     public function testInvalidRegisterWithNonUniqueUsername()
     {
-        $userData = ['name' => 'dummy', 'username' => 'example', 'password' => 'fakePassword', 'email' => 'faker@yahoo.com', ];
+        $userData = ['name' => 'dummy', 'username' => 'example', 'password' => 'fakePassword', 'email' => 'faker@yahoo.com'];
 
         $response = $this->postJson('/api/user/register', $userData);
 
@@ -114,7 +113,7 @@ class UserControllerTest extends TestCase
 
     /**
      * Testing invalid register with non-unique email
-     * 
+     *
      * @return void
      */
 
@@ -129,33 +128,32 @@ class UserControllerTest extends TestCase
 
     /**
      * Test whether images can be uploaded
-     * 
+     *
      * @return void
      */
 
     public function testImagesCanBeUploaded()
     {
-        $user = factory(User::class)->create(['username' => 'dumbass', 'password' => 'a']);
+        $user  = factory(User::class)->create(['username' => 'dumbass', 'password' => 'a']);
         $token = JWTAuth::fromUser($user);
         Storage::fake('s3');
         $time = Carbon::now();
         Carbon::setTestNow($time);
 
-        $response = $this->post('/api/user/dumbass', 
-            ['profile_photo' => UploadedFile::fake()->image('file.png', 600, 600), 
-            'background_image' => UploadedFile::fake()->image('file2.png', 600, 600),
-            'name' => 'dumb', 
-            'biography' => 'I am an idiot'
+        $response = $this->post('/api/user/dumbass',
+            ['profile_photo'   => UploadedFile::fake()->image('file.png', 600, 600),
+                'background_image' => UploadedFile::fake()->image('file2.png', 600, 600),
+                'name'             => 'dumb',
+                'biography'        => 'I am an idiot',
             ]
             ,
             ["Authorization" => 'Bearer ' . $token]
         );
-        
+
         $response->assertStatus(200);
         $response->assertJson(['user' => ['name' => 'dumb']]);
         Storage::disk('s3')->assertExists('images/file.png' . strtotime($time));
         Storage::disk('s3')->assertExists('images/file2.png' . strtotime($time));
     }
-    
 
 }

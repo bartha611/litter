@@ -16,7 +16,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username', 'profile_photo', 'background_image'
+        'name', 'email', 'password', 'username', 'profile_photo', 'background_image',
     ];
 
     /**
@@ -54,9 +54,14 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Tweet::class, 'user_id');
     }
 
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'following_id');
+    }
+
     public function followers()
     {
-        return $this->hasMany(Follower::class, 'user_id');
+        return $this->belongsToMany(User::class, 'followers', 'following_id', 'user_id');
     }
 
     public function getJWTIdentifier()
