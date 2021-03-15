@@ -20,6 +20,10 @@
 
   &__author {
     font-weight: bolder;
+
+    &:hover {
+      text-decoration: underline;
+    }
     &--disabled {
       cursor: default;
       &:hover {
@@ -61,7 +65,7 @@
   &__line {
     position: absolute;
     left: 50%;
-    top: 35px;
+    top: 4.5rem;
     background: gray;
     height: calc(100% - 40px);
     width: 3px;

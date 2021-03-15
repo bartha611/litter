@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 import Tweet from './Tweet';
 import TweetButton from './TweetButton';
 import PropTypes from 'prop-types';
@@ -20,6 +20,11 @@ const TweetCompose = ({ tweet = null, setCancel }) => {
 
   return (
     <div className="TweetCompose">
+      <div className="TweetCompose__header">
+        <div className="TweetCompose__close" onClick={() => setCancel(true)}>
+          <FontAwesomeIcon icon={faTimes} size="lg" />
+        </div>
+      </div>
       {tweet && <Tweet tweet={tweet} line={true} disabled={true} />}
       <TweetButton tweetId={tweetId} setCancel={setCancel} />
     </div>

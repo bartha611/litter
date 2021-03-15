@@ -226,7 +226,7 @@ var EditProfile = function EditProfile(_ref) {
     onChange: function onChange(e) {
       return handleFileChange(e);
     }
-  }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "editProfile__picture",
     style: {
       backgroundImage: "url('".concat(!profileImage ? user.profile_photo : profileImage, "')")
@@ -246,7 +246,7 @@ var EditProfile = function EditProfile(_ref) {
     onChange: function onChange(e) {
       return handleFileChange(e);
     }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "editProfile__name"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Profile_ProfileForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
     title: "Name",

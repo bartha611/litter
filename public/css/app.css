@@ -11225,8 +11225,58 @@ a.text-dark:focus {
 
 .handlers {
   display: flex;
-  padding: 0.5rem 0;
+  padding: 0.5rem 1.5rem;
   justify-content: space-around;
+  align-items: center;
+}
+
+.handlers__handler {
+  display: inline-block;
+}
+
+.handlers__countInline {
+  display: inline-block;
+  margin-left: 0.5rem;
+  width: 2rem;
+  height: 4rem;
+}
+
+.handlers__count {
+  display: inline-block;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.handlers__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.handlers__icon--comment:hover {
+  background: rgba(0, 255, 255, 0.2);
+  color: cyan;
+}
+
+.handlers__icon__comment:hover + .handlers__count {
+  color: cyan;
+}
+
+.handlers__icon--retweet:hover {
+  background: rgba(0, 230, 64, 0.2);
+  color: #00e640;
+}
+
+.handlers__icon--likes:hover {
+  background: rgba(255, 0, 0, 0.2);
+  color: red;
 }
 
 .handlers__button {
@@ -11234,24 +11284,28 @@ a.text-dark:focus {
   width: 4rem;
   height: 4rem;
   border-radius: 100%;
-  padding: 0.3rem 0;
   text-align: center;
   cursor: pointer;
 }
 
-.handlers__button--comment:hover {
-  background: rgba(0, 255, 255, 0.2);
-  color: cyan;
+.TweetCompose__header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.7);
 }
 
-.handlers__button--retweet:hover {
-  background: rgba(0, 230, 64, 0.2);
-  color: #00e640;
+.TweetCompose__close {
+  display: flex;
+  margin-left: 1rem;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 100%;
+  cursor: pointer;
 }
 
-.handlers__button--likes:hover {
-  background: rgba(255, 0, 0, 0.2);
-  color: red;
+.TweetCompose__close:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .tweet {
@@ -11277,6 +11331,10 @@ a.text-dark:focus {
 
 .tweet__author {
   font-weight: bolder;
+}
+
+.tweet__author:hover {
+  text-decoration: underline;
 }
 
 .tweet__author--disabled {
@@ -11322,7 +11380,7 @@ a.text-dark:focus {
 .tweet__line {
   position: absolute;
   left: 50%;
-  top: 35px;
+  top: 4.5rem;
   background: gray;
   height: calc(100% - 40px);
   width: 3px;
@@ -11541,8 +11599,8 @@ a.text-dark:focus {
   border-radius: 100%;
   border: 2px solid #000;
   position: absolute;
-  top: 17rem;
-  left: 6rem;
+  bottom: -7rem;
+  left: 1rem;
 }
 
 .editProfile__profilePhoto {
@@ -11554,7 +11612,7 @@ a.text-dark:focus {
 
 .editProfile__name {
   padding: 1rem 1.5rem;
-  margin-top: 5rem;
+  margin-top: 7rem;
 }
 
 .editProfile__biography {
@@ -11674,6 +11732,7 @@ a.text-dark:focus {
 .sidebar__title {
   color: #fff;
   font-weight: bold;
+  margin-left: 1rem;
 }
 
 @media (max-width: 1200px) {

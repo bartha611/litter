@@ -1,4 +1,4 @@
-import React, { useEffect, lazy } from 'react';
+import React, { useEffect } from 'react';
 import { fetchTweets } from '../../js/state/ducks/tweets';
 import { useDispatch, useSelector } from 'react-redux';
 import TweetButton from '../components/Tweet/TweetButton';

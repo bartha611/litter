@@ -50,7 +50,7 @@ const Tweet = ({ tweet, line }) => {
             <span className="tweet__author">{tweet.user.name}</span>
           </Link>
           <span className="tweet__username">@{tweet.user.username}</span>
-          <span className="tweet__date">{getDate(tweet.updated_at)}</span>
+          <span className="tweet__date">{getDate(tweet)}</span>
         </div>
         <div className="tweet__tweet">{tweet.tweet}</div>
         <TweetHandler tweet={tweet} counts={true} />

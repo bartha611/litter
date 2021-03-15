@@ -1,0 +1,21 @@
+.TweetCompose {
+  &__header {
+    padding: $box-padding;
+    border-bottom: 1px solid rgba($dark-grey, 0.7);
+  }
+
+  &__close {
+    display: flex;
+    margin-left: 1rem;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 100%;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba($white, 0.5);
+    }
+  }
+}

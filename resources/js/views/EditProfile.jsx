@@ -119,29 +119,29 @@ const EditProfile = ({ setCancel }) => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              className="editProfile__picture"
-              style={{
-                backgroundImage: `url('${
-                  !profileImage ? user.profile_photo : profileImage
-                }')`
-              }}
-            >
-              <div className="editProfile__option editProfile__option--picture">
-                <label htmlFor="file-picture">
-                  <FontAwesomeIcon
-                    icon={faCamera}
-                    color="grey"
-                    className="editProfile__icon"
+              <div
+                className="editProfile__picture"
+                style={{
+                  backgroundImage: `url('${
+                    !profileImage ? user.profile_photo : profileImage
+                  }')`
+                }}
+              >
+                <div className="editProfile__option editProfile__option--picture">
+                  <label htmlFor="file-picture">
+                    <FontAwesomeIcon
+                      icon={faCamera}
+                      color="grey"
+                      className="editProfile__icon"
+                    />
+                  </label>
+                  <input
+                    id="file-picture"
+                    type="file"
+                    className="editProfile__imageFile"
+                    onChange={e => handleFileChange(e)}
                   />
-                </label>
-                <input
-                  id="file-picture"
-                  type="file"
-                  className="editProfile__imageFile"
-                  onChange={e => handleFileChange(e)}
-                />
+                </div>
               </div>
             </div>
             <div className="editProfile__name">

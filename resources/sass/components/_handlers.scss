@@ -1,19 +1,44 @@
 .handlers {
   display: flex;
-  padding: 0.5rem 0;
+  padding: $button-padding;
   justify-content: space-around;
+  align-items: center;
 
-  &__button {
+  &__handler {
     display: inline-block;
-    width: $handler-width;
-    height: $handler-width;
+  }
+
+  &__countInline {
+    display: inline-block;
+    margin-left: 0.5rem;
+    width: 2rem;
+    height: 4rem;
+  }
+
+  &__count {
+    display: inline-block;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 100%;
-    padding: 0.3rem 0;
-    text-align: center;
-    cursor: pointer;
+    width: 100%;
+    height: 100%;
 
     &--comment:hover {
       background: rgba($comment_background, 0.2);
+      color: $comment_background;
+    }
+
+    &__comment:hover + .handlers__count {
       color: $comment_background;
     }
 
@@ -26,5 +51,14 @@
       background: rgba($likes_background, 0.2);
       color: $likes_background;
     }
+  }
+
+  &__button {
+    display: inline-block;
+    width: $handler-width;
+    height: $handler-width;
+    border-radius: 100%;
+    text-align: center;
+    cursor: pointer;
   }
 }

@@ -85,8 +85,8 @@
     border-radius: 100%;
     border: 2px solid $black;
     position: absolute;
-    top: 17rem;
-    left: 6rem;
+    bottom: -7rem;
+    left: 1rem;
   }
 
   &__profilePhoto {
@@ -98,7 +98,7 @@
 
   &__name {
     padding: $box-padding;
-    margin-top: 5rem;
+    margin-top: 7rem;
   }
 
   &__biography {

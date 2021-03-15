@@ -27,6 +27,28 @@ const replySlice = createSlice({
       state.reply_tweets = action.payload.reply_tweets;
       state.loading = false;
     },
+    likeReply(state, action) {
+      state.loading = false;
+      state.reply_tweets = state.reply_tweets.map(tweet => {
+        tweet.likes_count =
+          tweet.id === action.payload.tweet.id
+            ? tweet.likes_count + 1
+            : tweet.likes_count;
+        tweet.liked_tweet =
+          tweet.id === action.payload.tweet_id ? 1 : tweet.liked_tweet;
+      });
+    },
+    unlikeReply(state, action) {
+      state.loading = false;
+      state.reply_tweets = state.reply_tweets.map(tweet => {
+        tweet.likes_count =
+          tweet.id === action.payload.tweet_id
+            ? tweet.likes_count - 1
+            : tweet.likes_count;
+        tweet.liked_tweet =
+          tweet.id === action.payload.tweet_id ? 0 : tweet.liked_tweet;
+      });
+    },
     errorReply(state) {
       state.error = true;
       state.loading = false;
@@ -34,7 +56,10 @@ const replySlice = createSlice({
     createReply(state, action) {
       const parent = state.parent_tweets[state.parent_tweets.length - 1];
 
-      state.reply_tweets = action.payload.reply_tweet_id === parent ? [action.payload, ...state.reply_tweets] : state.reply_tweets;
+      state.reply_tweets =
+        action.payload.reply_tweet_id === parent
+          ? [action.payload, ...state.reply_tweets]
+          : state.reply_tweets;
       state.loading = false;
     },
     deleteReply(state, action) {
@@ -42,7 +67,8 @@ const replySlice = createSlice({
         tweet => tweet.id !== action.payload.id
       );
     }
-  }
+  },
+  extraReducers: {}
 });
 
 export const {

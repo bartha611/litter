@@ -52,41 +52,55 @@ const TweetHandler = ({ tweet, counts }) => {
               tweet
             }
           }}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
         >
-          <div className="handlers__button handlers__button--comment">
-            <FontAwesomeIcon
-              icon={faComment}
-              className="handlers__icon handlers__icon--comment"
-            />
+          <div className="handlers__button">
+            <div className="handlers__icon handlers__icon--comment">
+              <FontAwesomeIcon icon={faComment} />
+            </div>
           </div>
           {counts && (
-            <span className="handlers__count">
-              {formatCounts(tweet.replies_count)}
-            </span>
+            <div className="handlers__countInline">
+              <div className="handlers__count">
+                {formatCounts(tweet.replies_count)}
+              </div>
+            </div>
           )}
         </Link>
       </li>
       <li className="handlers__handler">
-        <div className="handlers__button handlers__button--retweet">
-          <FontAwesomeIcon icon={faRetweet} />
+        <div className="handlers__button">
+          <div className="handlers__icon handlers__icon--retweet">
+            <FontAwesomeIcon icon={faRetweet} />
+          </div>
         </div>
         {counts && (
-          <span className="handlers__count">
-            {formatCounts(tweet.retweets_count)}
-          </span>
+          <div className="handlers__countInline">
+            <div className="handlers__count">
+              {formatCounts(tweet.retweets_count)}
+            </div>
+          </div>
         )}
       </li>
       <li className="handlers__handler" onClick={() => likeTweet(tweet)}>
-        <div className="handlers__button handlers__button--likes">
-          <FontAwesomeIcon
-            color={tweet.liked_tweet == 1 ? 'red' : 'inherit'}
-            icon={tweet.liked_tweet == 1 ? faHeartFull : faHeart}
-          />
+        <div className="handlers__button">
+          <div className="handlers__icon handlers__icon--likes">
+            <FontAwesomeIcon
+              color={tweet.liked_tweet == 1 ? 'red' : 'inherit'}
+              icon={tweet.liked_tweet == 1 ? faHeartFull : faHeart}
+            />
+          </div>
         </div>
         {counts && (
-          <span className="handlers__count">
-            {formatCounts(tweet.likes_count)}
-          </span>
+          <div className="handlers__countInline">
+            <div className="handlers__count handlers__count--likes">
+              {formatCounts(tweet.likes_count)}
+            </div>
+          </div>
         )}
       </li>
     </ul>
