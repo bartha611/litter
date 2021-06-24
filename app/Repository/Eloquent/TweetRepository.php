@@ -6,20 +6,31 @@ use App\Repository\TweetRepositoryInterface;
 use App\Tweet;
 use Illuminate\Support\Facades\DB;
 
-class TweetRepository implements TweetRepositoryInterface {
+class TweetRepository implements TweetRepositoryInterface
+{
     protected $table_repo;
     protected $follower_repo;
 
     public function __construct(TableRepository $table_repo, FollowerRepository $follower_repo)
     {
-        $this->table_repo = $table_repo; 
+        $this->table_repo    = $table_repo;
         $this->follower_repo = $follower_repo;
     }
 
+    /**
+     * Get single tweet
+     * @param String $id id of tweet
+     * @return Object|null
+     */
+
+    public function getTweet($id)
+    {
+        return Tweet::where('id', $id);
+    }
 
     /**
-     * Stores tweet 
-     * 
+     * Stores tweet
+     *
      * @param Mixed $data user id and tweet text
      * @return Mixed $tweet Tweet object created
      */
@@ -35,12 +46,12 @@ class TweetRepository implements TweetRepositoryInterface {
     }
 
     /**
-     * Returns news tweets for user 
-     * 
+     * Returns news tweets for user
+     *
      * @param Integer $user_id  user id
      * @param String $cursor  cursor for pagination
      * @param Boolean $news  determines whether to include followers
-     * 
+     *
      * @return \Illuminate\Support\Collection $tweets
      */
 
@@ -53,7 +64,7 @@ class TweetRepository implements TweetRepositoryInterface {
             $followers = [];
         }
 
-        #add user_id to followers
+        # add user_id to followers
         array_push($followers, $user_id);
 
         $tweets = $this->table_repo->Tweets($user_id)
@@ -69,31 +80,31 @@ class TweetRepository implements TweetRepositoryInterface {
             ->get();
 
         return $tweets;
-    } 
+    }
 
     /**
      * Updates a tweet
-     * 
+     *
      * @param Integer $id Tweet id
-     * @param String $tweet updated tweet 
+     * @param String $tweet updated tweet
      */
 
     public function update($id, $tweet)
     {
-        $answer = Tweet::find($id);
+        $answer        = Tweet::find($id);
         $answer->tweet = $tweet;
-        $answer = $answer->load('user:id,name,username,profile_photo')->loadCount(['retweets', 'replies', 'likes']);
+        $answer        = $answer->load('user:id,name,username,profile_photo')->loadCount(['retweets', 'replies', 'likes']);
         unset($answer->user_id);
         return $answer;
     }
 
     /**
-     * Deletes tweet 
-     * 
+     * Deletes tweet
+     *
      * @param Integer $id Id of tweet
      */
 
-    public function delete($id) 
+    public function delete($id)
     {
         Tweet::destroy($id);
         return $id;
@@ -101,8 +112,8 @@ class TweetRepository implements TweetRepositoryInterface {
 
     /**
      * find users who retweeted tweet
-     * 
-     * @param Number $tweet_id - Id of tweet 
+     *
+     * @param Number $tweet_id - Id of tweet
      * @param Number $user_id - Id of logged-in user
      */
 
@@ -123,7 +134,7 @@ class TweetRepository implements TweetRepositoryInterface {
             ->whereIn('u.id', $retweet_user_ids)
             ->limit(30)
             ->get();
-        
+
         return $users;
 
     }

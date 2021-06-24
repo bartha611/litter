@@ -30,7 +30,7 @@ class TweetController extends Controller
         $this->user_repo  = $user_repo;
 
         $this->middleware(function ($request, $next) {
-            $this->user_id = JWTAuth::parseToken()->toUser()->id;
+            $this->user = JWTAuth::parseToken()->toUser();
             return $next($request);
         });
 
@@ -49,7 +49,7 @@ class TweetController extends Controller
 
         $cursor = $request->input('cursor');
 
-        $tweets = $this->tweet_repo->read($this->user_id, $cursor, true);
+        $tweets = $this->tweet_repo->read($this->user->id, $cursor, true);
 
         $cursor = count($tweets) > 40 ? $tweets[40]->id : null;
         $tweets = $tweets->slice(0, 40);
@@ -69,7 +69,7 @@ class TweetController extends Controller
     {
         $cursor = $request->input('cursor');
 
-        $user = $this->user_repo->findUserWithCounts($user->id, $this->user_id);
+        $user = $this->user_repo->findUserWithCounts($user->id, $this->user->id);
 
         $tweets = $this->tweet_repo->read($user->id, $cursor, false);
 
@@ -97,7 +97,7 @@ class TweetController extends Controller
     public function store(TweetRequest $request)
     {
         $data            = $request->all();
-        $data['user_id'] = $this->user_id;
+        $data['user_id'] = $this->user->id;
         $tweet           = $this->tweet_repo->create($data);
 
         return response()->json($tweet);
@@ -139,7 +139,7 @@ class TweetController extends Controller
 
     public function findUsersRetweet(Request $request, Tweet $tweet)
     {
-        $users = $this->tweet_repo->findUsersRetweetTweet($tweet->id, $this->user_id);
+        $users = $this->tweet_repo->findUsersRetweetTweet($tweet->id, $this->user->id);
 
         return response()->json(compact('users'));
     }

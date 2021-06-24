@@ -16,7 +16,7 @@
       "type": "php",
       "request": "launch",
       "port": 9003,
-      "hostname": "localhost"
+      "hostname": "127.0.0.1"
     },
     {
       "name": "Launch currently open script",

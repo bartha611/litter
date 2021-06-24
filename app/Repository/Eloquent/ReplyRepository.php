@@ -2,21 +2,22 @@
 
 namespace App\Repository\Eloquent;
 
-use App\Http\Resources\TweetCollection;
+use App\Notifications\createComment;
 use App\Repository\ReplyRepositoryInterface;
 use App\Tweet;
+use App\User;
 use Illuminate\Support\Facades\DB;
-use Staudenmeir\LaravelCte\Query\Builder;
 
-class ReplyRepository implements ReplyRepositoryInterface {
+class ReplyRepository implements ReplyRepositoryInterface
+{
 
     protected $follower_repo;
     protected $table_repo;
 
     public function __construct(FollowerRepository $follower_repo, TableRepository $table_repo)
     {
-        $this->follower_repo = $follower_repo; 
-        $this->table_repo = $table_repo;
+        $this->follower_repo = $follower_repo;
+        $this->table_repo    = $table_repo;
     }
 
     /**
@@ -31,13 +32,19 @@ class ReplyRepository implements ReplyRepositoryInterface {
         $tweet = Tweet::create(['user_id' => $user_id, 'reply_tweet_id' => $reply_tweet_id, 'tweet' => $content])
             ->load('user:id,username,name,profile_photo')
             ->loadCount(['replies', 'retweets', 'replies']);
-        
+
+        $user        = User::where('id', $user_id)->first();
+        $reply_tweet = Tweet::where('id', $reply_tweet_id)->first();
+        $reply_user  = User::where('id', $reply_tweet->user_id)->first();
+
+        $reply_user->notify(new createComment($user, $tweet));
+
         return $tweet;
     }
 
     /**
      * Returns parent tweets of reply
-     * 
+     *
      * @param String $tweet_id Tweet id
      * @param String $user_id User id
      */
@@ -66,7 +73,7 @@ class ReplyRepository implements ReplyRepositoryInterface {
 
     /**
      * Finds reply tweets given tweet id
-     * 
+     *
      * @param String $tweet_id Tweet id
      * @param String $user_id User id of logged-in user.  Determines liked_tweet parameter
      */
