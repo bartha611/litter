@@ -1,0 +1,24 @@
+.notification {
+  padding: $box-padding; 
+  border-bottom: 0.1rem solid $dark-grey;
+
+
+  &--highlight {
+    background: rgba($blue, 0.4);
+  }
+
+
+  &__photo {
+    height: $smallImage-height;
+    width: $smallImage-width;
+    border-radius: 100%;
+  }
+
+  &__title {
+    font-weight: bold;
+  }
+
+  &__body {
+    color: $light-grey;
+  }
+}

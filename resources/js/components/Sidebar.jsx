@@ -4,14 +4,26 @@ import { faHouseUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import {
   faBell,
   faEnvelope,
-  faUser
+  faUser,
 } from '@fortawesome/free-regular-svg-icons';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
   const history = useHistory();
-  const { user } = useSelector(state => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const { notifications } = useSelector((state) => state.notifications);
+
+  const totalUnreadNotifications = (notifications) => {
+    let total = 0;
+    for (const note of notifications) {
+      if (!note.read_at) {
+        total += 1;
+      }
+    }
+    return total;
+  };
+
   return (
     <div>
       <ul className="sidebar__nav">
@@ -31,6 +43,11 @@ const Sidebar = () => {
           className="sidebar__item"
           onClick={() => history.push('/notifications')}
         >
+          {totalUnreadNotifications(notifications) > 0 && (
+            <div className="sidebar__notification">
+              {totalUnreadNotifications(notifications)}
+            </div>
+          )}
           <div className="sidebar__button">
             <FontAwesomeIcon color="white" icon={faBell} />
           </div>

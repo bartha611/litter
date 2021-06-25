@@ -1,11 +1,10 @@
-import React, { lazy } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import { persistor, store } from '../state/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { history } from '../utils/history';
-import { WaitComponent } from '../routes/WaitComponent';
 import ModalSwitch from '../routes/ModalSwitch';
 
 const Index = () => {

@@ -49,20 +49,6 @@ class createComment extends Notification
     }
 
     /**
-     * Get the database representation of notification
-     *
-     * @param mixed $notifiable
-     * @return array
-     */
-    public function toDatabase($notifiable)
-    {
-        return [
-            'user'  => $this->user,
-            'tweet' => $this->tweet->tweet,
-        ];
-    }
-
-    /**
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
@@ -71,8 +57,11 @@ class createComment extends Notification
     public function toArray($notifiable)
     {
         return [
-            'user'  => $this->user,
-            'tweet' => $this->tweet,
+            'user'     => $this->user->id,
+            'name'     => $this->user->name,
+            'photo'    => $this->user->profile_photo,
+            'tweet_id' => $this->tweet->id,
+            'tweet'    => $this->tweet->tweet,
         ];
 
     }

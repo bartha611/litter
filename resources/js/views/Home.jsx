@@ -6,6 +6,7 @@ import TweetList from '../components/Tweet/TweetList';
 
 import { useFetchTweets } from '../utils/useFetchTweet';
 import { useLocation } from 'react-router-dom';
+import { fetchNotification } from '../state/ducks/notifications';
 import PropTypes from 'prop-types';
 
 const Home = ({ background }) => {
@@ -19,6 +20,8 @@ const Home = ({ background }) => {
       dispatch(fetchTweets('/api/tweet', 'GET', 'READ'));
       window.scrollTo(0, 0);
     }
+
+    dispatch(fetchNotification('/api/notification'));
   }, []);
 
   useFetchTweets();

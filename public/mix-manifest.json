@@ -1,16 +1,16 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/Home.js": "/js/Home.js",
+    "/js/Login.js": "/js/Login.js",
+    "/js/Signup.js": "/js/Signup.js",
+    "/js/Profile.js": "/js/Profile.js",
+    "/js/Follower.js": "/js/Follower.js",
+    "/js/Comment.js": "/js/Comment.js",
+    "/js/TweetCompose.js": "/js/TweetCompose.js",
+    "/js/TweetUserView.js": "/js/TweetUserView.js",
+    "/js/EditProfile.js": "/js/EditProfile.js",
+    "/js/sidebar.js": "/js/sidebar.js",
+    "/js/Search.js": "/js/Search.js",
     "/css/app.css": "/css/app.css",
-    "/Comment.js": "/Comment.js",
-    "/EditProfile.js": "/EditProfile.js",
-    "/Follower.js": "/Follower.js",
-    "/Home.js": "/Home.js",
-    "/Home~TweetCompose.js": "/Home~TweetCompose.js",
-    "/Login.js": "/Login.js",
-    "/Profile.js": "/Profile.js",
-    "/Search.js": "/Search.js",
-    "/Signup.js": "/Signup.js",
-    "/TweetCompose.js": "/TweetCompose.js",
-    "/TweetUserView.js": "/TweetUserView.js",
-    "/sidebar.js": "/sidebar.js"
+    "/js/NotificationView.js": "/js/NotificationView.js"
 }

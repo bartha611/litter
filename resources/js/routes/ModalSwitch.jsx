@@ -36,6 +36,10 @@ const TweetCompose = lazy(() =>
   )
 );
 
+const NotificationView = lazy(() =>
+  import(/* webpackChunkName: 'NotificationView' */ '../views/NotificationView')
+);
+
 const TweetUserView = lazy(() =>
   import(/* webpackChunkName: 'TweetUserView' */ '../views/TweetUserView')
 );
@@ -61,6 +65,12 @@ const ModalSwitch = () => {
             exact
             path="/"
             component={Wrapper(Home)}
+          />
+          <PrivateRoute
+            exact
+            background={background}
+            path="/notifications"
+            component={Wrapper(NotificationView)}
           />
           <PrivateRoute
             exact

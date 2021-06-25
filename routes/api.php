@@ -45,6 +45,7 @@ Route::middleware(['api', 'jwt.verify'])->group(function () {
 
     Route::group(['prefix' => '/notification'], function () {
         Route::get('', 'NotificationController@show');
+        Route::get('/read', 'NotificationController@update');
     });
 
     Route::resource('tweet.reply', 'ReplyController', ['except' => ['edit', 'create']])->shallow();

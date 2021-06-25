@@ -1,18 +1,13 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import * as jwt from 'jsonwebtoken';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
-  console.log('hello there');
-  if (!token) {
-    return false;
-  }
+  if (!token) return false;
   try {
-    jwt.verify(token, process.env.MIX_JWT_SECRET);
-    return true;
+    const { exp } = JSON.parse(atob(token.split('.')[1]));
+    return Number(exp) * 1000 > new Date().getTime();
   } catch (err) {
-    console.log(err);
     return false;
   }
 };
@@ -21,7 +16,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props =>
+      render={(props) =>
         isAuthenticated() ? (
           <Component {...rest} {...props} />
         ) : (

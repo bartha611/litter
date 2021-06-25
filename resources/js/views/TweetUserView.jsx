@@ -12,7 +12,6 @@ import { useDispatch } from 'react-redux';
  */
 
 const TweetUserView = ({ type, title }) => {
-  console.log(`title is ${title}`);
   const dispatch = useDispatch();
   const { tweet } = useParams();
 
@@ -36,7 +35,7 @@ const TweetUserView = ({ type, title }) => {
 
 TweetUserView.propTypes = {
   type: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 export default TweetUserView;
